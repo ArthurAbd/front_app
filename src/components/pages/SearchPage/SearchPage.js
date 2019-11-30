@@ -1,7 +1,7 @@
 import React from 'react'
 import s from './SearchPage.module.sass'
-import Filter from '../../components/searchPage/Filter/Filter'
-import Map from '../../components/searchPage/Map/Map'
+import Filter from './Filter/Filter'
+import Map from './Map/Map'
 
 const SearchPage = () => {
     return (

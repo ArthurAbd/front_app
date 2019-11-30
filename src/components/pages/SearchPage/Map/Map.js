@@ -1,5 +1,5 @@
 import React from 'react'
-import s from './Map.module.sass'
+// import s from './Map.module.sass'
 import * as GMap from 'pigeon-maps'
 import Marker from 'pigeon-marker'
 import Overlay from 'pigeon-overlay'

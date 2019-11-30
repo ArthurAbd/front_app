@@ -1,9 +1,10 @@
 import React from 'react'
+import s from './MainPage.module.sass'
 
 const MainPage = () => {
     return (
-        <div>
-
+        <div className={s.MainPage}>
+            Главная
         </div>
     )
 }

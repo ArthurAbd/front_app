@@ -1,0 +1,27 @@
+.Info
+    display: flex
+.InfoText
+    i
+        padding: 0 10px
+.InfoStats
+    padding-bottom: 20px
+    display: flex
+    justify-content: space-around
+    border-bottom: 1px #ccc solid
+    div
+        padding: 5px
+.InfoTextContent
+    padding-top: 20px
+.InfoAutor
+    text-align: center
+    margin: 20px 0 20px 20px
+    align-self: start
+@media screen and ( max-width: 870px )
+    .Info
+        display: block
+    .InfoAutor
+        margin: 20px 0
+@media screen and ( max-width: 650px )
+    .InfoStats
+        flex-wrap: wrap
+

@@ -2,32 +2,75 @@ import React from 'react'
 import s from './Filter.module.sass'
 
 const Filter = (props) => {
+
+    const { minValue,
+            maxValue,
+            selectValue,
+            selectTypeValue,
+            setTypeSearch,
+            setSortingSearch,
+            setMinPriceSearch,
+            setMaxPriceSearch
+        } = props
+
+        const filterBtnMap = {
+            'r': {class: s.Btn, text: 'Комната'},
+            'st': {class: s.Btn, text: 'Студия'},
+            '1k': {class: s.Btn, text: '1к'},
+            '2k': {class: s.Btn, text: '2к'},
+            '3k': {class: s.Btn, text: '3к'},
+            '4k+': {class: s.Btn, text: '4к+'},
+        }
+
+        if (selectTypeValue !== '') {
+            filterBtnMap[selectTypeValue]['class'] = `${s.Btn} ${s.Active}`
+        }
+
+        const filterBtn = Object.keys(filterBtnMap).map((key) => {
+            return (
+                <div key={key} onClick={() => setTypeSearch(key)}
+                    className={filterBtnMap[key]['class']}>
+                        {filterBtnMap[key]['text']}
+                </div>
+            )
+        })
+
     return (
         <div className={s.Filter}>
-            <div className={s.Filter}>
-                <div className={s.FilterButtons}>
-                    <div className={s.Btn}>Комната</div>
-                    <div className={s.Btn}>Студия</div>
-                    <div className={s.Btn}>1к</div>
-                    <div className={s.Btn}>2к</div>
-                    <div className={s.Btn}>3к</div>
-                    <div className={s.Btn}>4к+</div>
+            <div className={s.FilterButtons}>
+                {filterBtn}
+            </div>
+            <div className={s.FilterPrice}>
+                <div>
+                    <label htmlFor='min'>От</label>
+                    <input 
+                        defaultValue={minValue}
+                        className={`${s.PriceInput} Input`}
+                        type='text'
+                        name='min'
+                        onBlur={setMinPriceSearch} />
                 </div>
-                <div className={s.FilterPrice}>
-                    <div>
-                        <label for='min'>От</label>
-                        <input className={`${s.PriceInput} Input`} type='text' name='min' /></div>
-                    <div>
-                        <label for='max'>До</label>
-                        <input className={`${s.PriceInput} Input`} type='text' name='max' /></div>
-                    <div>
-                        <label for='select'>Сортировать</label>
-                        <select className={`${s.Select} Input`} name='select'>
-                            <option>По дате</option>
-                            <option>Дешевле</option>
-                            <option>Дороже</option>
-                        </select>
-                    </div>
+                <div>
+                    <label htmlFor='max'>До</label>
+                    <input
+                        defaultValue={maxValue}
+                        className={`${s.PriceInput} Input`}
+                        type='text'
+                        name='max'
+                        onBlur={setMaxPriceSearch} />
+                </div>
+                <div>
+                    <label htmlFor='select'>Сортировать</label>
+                    <select
+                        value={selectValue}
+                        className={`${s.Select} Input`}
+                        name='select'
+                        onChange={setSortingSearch}>
+                            
+                        <option value='dateDesc'>По дате</option>
+                        <option value='priceAsc'>Дешевле</option>
+                        <option value='priceDesc'>Дороже</option>
+                    </select>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import s from './Similar.module.sass'
-import Card from '../../common/Card/Card'
+import Card from '../../../common/Card/Card'
 
 const Similar = () => {
     return (

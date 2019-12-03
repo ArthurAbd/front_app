@@ -2,19 +2,21 @@ import React from 'react'
 import s from './Card.module.sass'
 import { Link } from 'react-router-dom'
 
-const Card = (props) => {
+const Card = ({cardData}) => {
+    const {id, url, price, address} = cardData
+    
     return (
         <div className={s.Card}>
-            <Link to='/room/1'></Link>
+            <Link to={`/room/${id}`}></Link>
             <div className={s.ImgContainer}>
-                <img src='http://14.img.avito.st/1280x960/6029856714.jpg' alt='img' />
+                <img src={url} alt='img' />
             </div>
             <div className={s.TextContainer}>
                 <div className={s.Price}>
-                    20000 руб.
+                    {`${price} руб.`}
                 </div>
                 <div>
-                    Краснодарский край, Анапа, Крымская ул., 274
+                    {address}
                 </div>
             </div>
         </div>

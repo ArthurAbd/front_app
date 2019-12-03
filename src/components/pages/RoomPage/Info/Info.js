@@ -6,9 +6,9 @@ const Info = () => {
         <div className={s.Info}>
             <div className={`${s.InfoText} TextBlock`}>
                 <div className={s.InfoStats}>
-                    <div><i class="fa fa-home" aria-hidden="true"></i>Тип: 1-комнатную</div>
-                    <div><i class="fa fa-square-o" aria-hidden="true"></i>Площадь: 47 м²</div>
-                    <div><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i>Этаж: 2/3</div>
+                    <div><i className="fa fa-home" aria-hidden="true"></i>Тип: 1-комнатную</div>
+                    <div><i className="fa fa-square-o" aria-hidden="true"></i>Площадь: 47 м²</div>
+                    <div><i className="fa fa-sort-numeric-asc" aria-hidden="true"></i>Этаж: 2/3</div>
                 </div>
                 <div className={s.InfoTextContent}>
                     <div>

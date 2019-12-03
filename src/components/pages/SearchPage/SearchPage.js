@@ -5,43 +5,68 @@ import Map from './Map/Map'
 import Card from '../../common/Card/Card'
 import {connect} from 'react-redux'
 import {
+    fetchRooms,
     setTypeSearch,
     setSortingSearch,
     setMinPriceSearch,
     setMaxPriceSearch
 } from '../../../actions/index'
+import {withApiConsumer} from '../../HOC/withApiConsumer'
 
 
-const SearchPage = (props) => {
+class SearchPage extends React.Component {
 
-    const {searchResult, configSearch,
-            setMinPriceSearch, setMaxPriceSearch,
-            setTypeSearch, setSortingSearch} = props
-    const cards = searchResult.map((item) => {
+    componentDidMount() {
+        // console.log(this.props)
+        this.props.fetchRooms()
+    }
+
+    componentDidUpdate(prevProps) {
+        const isUpdate = Object.keys(prevProps.configSearch)
+            .every((key) => { 
+                return prevProps.configSearch[key] === this.props.configSearch[key]
+            })
+            // console.log(isUpdate)
+        if (!isUpdate) {
+            this.props.fetchRooms(this.props.configSearch)
+        }
+        
+    }
+
+    render() {
+        const { searchResult,
+                configSearch,
+                setMinPriceSearch,
+                setMaxPriceSearch,
+                setTypeSearch,
+                setSortingSearch} = this.props
+                
+        const cards = searchResult.map((item) => {
+            return (
+                <Card key={item.id} cardData={item} />
+            )
+        })
+
         return (
-            <Card key={item.id} cardData={item} />
-        )
-    })
+            <div className={s.SearchPage}>
+                <div className={s.AdsSide} >
 
-    return (
-        <div className={s.SearchPage}>
-            <div className={s.AdsSide} >
+                    <Filter {...configSearch}
+                        setMinPriceSearch={setMinPriceSearch}
+                        setMaxPriceSearch={setMaxPriceSearch}
+                        setTypeSearch={setTypeSearch}
+                        setSortingSearch={setSortingSearch} />
 
-                <Filter {...configSearch}
-                    setMinPriceSearch={setMinPriceSearch}
-                    setMaxPriceSearch={setMaxPriceSearch}
-                    setTypeSearch={setTypeSearch}
-                    setSortingSearch={setSortingSearch} />
-
-                <div className={s.CardGroup}>
-                    {cards}
+                    <div className={s.CardGroup}>
+                        {cards}
+                    </div>
+                </div>
+                <div className={s.MapSide}>
+                    <Map />
                 </div>
             </div>
-            <div className={s.MapSide}>
-                <Map />
-            </div>
-        </div>
-    )
+        )
+    }
 }
 
 const mapStateToProps = ({searchResult, configSearch}) => {
@@ -50,17 +75,23 @@ const mapStateToProps = ({searchResult, configSearch}) => {
         configSearch: {minValue: configSearch.min,
             maxValue: configSearch.max,
             selectValue:configSearch.selectSort,
-            selectTypeValue:configSearch.selectType}
+            selectTypeValue:configSearch.selectType,
+            orderBy: configSearch.orderBy,
+            order: configSearch.order,
+            offset: configSearch.offset,
+            limit: configSearch.limit}
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+    const {api} = ownProps
     return {
-        setSortingSearch: (sorting) => dispatch(setSortingSearch(sorting)),
+        fetchRooms: fetchRooms(api, dispatch),
+        setSortingSearch: (e) => dispatch(setSortingSearch(e.target.value)),
         setTypeSearch: (type) => dispatch(setTypeSearch(type)),
-        setMinPriceSearch: (min) => dispatch(setMinPriceSearch(min)),
-        setMaxPriceSearch: (max) => dispatch(setMaxPriceSearch(max))
+        setMinPriceSearch: (e) => dispatch(setMinPriceSearch(e.target.value)),
+        setMaxPriceSearch: (e) => dispatch(setMaxPriceSearch(e.target.value))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchPage)
+export default withApiConsumer()(connect(mapStateToProps, mapDispatchToProps)(SearchPage))

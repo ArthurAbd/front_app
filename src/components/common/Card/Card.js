@@ -9,7 +9,7 @@ const Card = ({cardData}) => {
         <div className={s.Card}>
             <Link to={`/room/${id}`}></Link>
             <div className={s.ImgContainer}>
-                <img src={url} alt='img' />
+                <img src={`http://${url}`} alt='img' />
             </div>
             <div className={s.TextContainer}>
                 <div className={s.Price}>

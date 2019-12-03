@@ -16,13 +16,13 @@ const Filter = (props) => {
         const filterBtnMap = {
             'r': {class: s.Btn, text: 'Комната'},
             'st': {class: s.Btn, text: 'Студия'},
-            '1k': {class: s.Btn, text: '1к'},
-            '2k': {class: s.Btn, text: '2к'},
-            '3k': {class: s.Btn, text: '3к'},
-            '4k+': {class: s.Btn, text: '4к+'},
+            '1k': {class: s.Btn, text: '1-комнатная'},
+            '2k': {class: s.Btn, text: '2-комнатная'},
+            '3k': {class: s.Btn, text: '3-комнатная'},
+            '4k+': {class: s.Btn, text: '4-х и более'},
         }
 
-        if (selectTypeValue !== '') {
+        if (selectTypeValue !== null) {
             filterBtnMap[selectTypeValue]['class'] = `${s.Btn} ${s.Active}`
         }
 

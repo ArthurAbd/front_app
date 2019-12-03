@@ -9,7 +9,7 @@ const inicialState = {
         // type: ['r', 'st', '1k', '2k', '3k', '4k+'],
         // coordX: [-90, 90],
         // coordY: [-180, 180],
-        selectSort: 'dateDesc',
+        selectSort: 'priceAsc',
         selectType: null
     },
     searchResult: [],
@@ -31,7 +31,7 @@ const reduser = (state = inicialState, action) => {
             
             return {
                 ...state,
-                configSearch: {...state.configSearch, selectType: [action.payload]} 
+                configSearch: {...state.configSearch, selectType: action.payload} 
             }
     
         case 'SET_SORTING_SEARCH':

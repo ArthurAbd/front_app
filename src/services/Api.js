@@ -17,7 +17,7 @@ export default class Api {
                 orderBy
             }
             if (selectTypeValue !== null) {
-                params['type'] = selectTypeValue
+                params['type'] = [selectTypeValue]
             }
             if (minValue !== '') {
                 params['min'] = minValue

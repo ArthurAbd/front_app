@@ -5,6 +5,7 @@ import Map from './Map/Map'
 import Card from '../../common/Card/Card'
 import {connect} from 'react-redux'
 import {
+    setLimit,
     fetchRooms,
     setTypeSearch,
     setSortingSearch,
@@ -12,12 +13,12 @@ import {
     setMaxPriceSearch
 } from '../../../actions/index'
 import {withApiConsumer} from '../../HOC/withApiConsumer'
+import Spinner from '../../common/Spinner/Spinner'
 
 
 class SearchPage extends React.Component {
 
     componentDidMount() {
-        // console.log(this.props)
         this.props.fetchRooms()
     }
 
@@ -26,31 +27,45 @@ class SearchPage extends React.Component {
             .every((key) => { 
                 return prevProps.configSearch[key] === this.props.configSearch[key]
             })
-            // console.log(isUpdate)
         if (!isUpdate) {
-            this.props.fetchRooms(this.props.configSearch)
+            this.props.fetchRooms()
         }
         
     }
 
     render() {
-        const { searchResult,
+        const { loadingResult,
+                searchResult,
                 configSearch,
+                setLimit,
                 setMinPriceSearch,
                 setMaxPriceSearch,
                 setTypeSearch,
                 setSortingSearch} = this.props
-                
-        const cards = searchResult.map((item) => {
-            return (
-                <Card key={item.id} cardData={item} />
-            )
-        })
+
+
+        let cards = null
+
+        if (searchResult) {
+            cards = searchResult.map((item) => {
+                return (
+                    <Card key={item.id} cardData={item} />
+                )
+            })
+        }
+
+        let loading = null
+        if (loadingResult) {
+            loading = <Spinner />
+        }
+
 
         return (
             <div className={s.SearchPage}>
-                <div className={s.AdsSide} >
-
+                
+                <div onScroll={loadingResult ? null : setLimit}
+                    className={s.AdsSide} >
+                {loading}
                     <Filter {...configSearch}
                         setMinPriceSearch={setMinPriceSearch}
                         setMaxPriceSearch={setMaxPriceSearch}
@@ -69,23 +84,23 @@ class SearchPage extends React.Component {
     }
 }
 
-const mapStateToProps = ({searchResult, configSearch}) => {
+const mapStateToProps = ({searchResult, configSearch: {configSearch}}) => {
     return {
-        searchResult: searchResult,
+        searchResult: searchResult.searchResult,
+        loadingResult: searchResult.loadingResult,
         configSearch: {minValue: configSearch.min,
             maxValue: configSearch.max,
             selectValue: configSearch.selectSort,
             selectTypeValue: configSearch.selectType,
-            orderBy: configSearch.orderBy,
-            order: configSearch.order,
-            offset: configSearch.offset,
-            limit: configSearch.limit}
+            limit: configSearch.limit
+            }
     }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     const {api} = ownProps
     return {
+        setLimit: (e) => dispatch(setLimit(e)),
         fetchRooms: fetchRooms(api, dispatch),
         setSortingSearch: (e) => dispatch(setSortingSearch(e.target.value)),
         setTypeSearch: (type) => dispatch(setTypeSearch(type)),

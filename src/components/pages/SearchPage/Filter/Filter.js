@@ -21,7 +21,6 @@ const Filter = (props) => {
             '3k': {class: s.Btn, text: '3-комнатная'},
             '4k+': {class: s.Btn, text: '4-х и более'},
         }
-        console.log(selectTypeValue)
         if (selectTypeValue !== null) {
             filterBtnMap[selectTypeValue]['class'] = `${s.Btn} ${s.Active}`
         }

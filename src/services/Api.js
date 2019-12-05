@@ -2,22 +2,19 @@ import axios from 'axios'
 
 export default class Api {
 
-    get() {
-        return 'sssfds'
-    }
-
     getSearchRooms(configSearch = null) {
         let params = null
         
         if (configSearch !== null) {
-            const {maxValue, minValue, offset, order, orderBy, selectTypeValue} = configSearch
+            const {maxValue, minValue, offset, limit, order, orderBy, selectType} = configSearch
             params = {
                 offset,
+                limit,
                 order,
                 orderBy
             }
-            if (selectTypeValue !== null) {
-                params['type'] = [selectTypeValue]
+            if (selectType !== null) {
+                params['type'] = [selectType]
             }
             if (minValue !== '') {
                 params['min'] = minValue
@@ -29,8 +26,10 @@ export default class Api {
 
         console.log(params)
         return new Promise((resolve, reject) => {
-            axios.get('http://185.5.251.215:3000/find', {params: params})
+            // axios.get('http://185.5.251.215:3000/find', {params: params})
+            axios.get('http://127.0.0.1:3001/find', {params: params})
                 .then(function (res) {
+                    console.log(res)
                     const data = res.data.map((room) => {
                         return {
                             id: room.id,
@@ -39,7 +38,6 @@ export default class Api {
                             address: room.address 
                         }
                     })
-                    // console.log('fdsfds',data)
                     resolve(data)
                 })
                 .catch(function (error) {

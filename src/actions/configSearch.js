@@ -26,10 +26,11 @@ const setMaxPriceSearch = (max) => {
     }
 }
 
-const setLimit = (target) => {
+const setLimit = (target, total) => {
     return {
         type: 'SET_LIMIT',
-        payload: target
+        payload: target,
+        total: total
     }
 }
 

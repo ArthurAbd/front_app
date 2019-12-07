@@ -1,32 +1,28 @@
 const inicialState = {
-    searchResult: [],
-    total: null,
+    oneRoom: [],
     loadingResult: false,
     errorResult: false
 }
 
-const searchResult = (state = inicialState, action) => {
+const oneRoom = (state = inicialState, action) => {
     switch (action.type) {
-        case 'FETCH_ROOMS_REQUEST':
+        case 'FETCH_ONE_ROOM_REQUEST':
             return {
                 ...state,
                 loadingResult: true,
             }
         
         
-        case 'FETCH_ROOMS_SECCESS':
-            const {total, result} = action.payload
+        case 'FETCH_ONE_ROOM_SECCESS':
             return {
-                searchResult: result,
-                total: total,
+                oneRoom: action.payload,
                 loadingResult: false,
                 errorResult: false
             }
         
-        case 'FETCH_ROOMS_FAILURE':
+        case 'FETCH_ONE_ROOM_FAILURE':
             return {
-                searchResult: [],
-                total: null,
+                oneRoom: [],
                 loadingResult: false,
                 errorResult: action.payload
             }
@@ -35,4 +31,4 @@ const searchResult = (state = inicialState, action) => {
     }
 }
 
-export default searchResult
+export default oneRoom

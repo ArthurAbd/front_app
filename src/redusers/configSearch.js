@@ -11,7 +11,6 @@ const inicialState = {
         // coordY: [-180, 180],
         selectSort: 'priceAsc',
         selectType: null,
-        // maxLimit: 20 получить с сервера для инфинит скрола
     }
 }
 
@@ -55,7 +54,9 @@ const configSearch = (state = inicialState, action) => {
 
         case 'SET_LIMIT':
             const {scrollHeight, scrollTop, clientHeight} = action.payload.currentTarget
-            if (scrollHeight - 150 > scrollTop + clientHeight) {
+            console.log(action.total)
+            if (scrollHeight - 150 > scrollTop + clientHeight ||
+                state.configSearch.limit > action.total) {
                 return {
                     ...state
                 }

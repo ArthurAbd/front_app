@@ -30,7 +30,7 @@ export default class Api {
             axios.get('http://127.0.0.1:3001/find', {params: params})
                 .then(function (res) {
                     console.log(res)
-                    const data = res.data.map((room) => {
+                    const result = res.data.result.map((room) => {
                         return {
                             id: room.id,
                             url: room.photos.split(',')[0],
@@ -38,7 +38,24 @@ export default class Api {
                             address: room.address 
                         }
                     })
+                    const total = res.data.total[0]['count(*)']
+                    const data = {result, total}
                     resolve(data)
+                })
+                .catch(function (error) {
+                    console.log(error)
+                    reject(error)
+                })
+        })
+    }
+
+    getOneRoom(id) {
+
+        return new Promise((resolve, reject) => {
+            // axios.get('http://185.5.251.215:3000/room', {params: {id: id}})
+            axios.get('http://127.0.0.1:3001/room', {params: {id: id}})
+                .then(function (res) {
+                    resolve(res.data)
                 })
                 .catch(function (error) {
                     console.log(error)

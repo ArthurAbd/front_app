@@ -35,6 +35,7 @@ class SearchPage extends React.Component {
 
     render() {
         const { loadingResult,
+                total,
                 searchResult,
                 configSearch,
                 setLimit,
@@ -63,7 +64,7 @@ class SearchPage extends React.Component {
         return (
             <div className={s.SearchPage}>
                 
-                <div onScroll={loadingResult ? null : setLimit}
+                <div onScroll={loadingResult ? null : setLimit(total)}
                     className={s.AdsSide} >
                 {loading}
                     <Filter {...configSearch}
@@ -71,6 +72,8 @@ class SearchPage extends React.Component {
                         setMaxPriceSearch={setMaxPriceSearch}
                         setTypeSearch={setTypeSearch}
                         setSortingSearch={setSortingSearch} />
+                    
+                    <div className={s.Total}>{`${total} объектов`}</div>
 
                     <div className={s.CardGroup}>
                         {cards}
@@ -87,6 +90,7 @@ class SearchPage extends React.Component {
 const mapStateToProps = ({searchResult, configSearch: {configSearch}}) => {
     return {
         searchResult: searchResult.searchResult,
+        total: searchResult.total,
         loadingResult: searchResult.loadingResult,
         configSearch: {minValue: configSearch.min,
             maxValue: configSearch.max,
@@ -100,7 +104,7 @@ const mapStateToProps = ({searchResult, configSearch: {configSearch}}) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     const {api} = ownProps
     return {
-        setLimit: (e) => dispatch(setLimit(e)),
+        setLimit: (total) => (e) => dispatch(setLimit(e, total)),
         fetchRooms: fetchRooms(api, dispatch),
         setSortingSearch: (e) => dispatch(setSortingSearch(e.target.value)),
         setTypeSearch: (type) => dispatch(setTypeSearch(type)),

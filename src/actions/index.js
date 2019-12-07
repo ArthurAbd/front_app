@@ -4,6 +4,7 @@ import {setLimit,
         setMinPriceSearch,
         setMaxPriceSearch} from './configSearch'
 import {fetchRooms} from './searchResult'
+import {fetchOneRoom} from './oneRoom'
 import {} from './searchMap'
 
 
@@ -13,5 +14,6 @@ export {
     setTypeSearch,
     setSortingSearch,
     setMinPriceSearch,
-    setMaxPriceSearch
+    setMaxPriceSearch,
+    fetchOneRoom
 }

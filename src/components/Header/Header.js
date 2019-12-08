@@ -7,7 +7,7 @@ const Header = (props) => {
         <div className={s.Header}>
             <Link to='/'>Главная</Link>
             <Link to='/search'>Подобрать</Link>
-            <Link to='/room/1'>/room</Link>
+            <Link to='/login'>Логин</Link>
         </div>
     )
 }

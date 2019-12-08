@@ -1,5 +1,5 @@
 const inicialState = {
-    searchResult: [],
+    searchResult: null,
     total: null,
     loadingResult: false,
     errorResult: false

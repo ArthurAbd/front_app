@@ -18,6 +18,7 @@ const roomOneError = (error) => {
     }
 }
 
+
 const fetchOneRoom = (api, dispatch) => (id) => {
     dispatch(roomOneRequested())
     api.getOneRoom(id)

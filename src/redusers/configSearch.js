@@ -9,7 +9,7 @@ const inicialState = {
         // type: ['r', 'st', '1k', '2k', '3k', '4k+'],
         // coordX: [-90, 90],
         // coordY: [-180, 180],
-        selectSort: 'priceAsc',
+        selectSort: 'dateDesc',
         selectType: null,
     }
 }

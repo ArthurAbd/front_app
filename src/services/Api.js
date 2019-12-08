@@ -4,9 +4,8 @@ export default class Api {
 
     getSearchRooms(configSearch = null) {
         let params = null
-        
         if (configSearch !== null) {
-            const {maxValue, minValue, offset, limit, order, orderBy, selectType} = configSearch
+            const {max, min, offset, limit, order, orderBy, selectType} = configSearch
             params = {
                 offset,
                 limit,
@@ -16,18 +15,18 @@ export default class Api {
             if (selectType !== null) {
                 params['type'] = [selectType]
             }
-            if (minValue !== '') {
-                params['min'] = minValue
+            if (min !== '') {
+                params['min'] = min
             }
-            if (maxValue !== '') {
-                params['max'] = maxValue
+            if (max !== '') {
+                params['max'] = max
             }
         }
 
-        console.log(params)
+        
         return new Promise((resolve, reject) => {
-            // axios.get('http://185.5.251.215:3000/find', {params: params})
-            axios.get('http://127.0.0.1:3001/find', {params: params})
+            axios.get('http://185.5.251.215:3001/find', {params: params})
+            // axios.get('http://127.0.0.1:3001/find', {params: params})
                 .then(function (res) {
                     console.log(res)
                     const result = res.data.result.map((room) => {
@@ -52,8 +51,8 @@ export default class Api {
     getOneRoom(id) {
 
         return new Promise((resolve, reject) => {
-            // axios.get('http://185.5.251.215:3000/room', {params: {id: id}})
-            axios.get('http://127.0.0.1:3001/room', {params: {id: id}})
+            axios.get('http://185.5.251.215:3001/room', {params: {id: id}})
+            // axios.get('http://127.0.0.1:3001/room', {params: {id: id}})
                 .then(function (res) {
                     resolve(res.data)
                 })

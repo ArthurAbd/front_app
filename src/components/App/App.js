@@ -21,7 +21,6 @@ const App = () => {
                         <Layout>
                             <Switch>
                                 <Route path='/room/:id' component={RoomPage} />
-                                <Route path='/room' component={RoomPage} />
                                 <Route path='/search' component={SearchPage} />
                                 <Route component={MainPage} />
                             </Switch>

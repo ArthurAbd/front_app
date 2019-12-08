@@ -1,5 +1,5 @@
 const inicialState = {
-    oneRoom: [],
+    oneRoom: null,
     loadingResult: false,
     errorResult: false
 }

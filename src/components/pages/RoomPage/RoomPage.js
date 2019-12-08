@@ -1,17 +1,18 @@
 import React from 'react'
 import s from './RoomPage.module.sass'
 import Title from './Title/Title'
-import Slider from './Slider/Slider'
+import PhotosBlock from './PhotosBlock/PhotosBlock'
 import Info from './Info/Info'
 import Map from '../RoomPage/Map/Map'
 import Similar from '../RoomPage/Similar/Similar'
 import Spinner from '../../common/Spinner/Spinner'
 import Container from '../../Container/Container'
+import Slider from "react-slick";
 import {withApiConsumer} from '../../HOC/withApiConsumer'
 import {fetchOneRoom} from '../../../actions/index'
 import {connect} from 'react-redux'
 
-class RoomPage extends React.Component { 
+class RoomPage extends React.Component {
 
     componentDidMount() {
         const id = this.props.match.params.id
@@ -21,11 +22,35 @@ class RoomPage extends React.Component {
     componentDidUpdate(prevProps) {
         const prevId = prevProps.match.params.id
         const id = this.props.match.params.id
-        if (prevId !== id)
-        this.props.fetchOneRoom(id)
+        if (prevId !== id) {
+            this.props.fetchOneRoom(id)
+            window.scrollTo(0, 0)
+        }
     }
 
-    render(props) {
+    state = {
+        isSlider: false
+    }
+
+    toggleSlider = () => {
+        this.setState((state) => ({
+            isSlider: !state.isSlider
+        }))
+    }
+
+    render() {
+
+        if (!this.props.oneRoom) return null
+
+        const sliderSettings = {
+            infinite: true,
+            className: s.Slider,
+            centerMode: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1
+        }
+
 
         const { oneRoom: {
                     address,
@@ -42,20 +67,45 @@ class RoomPage extends React.Component {
                     phone_number
                 },
                 loadingResult,
-                searchResult
+                searchResult,
         } = this.props
-        
+
+        const photosArr = photos.split(',')
+
         let loading = null
         if (loadingResult) {
             loading = <Spinner />
         }
 
+        const myRef = React.createRef()
+
+        const scrollToMyRef = () => window.scrollTo(0, myRef.current.offsetTop)
+
+        const slider = this.state.isSlider ?
+            (<div className={s.RoomPageSlider} >
+                <div onClick={this.toggleSlider} className={s.CloseSlider} >
+                    <i className="fa fa-times fa-2x"></i>
+                </div>
+                <Slider {...sliderSettings} >
+                    {photosArr.map((img, index) =>
+                    (<div className={s.ImgContainer} >
+                        <img key={index} src={img} alt='' />
+                    </div>))}
+                </Slider>
+            </div>) : null
+
         return (
             <Container>
                 <div className={s.RoomPage}>
+                    {slider}
                     {loading}
-                    <Title type={type} price={price} address={address} area={area} />
-                    <Slider photos={photos} />
+                    <Title  scrollToMyRef={scrollToMyRef}
+                            type={type}
+                            price={price}
+                            address={address}
+                            area={area}
+                    />
+                    <PhotosBlock toggleSlider={this.toggleSlider} photos={photosArr} />
                     <Info type={type}
                         area={area}
                         floor={floor}
@@ -64,7 +114,9 @@ class RoomPage extends React.Component {
                         name={name}
                         phone_number={phone_number}
                     />
-                    <Map coord_map_x={coord_map_x} coord_map_y={coord_map_y} />
+                    <div ref={myRef} >
+                        <Map coord_map_x={coord_map_x} coord_map_y={coord_map_y} />
+                    </div>
                     <Similar searchResult={searchResult} />
                 </div>
             </Container>

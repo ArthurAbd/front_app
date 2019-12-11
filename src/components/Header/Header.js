@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 const Header = (props) => {
     return (
         <div className={s.Header}>
+            
             <Link to='/'>Главная</Link>
             <Link to='/search'>Подобрать</Link>
             <Link to='/login'>Логин</Link>

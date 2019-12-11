@@ -2,14 +2,18 @@ import React from 'react'
 import s from './Card.module.sass'
 import { Link } from 'react-router-dom'
 
-const Card = ({cardData}) => {
-    const {id, url, price, address} = cardData
+const Card = ({cardData, setMapCenter}) => {
+    const {id, img, price, address} = cardData
     
     return (
         <div className={s.Card}>
-            <Link to={`/room/${id}`}></Link>
+            <Link 
+                onMouseOver={() => setMapCenter(id)}
+                to={`/room/${id}`}
+            ></Link>
+            
             <div className={s.ImgContainer}>
-                <img src={`http://${url}`} alt='img' />
+                <img src={`http://${img}`} alt='img' />
             </div>
             <div className={s.TextContainer}>
                 <div className={s.Price}>

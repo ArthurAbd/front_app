@@ -1,24 +1,71 @@
 import React from 'react'
-// import s from './Map.module.sass'
+import s from './Map.module.sass'
 import * as GMap from 'pigeon-maps'
 import Marker from 'pigeon-marker'
 import Overlay from 'pigeon-overlay'
+import {Link} from 'react-router-dom'
 
 const Map = (props) => {
+    const {
+        setMapCenter,
+        mapCenter,
+        fetchSelectItem,
+        delSelectItem,
+        selectItem,
+        searchMapCoords
+    } = props
+
+    const markers = searchMapCoords.map(({id, coord_map_x, coord_map_y}) => {
+        const markerCoord = [coord_map_y, coord_map_x]
+
+        return (
+            <Marker key={id}
+                anchor={markerCoord}
+                payload={id}
+                onClick={({ event, anchor, payload }) => fetchSelectItem(payload)}
+            />
+        )
+    })
+
+    if (!mapCenter) {
+        setMapCenter(searchMapCoords[0].id)
+        return null
+    }
+    
+    const getOverlay = () => {
+        if (!selectItem) return null
+
+        const {id, img, price, coord_map_x, coord_map_y} = selectItem
+        const coord = [coord_map_y, coord_map_x]
+
+        return (
+            <Overlay anchor={coord} offset={[125, 225]}>
+                <div className={s.Overlay}>
+                    <div onClick={delSelectItem} className={s.OverlayClose}>
+                        <i className="fa fa-times" aria-hidden="true"></i>
+                    </div>
+                    
+                    <Link to={`/room/${id}`}>
+                        <div className={s.OverlayItem}>
+                            <img src={img} alt='' />
+                        </div>
+                        <div>{price} руб.</div>
+                    </Link>
+                </div>
+            </Overlay>
+        )
+    }
+
     return (
         <React.Fragment>
-            <GMap center={[50.879, 4.6997]}
+            <GMap center={mapCenter}
                 zoom={12}
                 onBoundsChanged={({ center, zoom, bounds, initial }) => {console.log(center, zoom, bounds, initial)}}
                 >
 
-                <Marker anchor={[50.874, 4.6947]}
-                    payload={2}
-                    onClick={({ event, anchor, payload }) => {console.log(event, anchor, payload)}} />
+                {markers}
 
-                <Overlay anchor={[50.879, 4.7997]} offset={[90, 20]}>
-                    <img src='https://cdn-p.cian.site/images2/6/053/267/cezar-21-kompleks-naberezhnye-chelny-jk-hod-stroitelstva-201909-762350686-6.jpg' width={100} height={80} alt='' />
-                </Overlay>
+                {getOverlay()}
             </GMap>
         </React.Fragment>
     )

@@ -11,7 +11,7 @@ const Similar = (props) => {
             if (index > 3) {
                 return null
             }
-            return <Card key={cardData.id} cardData={cardData} />
+            return <Card key={cardData.id} cardData={cardData} setMapCenter={() => null} />
         })
     }
 

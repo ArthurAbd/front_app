@@ -70,6 +70,17 @@ class RoomPage extends React.Component {
                 searchResult,
         } = this.props
 
+        const typeMap = {
+            'r': 'Комната',
+            'st': 'Студия',
+            '1k': '1-комнатная',
+            '2k': '2-комнатная',
+            '3k': '3-комнатная',
+            '4k+': '4-х и более'
+        }
+
+        const normalizeType = typeMap[type]
+
         const photosArr = photos.split(',')
 
         let loading = null
@@ -100,13 +111,13 @@ class RoomPage extends React.Component {
                     {slider}
                     {loading}
                     <Title  scrollToMyRef={scrollToMyRef}
-                            type={type}
+                            type={normalizeType}
                             price={price}
                             address={address}
                             area={area}
                     />
                     <PhotosBlock toggleSlider={this.toggleSlider} photos={photosArr} />
-                    <Info type={type}
+                    <Info type={normalizeType}
                         area={area}
                         floor={floor}
                         floors={floors}

@@ -5,6 +5,9 @@ import Map from './Map/Map'
 import Card from '../../common/Card/Card'
 import {connect} from 'react-redux'
 import {
+    setMapCenter,
+    fetchSelectItem,
+    delSelectItem,
     setLimit,
     fetchRooms,
     setTypeSearch,
@@ -34,7 +37,14 @@ class SearchPage extends React.Component {
     }
 
     render() {
-        const { loadingResult,
+        const { 
+                setMapCenter,
+                mapCenter,
+                fetchSelectItem,
+                delSelectItem,
+                selectItem,
+                searchMapCoords,
+                loadingResult,
                 total,
                 searchResult,
                 configSearch,
@@ -50,7 +60,7 @@ class SearchPage extends React.Component {
         if (searchResult) {
             cards = searchResult.map((item) => {
                 return (
-                    <Card key={item.id} cardData={item} />
+                    <Card key={item.id} cardData={item} setMapCenter={setMapCenter} />
                 )
             })
         }
@@ -60,6 +70,14 @@ class SearchPage extends React.Component {
             loading = <Spinner />
         }
 
+        const map = searchMapCoords ? <Map
+            setMapCenter={setMapCenter}
+            mapCenter={mapCenter}
+            searchMapCoords={searchMapCoords}
+            selectItem={selectItem}
+            fetchSelectItem={fetchSelectItem}
+            delSelectItem={delSelectItem} 
+            /> : null
 
         return (
             <div className={s.SearchPage}>
@@ -80,15 +98,18 @@ class SearchPage extends React.Component {
                     </div>
                 </div>
                 <div className={s.MapSide}>
-                    <Map />
+                    {map}
                 </div>
             </div>
         )
     }
 }
 
-const mapStateToProps = ({searchResult, configSearch: {configSearch}}) => {
+const mapStateToProps = ({searchResult, configSearch: {configSearch}, searchMap}) => {
     return {
+        mapCenter: searchMap.mapCenter,
+        selectItem: searchMap.selectItem,
+        searchMapCoords: searchMap.searchMapCoords,
         searchResult: searchResult.searchResult,
         total: searchResult.total,
         loadingResult: searchResult.loadingResult,
@@ -104,6 +125,9 @@ const mapStateToProps = ({searchResult, configSearch: {configSearch}}) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     const {api} = ownProps
     return {
+        setMapCenter: (id) => dispatch(setMapCenter(id)),
+        fetchSelectItem: fetchSelectItem(api, dispatch),
+        delSelectItem: () => dispatch(delSelectItem()),
         setLimit: (total) => (e) => dispatch(setLimit(e, total)),
         fetchRooms: fetchRooms(api, dispatch),
         setSortingSearch: (e) => dispatch(setSortingSearch(e.target.value)),

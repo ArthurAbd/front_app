@@ -2,6 +2,9 @@ import axios from 'axios'
 
 export default class Api {
 
+    // url = 'http://185.5.251.215:3001'
+    url = 'http://127.0.0.1:3001'
+
     getSearchRooms(configSearch = null) {
         let params = null
         if (configSearch !== null) {
@@ -25,21 +28,21 @@ export default class Api {
 
         
         return new Promise((resolve, reject) => {
-            axios.get('http://185.5.251.215:3001/find', {params: params})
-            // axios.get('http://127.0.0.1:3001/find', {params: params})
+            axios.get(this.url + '/find', {params: params})
                 .then(function (res) {
                     console.log(res)
                     const result = res.data.result.map((room) => {
                         return {
                             id: room.id,
-                            url: room.photos.split(',')[0],
+                            img: room.photos.split(',')[0],
                             price: room.price,
                             address: room.address 
                         }
                     })
-                    const total = res.data.total[0]['count(*)']
-                    const data = {result, total}
-                    resolve(data)
+                    const total = res.data.coords.length
+                    const coords = res.data.coords
+                    
+                    resolve({result, total, coords})
                 })
                 .catch(function (error) {
                     console.log(error)
@@ -51,10 +54,31 @@ export default class Api {
     getOneRoom(id) {
 
         return new Promise((resolve, reject) => {
-            axios.get('http://185.5.251.215:3001/room', {params: {id: id}})
-            // axios.get('http://127.0.0.1:3001/room', {params: {id: id}})
+            axios.get(this.url + '/room', {params: {id: id}})
                 .then(function (res) {
                     resolve(res.data)
+                })
+                .catch(function (error) {
+                    console.log(error)
+                    reject(error)
+                })
+        })
+    }
+
+    getMapItem(id) {
+        return new Promise((resolve, reject) => {
+            axios.get(this.url + '/map', {params: {id: id}})
+                .then(function (res) {
+                    const {id, photos, price, coord_map_x, coord_map_y} = res.data
+                    const result =  {
+                                    id,
+                                    img: photos.split(',')[0],
+                                    price,
+                                    coord_map_x,
+                                    coord_map_y
+                                }
+                    
+                    resolve(result)
                 })
                 .catch(function (error) {
                     console.log(error)

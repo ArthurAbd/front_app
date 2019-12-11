@@ -54,7 +54,6 @@ const configSearch = (state = inicialState, action) => {
 
         case 'SET_LIMIT':
             const {scrollHeight, scrollTop, clientHeight} = action.payload.currentTarget
-            console.log(action.total)
             if (scrollHeight - 150 > scrollTop + clientHeight ||
                 state.configSearch.limit > action.total) {
                 return {

@@ -30,7 +30,7 @@ class SearchPage extends React.Component {
             .every((key) => { 
                 return prevProps.configSearch[key] === this.props.configSearch[key]
             })
-        if (!isUpdate) {
+        if (!isUpdate || prevProps.city !== this.props.city) {
             this.props.fetchRooms()
         }
         
@@ -105,8 +105,9 @@ class SearchPage extends React.Component {
     }
 }
 
-const mapStateToProps = ({searchResult, configSearch: {configSearch}, searchMap}) => {
+const mapStateToProps = ({searchResult, configSearch: {configSearch}, searchMap, user}) => {
     return {
+        city: user.city,
         mapCenter: searchMap.mapCenter,
         selectItem: searchMap.selectItem,
         searchMapCoords: searchMap.searchMapCoords,

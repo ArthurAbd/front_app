@@ -22,11 +22,12 @@ const roomsError = (error) => {
 }
 
 const fetchRooms = (api, dispatch) => () => {
-    const {configSearch: {configSearch}} = store.getState()
+    const {configSearch: {configSearch}, user: {city}} = store.getState()
     dispatch(roomsRequested())
-    api.getSearchRooms(configSearch)
+    api.getSearchRooms({city: city, ...configSearch})
         .then((data) => {
             const {coords, ...rooms} = data
+            console.log('ddd',data)
             dispatch(roomsLoaded(rooms))
             dispatch(setCoords(coords))
         })

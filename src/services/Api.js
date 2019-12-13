@@ -8,12 +8,13 @@ export default class Api {
     getSearchRooms(configSearch = null) {
         let params = null
         if (configSearch !== null) {
-            const {max, min, offset, limit, order, orderBy, selectType} = configSearch
+            const {max, min, offset, limit, order, orderBy, selectType, city} = configSearch
             params = {
                 offset,
                 limit,
                 order,
-                orderBy
+                orderBy,
+                city
             }
             if (selectType !== null) {
                 params['type'] = [selectType]
@@ -42,6 +43,8 @@ export default class Api {
                     const total = res.data.coords.length
                     const coords = res.data.coords
                     
+                    if (total === 0) resolve(null)
+
                     resolve({result, total, coords})
                 })
                 .catch(function (error) {
@@ -52,7 +55,6 @@ export default class Api {
     }
 
     getOneRoom(id) {
-
         return new Promise((resolve, reject) => {
             axios.get(this.url + '/room', {params: {id: id}})
                 .then(function (res) {

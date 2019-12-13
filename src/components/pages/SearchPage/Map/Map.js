@@ -26,8 +26,8 @@ const Map = (props) => {
             />
         )
     })
-
-    if (!mapCenter) {
+    
+    if (!mapCenter && searchMapCoords.length > 0) {
         setMapCenter(searchMapCoords[0].id)
         return null
     }

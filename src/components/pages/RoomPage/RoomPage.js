@@ -29,12 +29,12 @@ class RoomPage extends React.Component {
     }
 
     state = {
-        isSlider: false
+        showSlider: false
     }
 
     toggleSlider = () => {
         this.setState((state) => ({
-            isSlider: !state.isSlider
+            showSlider: !state.showSlider
         }))
     }
 
@@ -92,7 +92,7 @@ class RoomPage extends React.Component {
 
         const scrollToMyRef = () => window.scrollTo(0, myRef.current.offsetTop)
 
-        const slider = this.state.isSlider ?
+        const slider = this.state.showSlider ?
             (<div className={s.RoomPageSlider} >
                 <div onClick={this.toggleSlider} className={s.CloseSlider} >
                     <i className="fa fa-times fa-2x"></i>

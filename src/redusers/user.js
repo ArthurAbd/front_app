@@ -24,7 +24,15 @@ const inicialState = {
         {city: 'yaroslavl', name: 'Ярославль'}
     ],
     showModalCities: true,
-    isLogin: false
+    isLogin: false,
+    isLoading: false,
+    isError: false,
+    textModal: '',
+    name: '',
+    email: '',
+    password: '',
+    accessToken: localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null,
+    refreshToken: localStorage.getItem('refreshToken') ? localStorage.getItem('refreshToken') : null
 }
 
 if (localStorage.getItem('city')) {
@@ -32,8 +40,31 @@ if (localStorage.getItem('city')) {
     inicialState.showModalCities = false
 }
 
+
 const user = (state = inicialState, action) => {
     switch (action.type) {
+
+        case 'FETCH_USER_REQUEST':
+            return {
+                ...state,
+                isLoading: true
+            }
+
+        case 'FETCH_USER_SECCESS':
+            return {
+                ...state,
+                textModal: action.payload,
+                isLoading: false
+            }
+
+        case 'SET_USER_TOKEN':
+            console.log(action)
+            return {
+                ...state,
+                accessToken: action.payload.access_token,
+                refreshToken: action.payload.refresh_token,
+            }
+
         case 'SET_CITY':
             localStorage.setItem('city', action.payload)
             return {

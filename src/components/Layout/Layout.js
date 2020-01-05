@@ -30,7 +30,14 @@ const ModalCities = (props) => {
 class Layout extends React.Component {
 
     render() {
-        const {city, cities, showModalCities, setCity, showModal, closeModal} = this.props
+        const { accessToken,
+                refreshToken,
+                city,
+                cities,
+                showModalCities,
+                setCity,
+                showModal,
+                closeModal} = this.props
         const cityMap = {
             'moskva': 'Москва',
             'sankt-peterburg': 'Санкт-петербург',
@@ -58,6 +65,8 @@ class Layout extends React.Component {
         return (
             <div className={s.Layout}>
                 <Header
+                    accessToken={accessToken}
+                    refreshToken={refreshToken}
                     cityName={cityMap[city]}
                     showModal={showModal}
                 />
@@ -76,6 +85,8 @@ class Layout extends React.Component {
 
 const mapStateToProps = ({user}) => {
     return {
+        accessToken: user.accessToken,
+        refreshToken: user.refreshToken,
         city: user.city,
         cities: user.cities,
         showModalCities: user.showModalCities

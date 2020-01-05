@@ -5,7 +5,24 @@ import { Link } from 'react-router-dom'
 
 const Header = (props) => {
 
-    const {cityName, showModal} = props
+    const {cityName, showModal, accessToken, refreshToken} = props
+
+    let userMenu = (
+        <React.Fragment>
+            <Link to='/login'>Логин</Link>
+            <Link to='/reg'>Регистрация</Link>
+        </React.Fragment>
+    )
+        console.log(accessToken, refreshToken)
+    if (accessToken && refreshToken) {
+        userMenu = (
+            <React.Fragment>
+                <Link to='/profile'>Кабинет</Link>
+                <Link to='/logout'>Выйти</Link>
+            </React.Fragment>
+        ) 
+    }
+    
 
     return (
         <div className={s.Header}>
@@ -15,7 +32,7 @@ const Header = (props) => {
             </div>
             <Link to=''>Главная</Link>
             <Link to='/search'>Подобрать</Link>
-            <Link to='/login'>Логин</Link>
+            {userMenu}
         </div>
     )
 }

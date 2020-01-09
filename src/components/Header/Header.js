@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 const Header = (props) => {
 
-    const {cityName, showModal, accessToken, refreshToken} = props
+    const {cityName, showModal, isAuth, userLogout} = props
 
     let userMenu = (
         <React.Fragment>
@@ -13,12 +13,11 @@ const Header = (props) => {
             <Link to='/reg'>Регистрация</Link>
         </React.Fragment>
     )
-        console.log(accessToken, refreshToken)
-    if (accessToken && refreshToken) {
+    if (isAuth) {
         userMenu = (
             <React.Fragment>
                 <Link to='/profile'>Кабинет</Link>
-                <Link to='/logout'>Выйти</Link>
+                <Link onClick={userLogout} >Выйти</Link>
             </React.Fragment>
         ) 
     }

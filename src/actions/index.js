@@ -9,10 +9,21 @@ import {setCoords,
     fetchSelectItem,
     delSelectItem,
     setMapCenter} from './searchMap'
-import {setCity, showModal, closeModal} from './user'
+import {
+    setCity,
+    showModal,
+    closeModal,
+    userLogout,
+    userEdit,
+    userReg,
+    userLogin} from './user'
 
 
 export {
+    userLogout,
+    userEdit,
+    userReg,
+    userLogin,
     closeModal,
     showModal,
     setCity,

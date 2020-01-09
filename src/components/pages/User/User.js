@@ -19,28 +19,35 @@ class User extends React.Component {
     render() {
 
         const {
+            isAuth,
+            isLoading,
             textModal,
             userEdit,
             userReg,
             userLogin
         } = this.props
-
+        
         return (
             <React.Fragment>
-                <this.props.children 
+                {!isLoading ? (<this.props.children 
+                    isAuth={isAuth}
                     textModal={textModal}
                     userEdit={userEdit}
                     userReg={userReg}
                     userLogin={userLogin}
-                    // textModal={textModal}
-                />
+                />) :
+                (<Spinner />)}
             </React.Fragment>
         )
     }
 }
 
 const mapStateToProps = ({user}) => {
-    return {textModal: user.textModal}
+    return {
+        isAuth: user.isAuth,
+        isLoading: user.isLoading,
+        textModal: user.textModal
+    }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {

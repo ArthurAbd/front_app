@@ -4,18 +4,15 @@ export default class Api {
 
     // url = 'http://185.5.251.215:3001'
     url = 'http://127.0.0.1:3001'
-
+    clientId = 'desktop'
+    clientSecret = '12345'
 
     login(data) {
-
-        const clientId = 'desktop'
-        const clientSecret = '12345'
-
         return new Promise((resolve, reject) => {
             axios.post('http://localhost:3001/oauth/token', {
                 grant_type: 'password',
-                client_id: clientId,
-                client_secret: clientSecret,
+                client_id: this.clientId,
+                client_secret: this.clientSecret,
                 username: data.email,
                 password: data.password
             })
@@ -34,11 +31,11 @@ export default class Api {
             axios.post('http://localhost:3001/oauth/token', {
                 grant_type: 'refresh_token',
                 refresh_token: data.token,
-                client_id: data.clientId,
-                client_secret: data.clientSecret
+                client_id: this.clientId,
+                client_secret: this.clientSecret
             })
             .then(function (res) {
-                resolve(res.body)
+                resolve(res.data)
             })
             .catch(function (error) {
                 console.log(error);
@@ -47,9 +44,10 @@ export default class Api {
         })
     }
 
-    logout() {
+    logout(token) {
+        console.log(token)
         return new Promise((resolve, reject) => {
-            axios.post(this.url + '/logout')
+            axios.post(this.url + '/user/logout', {...token, clientId: this.clientId})
                 .then(function () {
                     resolve()
                 })

@@ -24,13 +24,10 @@ const inicialState = {
         {city: 'yaroslavl', name: 'Ярославль'}
     ],
     showModalCities: true,
-    isLogin: false,
+    isAuth: false,
     isLoading: false,
     isError: false,
     textModal: '',
-    name: '',
-    email: '',
-    password: '',
     accessToken: localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null,
     refreshToken: localStorage.getItem('refreshToken') ? localStorage.getItem('refreshToken') : null
 }
@@ -40,8 +37,14 @@ if (localStorage.getItem('city')) {
     inicialState.showModalCities = false
 }
 
+if (inicialState.accessToken && inicialState.refreshToken) {
+    inicialState.isAuth = true
+}
+
 
 const user = (state = inicialState, action) => {
+    console.log(action)
+
     switch (action.type) {
 
         case 'FETCH_USER_REQUEST':
@@ -57,12 +60,39 @@ const user = (state = inicialState, action) => {
                 isLoading: false
             }
 
-        case 'SET_USER_TOKEN':
-            console.log(action)
+        case 'FETCH_USER_FAILURE':
             return {
                 ...state,
+                isError: true,
+                isLoading: false
+            }
+
+        case 'CLEAR_MODAL':
+            return {
+                ...state,
+                textModal: '',
+            }
+
+        case 'SET_USER_TOKEN':
+            localStorage.setItem('lifetime', Date.now() + action.payload.expires_in * 1000)
+            console.log(Date.now() + action.payload.expires_in * 1000)
+            localStorage.setItem('accessToken', action.payload.access_token)
+            localStorage.setItem('refreshToken', action.payload.refresh_token)
+            return {
+                ...state,
+                isAuth: true,
                 accessToken: action.payload.access_token,
                 refreshToken: action.payload.refresh_token,
+            }
+        
+        case 'DEL_USER_TOKEN':
+            localStorage.removeItem('accessToken')
+            localStorage.removeItem('refreshToken')
+            return {
+                ...state,
+                isAuth: false,
+                accessToken: null,
+                refreshToken: null,
             }
 
         case 'SET_CITY':

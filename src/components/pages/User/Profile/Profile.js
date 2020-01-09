@@ -1,30 +1,36 @@
 import React from 'react'
 import s from './Profile.module.sass'
+import {withRouter} from "react-router-dom";
 
 const Profile = (props) => {
+    
+    const {
+        isAuth,
+        userEdit,
+    } = props
+
+    if (!isAuth) props.history.push('/login')
+
     return (
-        <div className={s.Login}>
+        <div className={s.Profile}>
             <form>
-                <p>
-                    <label for='name'> Имя</label>
+                <div>
+                    <label htmlFor='name'> Имя</label>
                     <input type='text' id="name" />
-                </p>
-                <p>
-                    <label for='email'> E-mail</label>
+                </div>
+                <div>
+                    <label htmlFor='email'> E-mail</label>
                     <input type='text' id="email" />
-                </p>
-                <p>
-                    <label for='password'> Пароль</label>
+                </div>
+                <div>
+                    <label htmlFor='password'> Пароль</label>
                     <input type='text' id="password" />
-                </p>
-                <p>
-                    <div className={s.Btn}>
-                        Отмена
-                    </div>
-                    <div className={s.Btn}>
-                        Отправить
-                    </div>
-                </p>
+                </div>
+                <div className={s.BtnGroup}>
+                    <button type='submit' className={s.Btn}>
+                        Войти
+                    </button>
+                </div>
                 
             </form>
             
@@ -33,4 +39,4 @@ const Profile = (props) => {
 }
 
 
-export default Profile
+export default withRouter(Profile)

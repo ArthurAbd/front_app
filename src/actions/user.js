@@ -23,9 +23,10 @@ const userRequested = () => {
     }
 }
 
-const userLoaded = () => {
+const userLoaded = (res) => {
     return {
         type: 'FETCH_USER_SECCESS',
+        payload: res
     }
 }
 
@@ -36,10 +37,22 @@ const userError = (error) => {
     }
 }
 
+const clearModal = () => {
+    return {
+        type: 'CLEAR_MODAL'
+    }
+}
+
 const setUserToken = (token) => {
     return {
         type: 'SET_USER_TOKEN',
         payload: token
+    }
+}
+
+const delUserToken = () => {
+    return {
+        type: 'DEL_USER_TOKEN',
     }
 }
 
@@ -49,12 +62,13 @@ const userLogin = (api, dispatch) => (e) => {
                     password: e.target.password.value}
     dispatch(userRequested())
     api.login(data)
-        .then((res) =>  {
-            dispatch(userLoaded())
+        .then((res) => {
             dispatch(setUserToken(res))
+            dispatch(userLoaded(''))
         })
         .catch((err) => {
             dispatch(userError(err))
+            setTimeout(() => dispatch(clearModal()), 2000)
         })
 }
 
@@ -67,9 +81,11 @@ const userReg = (api, dispatch) => (e) => {
     api.addUser(data)
         .then((res) =>  {
             dispatch(userLoaded(res))
+            setTimeout(() => dispatch(clearModal()), 2000)
         })
         .catch((err) => {
             dispatch(userError(err))
+            setTimeout(() => dispatch(clearModal()), 2000)
         })
 }
 
@@ -80,11 +96,17 @@ const userEdit = (api, dispatch) => (data) => {
         .catch((err) => dispatch(userError(err)))
 }
 
-const userLogout = (api, dispatch) => () => {
+const userLogout = (api, dispatch) => (accessToken) => {
+    const token = {access_token: accessToken}
     dispatch(userRequested())
-    api.logout()
-        .then((res) =>  dispatch(userLoaded(res)))
-        .catch((err) => dispatch(userError(err)))
+    api.logout(token)
+        .then(() => {
+            dispatch(delUserToken())
+            dispatch(userLoaded(''))
+        })
+        .catch((err) => {
+            dispatch(userError(err))
+        })
 }
 
 export {

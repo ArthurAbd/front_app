@@ -1,12 +1,16 @@
 import React from 'react'
 import s from './Reg.module.sass'
+import {withRouter} from "react-router-dom";
 
 const Reg = (props) => {
 
     const {
+        isAuth,
         textModal,
         userReg,
     } = props
+
+    if (isAuth) props.history.push('/profile')
 
     return (
         <div className={s.Reg}>
@@ -47,4 +51,4 @@ const Reg = (props) => {
     )
 }
 
-export default Reg
+export default withRouter(Reg)

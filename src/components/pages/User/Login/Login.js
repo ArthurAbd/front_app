@@ -1,12 +1,16 @@
 import React from 'react'
 import s from './Login.module.sass'
+import {withRouter} from "react-router-dom";
 
 const Login = (props) => {
 
     const {
+        isAuth,
         textModal,
         userLogin
     } = props
+
+    if (isAuth) props.history.push('/profile')
 
     return (
         <div className={s.Login}>
@@ -25,7 +29,7 @@ const Login = (props) => {
                         id='password'
                     />
                 </div>
-                <div>
+                <div className={s.BtnGroup}>
                     <button type='submit' className={s.Btn}>
                         Войти
                     </button>
@@ -36,4 +40,4 @@ const Login = (props) => {
     )
 }
 
-export default Login
+export default withRouter(Login)

@@ -1,8 +1,9 @@
 import React from 'react'
 import s from './Layout.module.sass'
 import Header from '../Header/Header'
+import {withApiConsumer} from '../HOC/withApiConsumer'
 import {connect} from 'react-redux'
-import {setCity, showModal, closeModal} from '../../actions/user'
+import {setCity, showModal, closeModal, userLogout} from '../../actions'
 
 const ModalCities = (props) => {
     const {setCity, cities, showModalCities, closeModal} = props
@@ -31,13 +32,15 @@ class Layout extends React.Component {
 
     render() {
         const { accessToken,
-                refreshToken,
+                userLogout,
+                isAuth,
                 city,
                 cities,
                 showModalCities,
                 setCity,
                 showModal,
                 closeModal} = this.props
+
         const cityMap = {
             'moskva': 'Москва',
             'sankt-peterburg': 'Санкт-петербург',
@@ -65,8 +68,8 @@ class Layout extends React.Component {
         return (
             <div className={s.Layout}>
                 <Header
-                    accessToken={accessToken}
-                    refreshToken={refreshToken}
+                    userLogout={() => userLogout(accessToken)}
+                    isAuth={isAuth}
                     cityName={cityMap[city]}
                     showModal={showModal}
                 />
@@ -86,19 +89,21 @@ class Layout extends React.Component {
 const mapStateToProps = ({user}) => {
     return {
         accessToken: user.accessToken,
-        refreshToken: user.refreshToken,
+        isAuth: user.isAuth,
         city: user.city,
         cities: user.cities,
         showModalCities: user.showModalCities
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+    const {api} = ownProps
     return {
+        userLogout: userLogout(api, dispatch),
         closeModal: () => dispatch(closeModal()),
         showModal: () => dispatch(showModal()),
         setCity: (city) => dispatch(setCity(city))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Layout)
+export default withApiConsumer()(connect(mapStateToProps, mapDispatchToProps)(Layout))

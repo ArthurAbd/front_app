@@ -9,7 +9,7 @@ export default class Api {
 
     login(data) {
         return new Promise((resolve, reject) => {
-            axios.post('http://localhost:3001/oauth/token', {
+            axios.post(this.url + '/oauth/token', {
                 grant_type: 'password',
                 client_id: this.clientId,
                 client_secret: this.clientSecret,
@@ -26,11 +26,11 @@ export default class Api {
         })
     }
 
-    getNewToken(data) {
+    getNewToken(token) {
         return new Promise((resolve, reject) => {
-            axios.post('http://localhost:3001/oauth/token', {
+            axios.post(this.url + '/oauth/token', {
                 grant_type: 'refresh_token',
-                refresh_token: data.token,
+                refresh_token: token,
                 client_id: this.clientId,
                 client_secret: this.clientSecret
             })
@@ -47,7 +47,7 @@ export default class Api {
     logout(token) {
         console.log(token)
         return new Promise((resolve, reject) => {
-            axios.post(this.url + '/user/logout', {...token, clientId: this.clientId})
+            axios.post(this.url + '/user/logout', {access_token: token, clientId: this.clientId})
                 .then(function () {
                     resolve()
                 })

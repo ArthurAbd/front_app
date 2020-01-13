@@ -9,6 +9,7 @@ const ModalCities = (props) => {
     const {setCity, cities, showModalCities, closeModal} = props
     if (!showModalCities) return null
 
+    console.log(s)
     return (
         <div className={s.ModalCities}>
             <div className={s.ModalContainer}>

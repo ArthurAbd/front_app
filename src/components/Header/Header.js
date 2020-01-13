@@ -16,6 +16,7 @@ const Header = (props) => {
     if (isAuth) {
         userMenu = (
             <React.Fragment>
+                <Link to='/profile/new'>Разместить</Link>
                 <Link to='/profile'>Кабинет</Link>
                 <Link onClick={userLogout} >Выйти</Link>
             </React.Fragment>

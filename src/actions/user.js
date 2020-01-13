@@ -56,6 +56,25 @@ const delUserToken = () => {
     }
 }
 
+const isLoginUser = (api, dispatch) => {
+    return new Promise((resolve, reject) => {
+        if (Date.now() < localStorage.getItem('lifetime') 
+            && localStorage.getItem('accessToken')) {return resolve()}
+        if (localStorage.getItem('refreshToken')) {
+            api.getNewToken(localStorage.getItem('refreshToken'))
+                .then((res) => {
+                    dispatch(setUserToken(res))
+                    resolve()
+                })
+                .catch((err) => {
+                    dispatch(delUserToken())
+                    dispatch(userError(err))
+                    reject()
+                })
+        }
+    })
+}
+
 const userLogin = (api, dispatch) => (e) => {
     e.preventDefault()
     const data = {  email: e.target.email.value,
@@ -96,20 +115,27 @@ const userEdit = (api, dispatch) => (data) => {
         .catch((err) => dispatch(userError(err)))
 }
 
-const userLogout = (api, dispatch) => (accessToken) => {
-    const token = {access_token: accessToken}
-    dispatch(userRequested())
-    api.logout(token)
-        .then(() => {
-            dispatch(delUserToken())
-            dispatch(userLoaded(''))
-        })
-        .catch((err) => {
-            dispatch(userError(err))
-        })
+const userLogout = (api, dispatch) => () => {
+    isLoginUser(api, dispatch)
+    .then(() => {
+        dispatch(userRequested())
+        api.logout(localStorage.getItem('accessToken'))
+            .then(() => {
+                dispatch(delUserToken())
+                dispatch(userLoaded(''))
+            })
+            .catch((err) => {
+                dispatch(delUserToken())
+                dispatch(userError(err))
+            })
+    })
+    .catch((err) => {
+        dispatch(delUserToken())
+    })
 }
 
 export {
+    isLoginUser,
     userLogout,
     userEdit,
     userReg,

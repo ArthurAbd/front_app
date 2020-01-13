@@ -28,8 +28,6 @@ const inicialState = {
     isLoading: false,
     isError: false,
     textModal: '',
-    accessToken: localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null,
-    refreshToken: localStorage.getItem('refreshToken') ? localStorage.getItem('refreshToken') : null
 }
 
 if (localStorage.getItem('city')) {
@@ -37,7 +35,7 @@ if (localStorage.getItem('city')) {
     inicialState.showModalCities = false
 }
 
-if (inicialState.accessToken && inicialState.refreshToken) {
+if (localStorage.getItem('accessToken') && localStorage.getItem('refreshToken')) {
     inicialState.isAuth = true
 }
 
@@ -81,18 +79,15 @@ const user = (state = inicialState, action) => {
             return {
                 ...state,
                 isAuth: true,
-                accessToken: action.payload.access_token,
-                refreshToken: action.payload.refresh_token,
             }
         
         case 'DEL_USER_TOKEN':
+            localStorage.removeItem('lifetime')
             localStorage.removeItem('accessToken')
             localStorage.removeItem('refreshToken')
             return {
                 ...state,
                 isAuth: false,
-                accessToken: null,
-                refreshToken: null,
             }
 
         case 'SET_CITY':

@@ -1,6 +1,12 @@
 import React from 'react'
 import s from './Profile.module.sass'
 import {withRouter} from "react-router-dom";
+import { Route, Switch } from 'react-router-dom';
+import ProfileEdit from './ProfileEdit/ProfileEdit';
+import { Link } from 'react-router-dom'
+import Container from '../../../Container/Container';
+
+
 
 const Profile = (props) => {
     
@@ -12,29 +18,29 @@ const Profile = (props) => {
     if (!isAuth) props.history.push('/login')
 
     return (
-        <div className={s.Profile}>
-            <form>
-                <div>
-                    <label htmlFor='name'> Имя</label>
-                    <input type='text' id="name" />
-                </div>
-                <div>
-                    <label htmlFor='email'> E-mail</label>
-                    <input type='text' id="email" />
-                </div>
-                <div>
-                    <label htmlFor='password'> Пароль</label>
-                    <input type='text' id="password" />
-                </div>
+        <Container>
+            <div className={s.Profile}>
                 <div className={s.BtnGroup}>
-                    <button type='submit' className={s.Btn}>
-                        Войти
-                    </button>
+                    <Link to='/profile/ads'>
+                        <button className={s.Btn}>Мои объявления</button>
+                    </Link>
+                    <Link to='/profile/calls'>
+                        <button className={s.Btn}>Входящие звонки</button>
+                    </Link>
+                    <Link to='/profile/edit'>
+                        <button className={s.Btn}>Настройки</button>
+                    </Link>
                 </div>
-                
-            </form>
-            
-        </div>
+                <div className={s.Content}>
+                    <Switch>
+                        <Route path='/profile/new' render={() => <div>новое</div>} />
+                        <Route path='/profile/ads' render={() => <div>объявления</div>} />
+                        <Route path='/profile/calls' render={() => <div>звонки</div>} />
+                        <Route render={() => <ProfileEdit/>} />
+                    </Switch>
+                </div>
+            </div>
+        </Container>
     )
 }
 

@@ -1,18 +1,10 @@
 import React from 'react'
-import s from './Login.module.sass'
-import {withRouter} from "react-router-dom";
+import s from './ModalLogin.module.sass'
 
-const Login = (props) => {
-
-    const {
-        isAuth,
-        userLogin
-    } = props
-
-    if (isAuth) props.history.push('/profile')
-
+const ModalLogin = ({userLogin}) => {
+    
     return (
-        <div className={s.Login}>
+        <div className={s.ModalLogin}>
             <form onSubmit={userLogin} >
                 <div>
                     <label htmlFor='email'> E-mail</label>
@@ -38,4 +30,4 @@ const Login = (props) => {
     )
 }
 
-export default withRouter(Login)
+export default ModalLogin

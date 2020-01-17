@@ -23,62 +23,58 @@ const inicialState = {
         {city: 'tyumen', name: 'Тюмень'},
         {city: 'yaroslavl', name: 'Ярославль'}
     ],
-    showModalCities: true,
     isAuth: false,
     isLoading: false,
     isError: false,
-    textModal: '',
+    isModal: false,
+    user: null
 }
 
 if (localStorage.getItem('city')) {
     inicialState.city = localStorage.getItem('city')
-    inicialState.showModalCities = false
+    inicialState.isModal = false
 }
-
-if (localStorage.getItem('accessToken') && localStorage.getItem('refreshToken')) {
-    inicialState.isAuth = true
-}
-
 
 const user = (state = inicialState, action) => {
     console.log(action)
-
     switch (action.type) {
 
-        case 'FETCH_USER_REQUEST':
+        case 'SET_USER':
             return {
                 ...state,
-                isLoading: true
+                user: action.payload
             }
 
-        case 'FETCH_USER_SECCESS':
+        case 'SET_IS_LOADING':
             return {
                 ...state,
-                textModal: action.payload,
-                isLoading: false
+                isLoading: action.payload
             }
 
-        case 'FETCH_USER_FAILURE':
+        case 'SET_AUTH':
             return {
                 ...state,
-                isError: true,
-                isLoading: false
+                isAuth: action.payload
             }
 
-        case 'CLEAR_MODAL':
+        case 'SET_USER_MESSAGE':
             return {
                 ...state,
-                textModal: '',
+                userMessage: action.payload
+            }
+
+        case 'SET_MODAL':
+            return {
+                ...state,
+                isModal: action.payload
             }
 
         case 'SET_USER_TOKEN':
             localStorage.setItem('lifetime', Date.now() + action.payload.expires_in * 1000)
-            console.log(Date.now() + action.payload.expires_in * 1000)
             localStorage.setItem('accessToken', action.payload.access_token)
             localStorage.setItem('refreshToken', action.payload.refresh_token)
             return {
-                ...state,
-                isAuth: true,
+                ...state
             }
         
         case 'DEL_USER_TOKEN':
@@ -86,8 +82,7 @@ const user = (state = inicialState, action) => {
             localStorage.removeItem('accessToken')
             localStorage.removeItem('refreshToken')
             return {
-                ...state,
-                isAuth: false,
+                ...state
             }
 
         case 'SET_CITY':
@@ -95,22 +90,8 @@ const user = (state = inicialState, action) => {
             return {
                 ...state,
                 city: action.payload,
-                isCity: true,
-                showModalCities: false
+                isModal: false
             }
-        
-        case 'SHOW_MODAL':
-            return {
-                ...state,
-                showModalCities: true
-            }
-
-        case 'CLOSE_MODAL':
-            return {
-                ...state,
-                showModalCities: false
-            }
-
 
         default: return state
     }

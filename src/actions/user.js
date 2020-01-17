@@ -1,3 +1,5 @@
+import api from '../services/Api'
+
 const setCity = (city) => {
     return {
         type: 'SET_CITY',
@@ -5,41 +7,38 @@ const setCity = (city) => {
     }
 }
 
-const showModal = () => {
+const setIsLoading = (bool) => {
     return {
-        type: 'SHOW_MODAL'
+        type: 'SET_IS_LOADING',
+        payload: bool
     }
 }
 
-const closeModal = () => {
+const setUserMessage = (message) => {
     return {
-        type: 'CLOSE_MODAL'
+        type: 'SET_USER_MESSAGE',
+        payload: message
     }
 }
 
-const userRequested = () => {
+const setModal = (modal) => {
     return {
-        type: 'FETCH_USER_REQUEST'
+        type: 'SET_MODAL',
+        payload: modal
     }
 }
 
-const userLoaded = (res) => {
+const setUser = (user) => {
     return {
-        type: 'FETCH_USER_SECCESS',
-        payload: res
+        type: 'SET_USER',
+        payload: user
     }
 }
 
-const userError = (error) => {
+const setIsAuth = (bool) => {
     return {
-        type: 'FETCH_USER_FAILURE',
-        payload: error
-    }
-}
-
-const clearModal = () => {
-    return {
-        type: 'CLEAR_MODAL'
+        type: 'SET_AUTH',
+        payload: bool
     }
 }
 
@@ -56,91 +55,129 @@ const delUserToken = () => {
     }
 }
 
-const isLoginUser = (api, dispatch) => {
-    return new Promise((resolve, reject) => {
-        if (Date.now() < localStorage.getItem('lifetime') 
-            && localStorage.getItem('accessToken')) {return resolve()}
-        if (localStorage.getItem('refreshToken')) {
-            api.getNewToken(localStorage.getItem('refreshToken'))
-                .then((res) => {
-                    dispatch(setUserToken(res))
-                    resolve()
-                })
-                .catch((err) => {
+const userLogin = (e) => {
+    return (dispatch) => {
+        e.preventDefault()
+        const data = {  email: e.target.email.value,
+                        password: e.target.password.value}
+        dispatch(setIsLoading(true))
+        api.login(data)
+            .then((res) => {
+                dispatch(setUserToken(res))
+                dispatch(setIsAuth(true))
+                dispatch(setIsLoading(false))
+            })
+            .catch((err) => {
+                dispatch(setIsLoading(false))
+                dispatch(setUserMessage(err))
+            })
+    }
+}
+
+const userReg = (e) => {
+    return (dispatch) => {
+        e.preventDefault()
+        const data = {  name: e.target.name.value,
+                        email: e.target.email.value,
+                        password: e.target.password.value}
+        dispatch(setIsLoading(true))
+        api.addUser(data)
+            .then((res) =>  {
+                dispatch(setIsLoading(false))
+                dispatch(setUserMessage(res.body))
+            })
+            .catch((err) => {
+                dispatch(setIsLoading(false))
+                dispatch(setUserMessage(err))
+            })
+    }
+}
+
+const userEdit = (api, dispatch) => (data) => {
+    dispatch(setIsLoading(true))
+    api.editUser(data)
+        .then((res) =>  dispatch(setIsLoading(false)))
+        .catch((err) => dispatch(setIsLoading(false)))
+}
+
+const userLogout = () => {
+    return (dispatch) => {
+        isLoginUser(dispatch)
+        .then(() => {
+            dispatch(setIsLoading(true))
+            api.logout()
+                .finally(() => {
                     dispatch(delUserToken())
-                    dispatch(userError(err))
-                    reject()
+                    dispatch(setIsLoading(false))
+                    dispatch(setIsAuth(false))
                 })
+        })
+        .catch((err) => {
+            dispatch(delUserToken())
+            dispatch(setIsAuth(false))
+        })
+    }
+}
+
+const getMe = () => {
+    return (dispatch) => {
+        isLoginUser(dispatch)
+        .then(() => {
+            dispatch(setIsLoading(true))
+            api.getMe()
+                .then((res) => {
+                    dispatch(setIsAuth(true))
+                    dispatch(setIsLoading(false))
+                    dispatch(setUser(res.body.email))
+                })
+                .catch((err) =>{
+                    dispatch(setIsLoading(false))
+                    dispatch(setUserMessage(err))
+                })
+        })
+        .catch((err) => {
+            dispatch(setUserMessage(err))
+        })
+    }
+}
+
+const isLoginUser = (dispatch) => {
+    return new Promise((resolve, reject) => {
+        try {
+            if (Date.now() < localStorage.getItem('lifetime') 
+                && localStorage.getItem('accessToken')) {
+                    dispatch(setIsAuth(true))
+                    return resolve()
+                }
+
+            if (localStorage.getItem('refreshToken')) {
+                dispatch(setIsLoading(true))
+                api.getNewToken()
+                    .then((res) => {
+                        dispatch(setUserToken(res))
+                        dispatch(setIsLoading(false))
+                        dispatch(setIsAuth(true))
+                        return resolve()
+                    })
+                    .catch((err) => {
+                        dispatch(setIsAuth(false))
+                        dispatch(setIsLoading(false))
+                        return reject(err)
+                    })
+            }
+        } catch (err) {
+            reject(err)
         }
     })
 }
 
-const userLogin = (api, dispatch) => (e) => {
-    e.preventDefault()
-    const data = {  email: e.target.email.value,
-                    password: e.target.password.value}
-    dispatch(userRequested())
-    api.login(data)
-        .then((res) => {
-            dispatch(setUserToken(res))
-            dispatch(userLoaded(''))
-        })
-        .catch((err) => {
-            dispatch(userError(err))
-            setTimeout(() => dispatch(clearModal()), 2000)
-        })
-}
-
-const userReg = (api, dispatch) => (e) => {
-    e.preventDefault()
-    const data = {  name: e.target.name.value,
-                    email: e.target.email.value,
-                    password: e.target.password.value}
-    dispatch(userRequested())
-    api.addUser(data)
-        .then((res) =>  {
-            dispatch(userLoaded(res))
-            setTimeout(() => dispatch(clearModal()), 2000)
-        })
-        .catch((err) => {
-            dispatch(userError(err))
-            setTimeout(() => dispatch(clearModal()), 2000)
-        })
-}
-
-const userEdit = (api, dispatch) => (data) => {
-    dispatch(userRequested())
-    api.editUser(data)
-        .then((res) =>  dispatch(userLoaded(res)))
-        .catch((err) => dispatch(userError(err)))
-}
-
-const userLogout = (api, dispatch) => () => {
-    isLoginUser(api, dispatch)
-    .then(() => {
-        dispatch(userRequested())
-        api.logout(localStorage.getItem('accessToken'))
-            .then(() => {
-                dispatch(delUserToken())
-                dispatch(userLoaded(''))
-            })
-            .catch((err) => {
-                dispatch(delUserToken())
-                dispatch(userError(err))
-            })
-    })
-    .catch((err) => {
-        dispatch(delUserToken())
-    })
-}
-
 export {
+    setModal,
+    getMe,
     isLoginUser,
     userLogout,
     userEdit,
     userReg,
     userLogin,
-    closeModal,
-    showModal,
     setCity
 }

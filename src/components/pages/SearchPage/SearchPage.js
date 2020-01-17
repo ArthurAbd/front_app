@@ -15,8 +15,8 @@ import {
     setMinPriceSearch,
     setMaxPriceSearch
 } from '../../../actions/index'
-import {withApiConsumer} from '../../HOC/withApiConsumer'
 import Spinner from '../../common/Spinner/Spinner'
+import { compose } from 'redux'
 
 
 class SearchPage extends React.Component {
@@ -55,15 +55,12 @@ class SearchPage extends React.Component {
                 setSortingSearch} = this.props
 
 
-        let cards = null
+        const cards = searchResult ? searchResult.map((item) => {
+            return (
+                <Card key={item.id} cardData={item} setMapCenter={setMapCenter} />
+            )
+        }) : null
 
-        if (searchResult) {
-            cards = searchResult.map((item) => {
-                return (
-                    <Card key={item.id} cardData={item} setMapCenter={setMapCenter} />
-                )
-            })
-        }
 
         let loading = null
         if (loadingResult) {
@@ -123,19 +120,10 @@ const mapStateToProps = ({searchResult, configSearch: {configSearch}, searchMap,
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-    const {api} = ownProps
-    return {
-        setMapCenter: (id) => dispatch(setMapCenter(id)),
-        fetchSelectItem: fetchSelectItem(api, dispatch),
-        delSelectItem: () => dispatch(delSelectItem()),
-        setLimit: (total) => (e) => dispatch(setLimit(e, total)),
-        fetchRooms: fetchRooms(api, dispatch),
-        setSortingSearch: (e) => dispatch(setSortingSearch(e.target.value)),
-        setTypeSearch: (type) => dispatch(setTypeSearch(type)),
-        setMinPriceSearch: (e) => dispatch(setMinPriceSearch(e.target.value)),
-        setMaxPriceSearch: (e) => dispatch(setMaxPriceSearch(e.target.value))
-    }
-}
-
-export default withApiConsumer()(connect(mapStateToProps, mapDispatchToProps)(SearchPage))
+export default compose(
+    connect(mapStateToProps, 
+        {   setMapCenter, fetchSelectItem, delSelectItem,
+            setLimit,
+            fetchRooms, setSortingSearch, setTypeSearch, setMinPriceSearch,
+            setMaxPriceSearch})
+)(SearchPage)

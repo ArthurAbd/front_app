@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export default class Api {
+class Api {
 
     // url = 'http://185.5.251.215:3001'
     url = 'http://127.0.0.1:3001'
@@ -9,7 +9,7 @@ export default class Api {
 
     login(data) {
         return new Promise((resolve, reject) => {
-            axios.post(this.url + '/oauth/token', {
+            axios.post(this.url + '/user/login', {
                 grant_type: 'password',
                 client_id: this.clientId,
                 client_secret: this.clientSecret,
@@ -17,20 +17,37 @@ export default class Api {
                 password: data.password
             })
             .then(function (res) {
+                console.log('res',res)
                 resolve(res.data)
             })
             .catch(function (error) {
-                console.log(error)
-                reject(error)
+                console.log('error',error.response)
+                reject(error.response.data)
             })
         })
     }
 
-    getNewToken(token) {
+    getMe() {
+        return new Promise((resolve, reject) => {
+            axios.post(this.url + '/user/me', {
+                access_token: localStorage.getItem('accessToken')
+            })
+            .then(function (res) {
+                console.log('getMeres',res)
+                resolve(res)
+            })
+            .catch(function (error) {
+                console.log('getMeerror',error.response)
+                reject(error.response.data)
+            })
+        })
+    }
+
+    getNewToken() {
         return new Promise((resolve, reject) => {
             axios.post(this.url + '/oauth/token', {
                 grant_type: 'refresh_token',
-                refresh_token: token,
+                refresh_token: localStorage.getItem('refreshToken'),
                 client_id: this.clientId,
                 client_secret: this.clientSecret
             })
@@ -39,21 +56,23 @@ export default class Api {
             })
             .catch(function (error) {
                 console.log(error);
-                reject(error)
+                reject(error.response.data)
             });
         })
     }
 
-    logout(token) {
-        console.log(token)
+    logout() {
         return new Promise((resolve, reject) => {
-            axios.post(this.url + '/user/logout', {access_token: token, clientId: this.clientId})
+            axios.post(this.url + '/user/logout', {
+                access_token: localStorage.getItem('accessToken'),
+                clientId: this.clientId
+            })
                 .then(function () {
                     resolve()
                 })
                 .catch(function (error) {
                     console.log(error)
-                    reject(error)
+                    reject(error.response.data)
                 })
         })
     }
@@ -66,7 +85,7 @@ export default class Api {
                 })
                 .catch(function (error) {
                     console.log(error)
-                    reject(error)
+                    reject(error.response.data)
                 })
         })
     }
@@ -79,7 +98,7 @@ export default class Api {
                 })
                 .catch(function (error) {
                     console.log(error)
-                    reject(error)
+                    reject(error.response.data)
                 })
         })
     }
@@ -128,7 +147,7 @@ export default class Api {
                 })
                 .catch(function (error) {
                     console.log(error)
-                    reject(error)
+                    reject(error.response.data)
                 })
         })
     }
@@ -141,7 +160,7 @@ export default class Api {
                 })
                 .catch(function (error) {
                     console.log(error)
-                    reject(error)
+                    reject(error.response.data)
                 })
         })
     }
@@ -163,8 +182,10 @@ export default class Api {
                 })
                 .catch(function (error) {
                     console.log(error)
-                    reject(error)
+                    reject(error.response.data)
                 })
         })
     }
 }
+
+export default new Api()

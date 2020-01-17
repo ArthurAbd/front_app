@@ -4,7 +4,10 @@ import {withRouter} from "react-router-dom";
 import { Route, Switch } from 'react-router-dom';
 import ProfileEdit from './ProfileEdit/ProfileEdit';
 import { Link } from 'react-router-dom'
-import Container from '../../../Container/Container';
+import Container from '../../../common/Container/Container';
+import NewAd from '../NewAd/NewAd';
+import MyAds from '../MyAds/MyAds';
+import Inbox from '../Inbox/Inbox';
 
 
 
@@ -12,7 +15,6 @@ const Profile = (props) => {
     
     const {
         isAuth,
-        userEdit,
     } = props
 
     if (!isAuth) props.history.push('/login')
@@ -33,9 +35,9 @@ const Profile = (props) => {
                 </div>
                 <div className={s.Content}>
                     <Switch>
-                        <Route path='/profile/new' render={() => <div>новое</div>} />
-                        <Route path='/profile/ads' render={() => <div>объявления</div>} />
-                        <Route path='/profile/calls' render={() => <div>звонки</div>} />
+                        <Route path='/profile/new' render={() => <NewAd />} />
+                        <Route path='/profile/ads' render={() => <MyAds />} />
+                        <Route path='/profile/calls' render={() => <Inbox />} />
                         <Route render={() => <ProfileEdit/>} />
                     </Switch>
                 </div>

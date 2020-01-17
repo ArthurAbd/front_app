@@ -1,3 +1,5 @@
+import api from '../services/Api'
+
 const setCoords = (coords) => {
     return {
         type: 'SET_COORDS',
@@ -19,11 +21,13 @@ const setMapCenter = (id) => {
     }
 }
 
-const fetchSelectItem = (api, dispatch) => (id) => {
-    api.getMapItem(id)
-        .then((data) => {
-            dispatch(setSelectItem(data))
-        })
+const fetchSelectItem = (id) => {
+    return (dispatch) => {
+        api.getMapItem(id)
+            .then((data) => {
+                dispatch(setSelectItem(data))
+            })
+    }
 }
 
 const delSelectItem = () => {

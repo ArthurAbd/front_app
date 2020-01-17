@@ -5,33 +5,36 @@ const setTypeSearch = (type) => {
     }
 }
 
-const setSortingSearch = (sorting) => {
+const setSortingSearch = (e) => {
+    const sorting = e.target.value
     return {
         type: 'SET_SORTING_SEARCH',
         payload: sorting
     }
 }
 
-const setMinPriceSearch = (min) => {
+const setMinPriceSearch = (e) => {
+    const min = e.target.value
     return {
         type: 'SET_MIN_PRICE_SEARCH',
         payload: min
     }
 }
 
-const setMaxPriceSearch = (max) => {
+const setMaxPriceSearch = (e) => {
+    const max = e.target.value
     return {
         type: 'SET_MAX_PRICE_SEARCH',
         payload: max
     }
 }
 
-const setLimit = (target, total) => {
-    return {
+const setLimit = (total) => (dispatch) => (e) => {
+    dispatch({
         type: 'SET_LIMIT',
-        payload: target,
+        payload: e,
         total: total
-    }
+    })
 }
 
 export {

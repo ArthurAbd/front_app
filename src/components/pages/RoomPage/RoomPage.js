@@ -6,11 +6,11 @@ import Info from './Info/Info'
 import Map from '../RoomPage/Map/Map'
 import Similar from '../RoomPage/Similar/Similar'
 import Spinner from '../../common/Spinner/Spinner'
-import Container from '../../Container/Container'
+import Container from '../../common/Container/Container'
 import Slider from "react-slick";
-import {withApiConsumer} from '../../HOC/withApiConsumer'
 import {fetchOneRoom} from '../../../actions/index'
 import {connect} from 'react-redux'
+import { compose } from 'redux'
 
 class RoomPage extends React.Component {
 
@@ -143,11 +143,7 @@ const mapStateToProps = ({oneRoom, searchResult}) => {
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-    const {api} = ownProps
-    return {
-        fetchOneRoom: fetchOneRoom(api, dispatch)
-    }
-}
-
-export default withApiConsumer()(connect(mapStateToProps, mapDispatchToProps)(RoomPage))
+export default compose(
+    connect(mapStateToProps, 
+        {fetchOneRoom})
+)(RoomPage)

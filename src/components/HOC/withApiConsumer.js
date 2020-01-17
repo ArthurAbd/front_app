@@ -1,7 +1,7 @@
 import React from 'react'
 import {ApiConsumer} from '../common/ApiContext/ApiContext'
 
-const withApiConsumer = () => (Wrapped) => {
+const withApiConsumer = (Wrapped) => {
     
     return (props) => {
         return (

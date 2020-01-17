@@ -1,15 +1,14 @@
 import React from 'react'
 import s from './Layout.module.sass'
 import Header from '../Header/Header'
-import {withApiConsumer} from '../HOC/withApiConsumer'
 import {connect} from 'react-redux'
-import {setCity, showModal, closeModal, userLogout} from '../../actions'
+import {setCity, userLogout, getMe, setModal, userLogin} from '../../actions'
+import { compose } from 'redux'
+import Modal from '../common/Modal/Modal'
 
 const ModalCities = (props) => {
     const {setCity, cities, showModalCities, closeModal} = props
     if (!showModalCities) return null
-
-    console.log(s)
     return (
         <div className={s.ModalCities}>
             <div className={s.ModalContainer}>
@@ -30,17 +29,22 @@ const ModalCities = (props) => {
 }
 
 class Layout extends React.Component {
+    
+    componentDidMount() {
+        this.props.getMe()
+    }
 
     render() {
-        const { accessToken,
+        const { 
+                userLogin,
+                cities,
+                setCity,
                 userLogout,
                 isAuth,
                 city,
-                cities,
-                showModalCities,
-                setCity,
-                showModal,
-                closeModal} = this.props
+                isModal,
+                setModal,
+            } = this.props
 
         const cityMap = {
             'moskva': 'Москва',
@@ -69,18 +73,20 @@ class Layout extends React.Component {
         return (
             <div className={s.Layout}>
                 <Header
-                    userLogout={() => userLogout(accessToken)}
+                    userLogout={() => userLogout()}
                     isAuth={isAuth}
                     cityName={cityMap[city]}
-                    showModal={showModal}
-                />
-                <ModalCities
-                    setCity={setCity}
-                    showModalCities={showModalCities}
-                    cities={cities}
-                    closeModal={closeModal}
+                    setModal={setModal}
                 />
 
+                <Modal
+                    isModal={isModal}
+                    setModal={setModal}
+                    cities={cities}
+                    setCity={setCity}
+                    userLogin={userLogin}
+                />
+                
                 {this.props.children}
             </div>
         )
@@ -89,22 +95,13 @@ class Layout extends React.Component {
 
 const mapStateToProps = ({user}) => {
     return {
-        accessToken: user.accessToken,
+        isModal: user.isModal,
         isAuth: user.isAuth,
         city: user.city,
         cities: user.cities,
-        showModalCities: user.showModalCities
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-    const {api} = ownProps
-    return {
-        userLogout: userLogout(api, dispatch),
-        closeModal: () => dispatch(closeModal()),
-        showModal: () => dispatch(showModal()),
-        setCity: (city) => dispatch(setCity(city))
-    }
-}
-
-export default withApiConsumer()(connect(mapStateToProps, mapDispatchToProps)(Layout))
+export default compose(connect(mapStateToProps, 
+    {userLogout, setCity, getMe, setModal, userLogin})
+)(Layout)

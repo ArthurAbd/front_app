@@ -1,3 +1,5 @@
+import api from '../services/Api'
+
 const roomOneRequested = () => {
     return {
         type: 'FETCH_ONE_ROOM_REQUEST'
@@ -19,11 +21,13 @@ const roomOneError = (error) => {
 }
 
 
-const fetchOneRoom = (api, dispatch) => (id) => {
-    dispatch(roomOneRequested())
-    api.getOneRoom(id)
-        .then((data) =>  dispatch(roomOneLoaded(data)))
-        .catch((err) => dispatch(roomOneError(err)))
+const fetchOneRoom = (id) => {
+    return (dispatch) => {
+        dispatch(roomOneRequested())
+        api.getOneRoom(id)
+            .then((data) =>  dispatch(roomOneLoaded(data)))
+            .catch((err) => dispatch(roomOneError(err)))
+    }
 }
 
 export {

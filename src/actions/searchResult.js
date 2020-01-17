@@ -1,5 +1,6 @@
 import store from '../store'
-import {setCoords} from '../actions/searchMap'
+import {setCoords} from '../actions/index'
+import api from '../services/Api'
 
 const roomsRequested = () => {
     return {
@@ -21,17 +22,18 @@ const roomsError = (error) => {
     }
 }
 
-const fetchRooms = (api, dispatch) => () => {
-    const {configSearch: {configSearch}, user: {city}} = store.getState()
-    dispatch(roomsRequested())
-    api.getSearchRooms({city: city, ...configSearch})
-        .then((data) => {
-            const {coords, ...rooms} = data
-            console.log('ddd',data)
-            dispatch(roomsLoaded(rooms))
-            dispatch(setCoords(coords))
-        })
-        .catch((err) => dispatch(roomsError(err)))
+const fetchRooms = () => {
+    return (dispatch) => {
+        const {configSearch: {configSearch}, user: {city}} = store.getState()
+        dispatch(roomsRequested())
+        api.getSearchRooms({city: city, ...configSearch})
+            .then((data) => {
+                const {coords, ...rooms} = data
+                dispatch(roomsLoaded(rooms))
+                dispatch(setCoords(coords))
+            })
+            .catch((err) => dispatch(roomsError(err)))
+    }
 }
 
 export {

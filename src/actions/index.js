@@ -10,22 +10,21 @@ import {setCoords,
     delSelectItem,
     setMapCenter} from './searchMap'
 import {
+    setModal,
+    getMe,
     setCity,
-    showModal,
-    closeModal,
     userLogout,
     userEdit,
     userReg,
     userLogin} from './user'
 
-
 export {
+    setModal,
+    getMe,
     userLogout,
     userEdit,
     userReg,
     userLogin,
-    closeModal,
-    showModal,
     setCity,
     setMapCenter,
     fetchSelectItem,
@@ -37,5 +36,5 @@ export {
     setSortingSearch,
     setMinPriceSearch,
     setMaxPriceSearch,
-    fetchOneRoom
+    fetchOneRoom,
 }

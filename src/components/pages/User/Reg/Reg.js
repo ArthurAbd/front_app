@@ -6,7 +6,6 @@ const Reg = (props) => {
 
     const {
         isAuth,
-        textModal,
         userReg,
     } = props
 
@@ -44,7 +43,6 @@ const Reg = (props) => {
                         Отправить
                     </button>
                 </div>
-                <span>{textModal}</span>
             </form>
             
         </div>

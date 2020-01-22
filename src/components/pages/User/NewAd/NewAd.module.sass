@@ -1,13 +1,13 @@
 .NewAd
     div
         display: flex
-        align-items: center
+        align-items: flex-start
+        flex-direction: column
         justify-content: space-between
     input, textarea
         width: 100%
         padding: 5px
         margin: 10px 0
-        margin-left: 20px
         font-size: 1.4rem
     label
         width: 120px
@@ -15,6 +15,16 @@
     .BtnGroup
         display: flex
         justify-content: flex-end
+.Map
+    position: relative
+    margin: 16px 0
+.Marker
+    position: absolute
+    top: 50%
+    left: 50%
+    margin-top: -35px
+    margin-left: -12px
+    font-size: 2.5rem
 .Btn
     margin-top: 20px
     display: inline-block

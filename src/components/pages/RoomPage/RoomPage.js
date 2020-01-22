@@ -8,7 +8,7 @@ import Similar from '../RoomPage/Similar/Similar'
 import Spinner from '../../common/Spinner/Spinner'
 import Container from '../../common/Container/Container'
 import Slider from "react-slick";
-import {fetchOneRoom} from '../../../actions/index'
+import {fetchOneRoom, getPhoneNumber} from '../../../actions'
 import {connect} from 'react-redux'
 import { compose } from 'redux'
 
@@ -53,6 +53,7 @@ class RoomPage extends React.Component {
 
 
         const { oneRoom: {
+                    id,
                     address,
                     area,
                     coord_map_x,
@@ -68,6 +69,7 @@ class RoomPage extends React.Component {
                 },
                 loadingResult,
                 searchResult,
+                getPhoneNumber
         } = this.props
 
         const typeMap = {
@@ -117,7 +119,10 @@ class RoomPage extends React.Component {
                             area={area}
                     />
                     <PhotosBlock toggleSlider={this.toggleSlider} photos={photosArr} />
-                    <Info type={normalizeType}
+                    <Info 
+                        id={id}
+                        getPhoneNumber={getPhoneNumber}
+                        type={normalizeType}
                         area={area}
                         floor={floor}
                         floors={floors}
@@ -145,5 +150,5 @@ const mapStateToProps = ({oneRoom, searchResult}) => {
 
 export default compose(
     connect(mapStateToProps, 
-        {fetchOneRoom})
+        {fetchOneRoom, getPhoneNumber})
 )(RoomPage)

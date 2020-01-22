@@ -1,4 +1,4 @@
-import api from '../services/Api'
+import * as api from '../services/Api'
 
 const setCoords = (coords) => {
     return {

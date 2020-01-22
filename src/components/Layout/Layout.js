@@ -2,31 +2,11 @@ import React from 'react'
 import s from './Layout.module.sass'
 import Header from '../Header/Header'
 import {connect} from 'react-redux'
-import {setCity, userLogout, getMe, setModal, userLogin} from '../../actions'
+import {setCity, userLogout, getMe, setModal, userLogin, userReg} from '../../actions'
 import { compose } from 'redux'
 import Modal from '../common/Modal/Modal'
+import Spinner from '../common/Spinner/Spinner'
 
-const ModalCities = (props) => {
-    const {setCity, cities, showModalCities, closeModal} = props
-    if (!showModalCities) return null
-    return (
-        <div className={s.ModalCities}>
-            <div className={s.ModalContainer}>
-                <div onClick={closeModal} className={s.ModalClose}>
-                    <i className="fa fa-times" aria-hidden="true"></i>
-                </div>
-                <span>
-                    <h3>Выберите город</h3>
-                </span>
-                <ul>
-                    {cities.map((city) => (
-                        <li key={city.city} onClick={() => setCity(city.city)} >{city.name}</li>
-                    ))}
-                </ul>
-            </div>
-        </div>
-    )
-}
 
 class Layout extends React.Component {
     
@@ -36,6 +16,8 @@ class Layout extends React.Component {
 
     render() {
         const { 
+                isLoading,
+                userReg,
                 userLogin,
                 cities,
                 setCity,
@@ -45,7 +27,7 @@ class Layout extends React.Component {
                 isModal,
                 setModal,
             } = this.props
-
+            
         const cityMap = {
             'moskva': 'Москва',
             'sankt-peterburg': 'Санкт-петербург',
@@ -70,6 +52,8 @@ class Layout extends React.Component {
             'yaroslavl': 'Ярославль',
         }
 
+        if (isLoading) return <Spinner />
+
         return (
             <div className={s.Layout}>
                 <Header
@@ -80,13 +64,17 @@ class Layout extends React.Component {
                 />
 
                 <Modal
+                    isLoading={isLoading}
+                    city={city}
                     isModal={isModal}
                     setModal={setModal}
                     cities={cities}
                     setCity={setCity}
                     userLogin={userLogin}
+                    userReg={userReg}
                 />
                 
+                {isLoading ? <Spinner />: null}
                 {this.props.children}
             </div>
         )
@@ -95,6 +83,7 @@ class Layout extends React.Component {
 
 const mapStateToProps = ({user}) => {
     return {
+        isLoading: user.isLoading,
         isModal: user.isModal,
         isAuth: user.isAuth,
         city: user.city,
@@ -103,5 +92,5 @@ const mapStateToProps = ({user}) => {
 }
 
 export default compose(connect(mapStateToProps, 
-    {userLogout, setCity, getMe, setModal, userLogin})
+    {userLogout, setCity, getMe, setModal, userLogin, userReg})
 )(Layout)

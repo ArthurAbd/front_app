@@ -23,7 +23,7 @@ const inicialState = {
         {city: 'tyumen', name: 'Тюмень'},
         {city: 'yaroslavl', name: 'Ярославль'}
     ],
-    isAuth: false,
+    isAuth: true,
     isLoading: false,
     isError: false,
     isModal: false,
@@ -33,6 +33,10 @@ const inicialState = {
 if (localStorage.getItem('city')) {
     inicialState.city = localStorage.getItem('city')
     inicialState.isModal = false
+}
+
+if (localStorage.getItem('accessToken')) {
+    inicialState.isAuth = true
 }
 
 const user = (state = inicialState, action) => {

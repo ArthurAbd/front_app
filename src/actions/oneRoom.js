@@ -1,4 +1,6 @@
-import api from '../services/Api'
+import * as api from '../services/Api'
+import {setModal} from '../actions'
+
 
 const roomOneRequested = () => {
     return {
@@ -21,6 +23,14 @@ const roomOneError = (error) => {
 }
 
 
+const setNumber = (number) => {
+    return {
+        type: 'SET_PHONE_NUMBER',
+        payload: number
+    }
+}
+
+
 const fetchOneRoom = (id) => {
     return (dispatch) => {
         dispatch(roomOneRequested())
@@ -30,6 +40,19 @@ const fetchOneRoom = (id) => {
     }
 }
 
+const getPhoneNumber = (id) => {
+    return (dispatch) => {
+        api.getPhoneNumber(id)
+            .then((data) => {
+                dispatch(setNumber(data.phoneNumber))
+            })
+            .catch((err) => {
+                dispatch(setModal('login'))
+            })
+    }
+}
+
 export {
-    fetchOneRoom
+    fetchOneRoom,
+    getPhoneNumber
 }

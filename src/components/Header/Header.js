@@ -1,6 +1,7 @@
 import React from 'react'
 import s from './Header.module.sass'
 import { Link } from 'react-router-dom'
+import {withRouter} from "react-router-dom";
 
 
 const Header = (props) => {
@@ -9,18 +10,22 @@ const Header = (props) => {
 
     let userMenu = (
         <React.Fragment>
-            <Link to='/login'>Логин</Link>
-            <Link to='/reg'>Регистрация</Link>
             <span onClick={() => setModal('login')} >Логин</span>
             <span onClick={() => setModal('reg')} >Регистрация</span>
         </React.Fragment>
     )
+
+    const logOut = () => {
+        props.history.push('/')
+        userLogout()
+    }
+
     if (isAuth) {
         userMenu = (
             <React.Fragment>
                 <Link to='/profile/new'>Разместить</Link>
                 <Link to='/profile'>Кабинет</Link>
-                <span onClick={userLogout} >Выйти</span>
+                <span onClick={logOut} >Выйти</span>
             </React.Fragment>
         ) 
     }
@@ -28,7 +33,6 @@ const Header = (props) => {
     return (
         <div className={s.Header}>
             <div className={s.Select}>
-                Город:
                 <span onClick={() => setModal('cities')} className={s.SelectCity}>{cityName}</span>
             </div>
             <Link to=''>Главная</Link>
@@ -38,4 +42,4 @@ const Header = (props) => {
     )
 }
 
-export default Header
+export default withRouter(Header)

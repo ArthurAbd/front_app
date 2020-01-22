@@ -13,14 +13,22 @@ const ProfileEdit = (props) => {
                     <input type='text' id="name" />
                 </div>
                 <div>
-                    <label htmlFor='email'> E-mail</label>
-                    <input type='text' id="email" />
+                    <label htmlFor='number'> Телефон</label>
+                    <input type='tel' id="number" value='+79534037733' disabled />
                 </div>
                 <div>
-                    <label htmlFor='password'> Пароль</label>
+                    <label htmlFor='password'> Текущий пароль</label>
                     <input type='text' id="password" />
                 </div>
-                <div className={s.BtnGroup}>
+                <div>
+                    <label htmlFor='newPassword'> Новый пароль</label>
+                    <input type='text' id="newPassword" />
+                </div>
+                <div>
+                    <label htmlFor='repeatPassword'> Повторите пароль</label>
+                    <input type='text' id="repeatPassword" />
+                </div>
+                <div className={s.BtnGroup} onClick={(e) => console.log(e)}>
                     <button type='submit' className={s.Btn}>
                         Изменить
                     </button>

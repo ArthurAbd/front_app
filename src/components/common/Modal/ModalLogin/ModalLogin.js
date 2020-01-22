@@ -4,13 +4,16 @@ import s from './ModalLogin.module.sass'
 const ModalLogin = ({userLogin}) => {
     
     return (
-        <div className={s.ModalLogin}>
+        <>
+            <div>
+                <h3>Войти</h3>
+            </div>
             <form onSubmit={userLogin} >
                 <div>
-                    <label htmlFor='email'> E-mail</label>
+                    <label htmlFor='number'> Телефон</label>
                     <input
                         type='text'
-                        id='email'
+                        id='number'
                     />
                 </div>
                 <div>
@@ -26,7 +29,7 @@ const ModalLogin = ({userLogin}) => {
                     </button>
                 </div>
             </form>
-        </div>
+        </>
     )
 }
 

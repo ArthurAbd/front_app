@@ -3,8 +3,8 @@ import s from './Info.module.sass'
 
 const Info = (props) => {
 
-    const {type, area, floor, floors, description, name, phone_number} = props
-    
+    const {type, area, floor, floors, description, name, id, getPhoneNumber} = props
+
     return (
         <div className={s.Info}>
             <div className={`${s.InfoText} TextBlock`}>
@@ -21,7 +21,9 @@ const Info = (props) => {
             </div>
             <div className={`${s.InfoAutor} TextBlock`}>
                 <div>{name}</div>
-                <div>{phone_number}</div>
+                <div className={s.Btn} onClick={() => getPhoneNumber(id)}>
+                    Показать номер
+                </div>
             </div>
         </div>
     )

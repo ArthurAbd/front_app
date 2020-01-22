@@ -7,8 +7,23 @@
     left: 0
     bottom: 0
     right: 0
-    background-color: #242424d2
     z-index: 999
+    background-color: #242424d2
+    form
+        margin: 20px
+        display: flex
+        flex-direction: column
+        > div
+            display: flex
+            align-items: center
+            justify-content: space-between
+        input
+            padding: 5px
+            margin: 10px 0
+            margin-left: 20px
+            font-size: 1.4rem
+        label
+            font-size: 1.4rem
 .Modal
     position: relative
     border: 1px solid #cccccc
@@ -18,6 +33,18 @@
     position: absolute
     top: 0
     right: 0
-    width: 25px
+    width: 30px
     height: 25px
     cursor: pointer
+    i
+        font-size: 2rem
+        &:hover
+            color: #3d4aff
+.ModalLayout
+    margin: 30px
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    h3
+        text-align: left

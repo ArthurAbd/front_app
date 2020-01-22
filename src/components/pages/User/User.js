@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import Spinner from '../../common/Spinner/Spinner'
 import { 
     // userEdit,
-    // userReg,
     userLogin
 } from '../../../actions/user'
 import { compose } from 'redux'

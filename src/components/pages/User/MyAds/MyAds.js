@@ -6,24 +6,31 @@ import Card from '../../../common/Card/Card'
 const MyAds = (props) => {
     
     const {
-        setMapCenter,
-        searchResult,
-        isAuth
+        myAds
     } = props
-
-    const cards = searchResult ? searchResult.map((item) => {
-        return (
-            <Card key={item.id} cardData={item} setMapCenter={setMapCenter} />
-        )
-    }) : (<div>Нет результатов</div>)
-
-    if (isAuth) props.history.push('/profile')
 
     return (
         <div className={s.MyAds}>
-            <div className={s.CardGroup}>
-                {cards}
-            </div>
+            {!myAds && <div>Нет результатов</div>}
+            {myAds && myAds.map((item) => (
+                <div className={s.CallCards}>
+                    <div className={s.Card}>
+                        <div className={s.ImgContainer}>
+                            <img src='https://92.img.avito.st/1280x960/5899029392.jpg'/>
+                        </div>
+                        <div className={s.CardContent}>
+                            <div>
+                                <h3>1-комнатная квартира, 33 м²</h3>
+                            </div>
+                            <div>Санкт-Петербург, Казанская ул., 2</div>
+                            <div className={s.GroupBtn}>
+                                <div className={s.Btn}>Изменить</div>
+                                <div className={s.Btn + ' bgRed'}>Удалить</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ))}
         </div>
     )
 }

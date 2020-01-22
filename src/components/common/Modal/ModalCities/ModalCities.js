@@ -1,18 +1,18 @@
 import React from 'react'
 import s from './ModalCities.module.sass'
 
-const ModalCities = ({setCity, cities}) => {
+const ModalCities = ({setCity, cities, city}) => {
     
     return (
         <div className={s.ModalCities}>
             <span>
                 <h3>Выберите город</h3>
             </span>
-            <ul>
+            <select value={city} className='Input' onChange={setCity} >
                 {cities.map((city) => (
-                    <li key={city.city} onClick={() => setCity(city.city)} >{city.name}</li>
+                    <option key={city.city} value={city.city}>{city.name}</option>
                 ))}
-            </ul>
+            </select>
         </div>
     )
 }

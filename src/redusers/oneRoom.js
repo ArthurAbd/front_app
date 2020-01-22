@@ -1,7 +1,8 @@
 const inicialState = {
     oneRoom: null,
     loadingResult: false,
-    errorResult: false
+    errorResult: false,
+    phoneNumber: null
 }
 
 const oneRoom = (state = inicialState, action) => {
@@ -25,6 +26,12 @@ const oneRoom = (state = inicialState, action) => {
                 oneRoom: [],
                 loadingResult: false,
                 errorResult: action.payload
+            }
+        
+        case 'SET_PHONE_NUMBER':
+            return {
+                ...state,
+                phoneNumber: action.payload
             }
 
         default: return state

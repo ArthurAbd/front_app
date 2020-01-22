@@ -1,15 +1,23 @@
 import React from 'react'
 import s from './NewAd.module.sass'
-import {withRouter} from "react-router-dom";
+import * as GMap from 'pigeon-maps'
 
 
 const NewAd = (props) => {
-    
-    const {
-        isAuth
-    } = props
 
-    if (isAuth) props.history.push('/profile')
+    const map = (
+        <GMap 
+            center={[50, 35]}
+            zoom={12}
+            height={400}
+            touchEvents={false}
+            mouseEvents={false}
+        >
+            <div className={s.Marker}>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+            </div>
+        </GMap>
+      )
 
     return (
         <div className={s.NewAd}>
@@ -20,22 +28,25 @@ const NewAd = (props) => {
                 </div>
                 <div>
                     <label htmlFor='tel'>Телефон</label>
-                    <input type='tel' id="tel" />
+                    <input type='tel' id="tel" value='+79534037733' disabled />
                 </div>
                 <div>
-                    <label htmlFor='text'>Город</label>
-                    <input type='text' id="text" />
-                </div>
-                <div>
-                    <label htmlFor='address'>Адрес</label>
+                    <label htmlFor='adress'>Адрес</label>
                     <input type='text' id="address" />
+                </div>
+                <div className={s.Map}>
+                    {map}
                 </div>
                 <div>
                     <label htmlFor='textarea'>Описание</label>
                     <textarea form='NewAd' id="textarea" rows='10' />
                 </div>
+                <div>
+                    <label htmlFor='photos'>Описание</label>
+                    <input type='file' multiple id="photos" />
+                </div>
                 <div className={s.BtnGroup}>
-                    <button form='submit' className={s.Btn}>
+                    <button type='submit' className={s.Btn}>
                         Опубликовать
                     </button>
                 </div>
@@ -45,4 +56,4 @@ const NewAd = (props) => {
 }
 
 
-export default withRouter(NewAd)
+export default NewAd

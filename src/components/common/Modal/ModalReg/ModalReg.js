@@ -1,18 +1,13 @@
 import React from 'react'
-import s from './Reg.module.sass'
-import {withRouter} from "react-router-dom";
+import s from './ModalReg.module.sass'
 
-const Reg = (props) => {
-
-    const {
-        isAuth,
-        userReg,
-    } = props
-
-    if (isAuth) props.history.push('/profile')
-
+const ModalReg = ({userReg}) => {
+    
     return (
-        <div className={s.Reg}>
+        <>
+            <div>
+                <h3>Регистрация</h3>
+            </div>
             <form onSubmit={userReg} >
                 <div>
                     <label htmlFor='name'> Имя</label>
@@ -22,10 +17,10 @@ const Reg = (props) => {
                     />
                 </div>
                 <div>
-                    <label htmlFor='email'> E-mail</label>
+                    <label htmlFor='number'> Телефон</label>
                     <input
                         type='text'
-                        id='email'
+                        id='number'
                     />
                 </div>
                 <div>
@@ -35,18 +30,14 @@ const Reg = (props) => {
                         id='password'
                     />
                 </div>
-                <div>
-                    <button type="reset" className={s.Btn} >
-                        Очистить
-                    </button>
+                <div className={s.BtnGroup}>
                     <button type='submit' className={s.Btn}>
                         Отправить
                     </button>
                 </div>
             </form>
-            
-        </div>
+        </>
     )
 }
 
-export default withRouter(Reg)
+export default ModalReg

@@ -1,9 +1,9 @@
-import api from '../services/Api'
+import * as api from '../services/Api'
 
-const setCity = (city) => {
+const setCity = (e) => {
     return {
         type: 'SET_CITY',
-        payload: city
+        payload: e.target.value
     }
 }
 
@@ -58,11 +58,12 @@ const delUserToken = () => {
 const userLogin = (e) => {
     return (dispatch) => {
         e.preventDefault()
-        const data = {  email: e.target.email.value,
+        const data = {  number: e.target.number.value,
                         password: e.target.password.value}
         dispatch(setIsLoading(true))
         api.login(data)
             .then((res) => {
+                dispatch(setModal(false))
                 dispatch(setUserToken(res))
                 dispatch(setIsAuth(true))
                 dispatch(setIsLoading(false))
@@ -78,7 +79,7 @@ const userReg = (e) => {
     return (dispatch) => {
         e.preventDefault()
         const data = {  name: e.target.name.value,
-                        email: e.target.email.value,
+                        number: e.target.number.value,
                         password: e.target.password.value}
         dispatch(setIsLoading(true))
         api.addUser(data)
@@ -121,14 +122,14 @@ const userLogout = () => {
 
 const getMe = () => {
     return (dispatch) => {
+        dispatch(setIsLoading(true))
         isLoginUser(dispatch)
         .then(() => {
-            dispatch(setIsLoading(true))
             api.getMe()
                 .then((res) => {
                     dispatch(setIsAuth(true))
                     dispatch(setIsLoading(false))
-                    dispatch(setUser(res.body.email))
+                    dispatch(setUser(res.data.number))
                 })
                 .catch((err) =>{
                     dispatch(setIsLoading(false))
@@ -136,6 +137,7 @@ const getMe = () => {
                 })
         })
         .catch((err) => {
+            dispatch(setIsLoading(false))
             dispatch(setUserMessage(err))
         })
     }
@@ -151,20 +153,19 @@ const isLoginUser = (dispatch) => {
                 }
 
             if (localStorage.getItem('refreshToken')) {
-                dispatch(setIsLoading(true))
                 api.getNewToken()
                     .then((res) => {
                         dispatch(setUserToken(res))
-                        dispatch(setIsLoading(false))
                         dispatch(setIsAuth(true))
                         return resolve()
                     })
                     .catch((err) => {
                         dispatch(setIsAuth(false))
-                        dispatch(setIsLoading(false))
                         return reject(err)
                     })
             }
+            dispatch(setIsAuth(false))
+            return reject()
         } catch (err) {
             reject(err)
         }

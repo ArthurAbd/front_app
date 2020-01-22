@@ -4,7 +4,7 @@ import {setLimit,
     setMinPriceSearch,
     setMaxPriceSearch} from './configSearch'
 import {fetchRooms} from './searchResult'
-import {fetchOneRoom} from './oneRoom'
+import {fetchOneRoom, getPhoneNumber} from './oneRoom'
 import {setCoords,
     fetchSelectItem,
     delSelectItem,
@@ -19,6 +19,7 @@ import {
     userLogin} from './user'
 
 export {
+    getPhoneNumber,
     setModal,
     getMe,
     userLogout,

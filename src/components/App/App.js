@@ -7,10 +7,7 @@ import MainPage from '../pages/MainPage/MainPage'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import {Provider} from 'react-redux'
 import store from '../../store'
-import Login from '../pages/User/Login/Login'
-import Reg from '../pages/User/Reg/Reg'
 import Profile from '../pages/User/Profile/Profile'
-import User from '../pages/User/User'
 
 
 const App = () => {
@@ -22,21 +19,7 @@ const App = () => {
                         <Switch>
                             <Route path='/room/:id' component={RoomPage} />
                             <Route path='/search' component={SearchPage} />
-                            <Route path='/login' render={() => (
-                                <User>
-                                    {Login}
-                                </User>
-                            )} />
-                            <Route path='/reg' render={() => (
-                                <User>
-                                    {Reg}
-                                </User>
-                            )} />
-                            <Route path='/profile' render={() => (
-                                <User>
-                                    {Profile}
-                                </User>
-                            )} />
+                            <Route path='/profile' component={Profile} />
                             <Route component={MainPage} />
                         </Switch>
                     </Layout>

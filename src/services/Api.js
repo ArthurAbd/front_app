@@ -138,10 +138,10 @@ const getPhoneNumber = (id) => {
 }
 
 const getSearchRooms = (configSearch = null) => {
-    let params = null
+    let data = null
     if (configSearch !== null) {
         const {max, min, offset, limit, order, orderBy, selectType, city} = configSearch
-        params = {
+        data = {
             offset,
             limit,
             order,
@@ -149,19 +149,19 @@ const getSearchRooms = (configSearch = null) => {
             city
         }
         if (selectType !== null) {
-            params['type'] = [selectType]
+            data['type'] = [selectType]
         }
         if (min !== '') {
-            params['min'] = min
+            data['min'] = min
         }
         if (max !== '') {
-            params['max'] = max
+            data['max'] = max
         }
     }
 
     
     return new Promise((resolve, reject) => {
-        axios.get(url + '/find', {params: params})
+        axios.post(url + '/find', data)
             .then(function (res) {
                 console.log(res)
                 const result = res.data.result.map((room) => {
@@ -189,7 +189,7 @@ const getSearchRooms = (configSearch = null) => {
 
 const getOneRoom = (id) => {
     return new Promise((resolve, reject) => {
-        axios.get(url + '/room', {params: {id: id}})
+        axios.post(url + '/room', {id: id})
             .then(function (res) {
                 resolve(res.data)
             })
@@ -203,7 +203,7 @@ const getOneRoom = (id) => {
 
 const getMapItem = (id) => {
     return new Promise((resolve, reject) => {
-        axios.get(url + '/map', {params: {id: id}})
+        axios.post(url + '/map', {id: id})
             .then(function (res) {
                 const {id, photos, price, coord_map_x, coord_map_y} = res.data
                 const result =  {

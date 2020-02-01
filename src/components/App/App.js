@@ -8,7 +8,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import {Provider} from 'react-redux'
 import store from '../../store'
 import Profile from '../pages/User/Profile/Profile'
-
+import ErrorBoundary from '../common/ErrorBoundary/ErrorBoundary'
+import UI from '../UI/UI'
 
 const App = () => {
     return (
@@ -16,12 +17,15 @@ const App = () => {
             <BrowserRouter>
                 <div className={s.App}>
                     <Layout>
-                        <Switch>
-                            <Route path='/room/:id' component={RoomPage} />
-                            <Route path='/search' component={SearchPage} />
-                            <Route path='/profile' component={Profile} />
-                            <Route component={MainPage} />
-                        </Switch>
+                        <ErrorBoundary>
+                            <Switch>
+                                <Route path='/test' component={UI} />
+                                <Route path='/room/:id' component={RoomPage} />
+                                <Route path='/search' component={SearchPage} />
+                                <Route path='/profile' component={Profile} />
+                                <Route component={MainPage} />
+                            </Switch>
+                        </ErrorBoundary>
                     </Layout>
                 </div>
             </BrowserRouter>

@@ -11,11 +11,16 @@
         border: none
         border-radius: 0px
         border-bottom: #ccc solid 2px
+        animation: unborder 0.3s linear
         &:focus
             animation: border 0.3s linear
             box-shadow: none
-            border-color: rgb(111, 255, 176)
+            border-bottom-color: rgb(111, 255, 176)
 
 @keyframes border
     0%
-        border-color: #ccc
+        border-bottom-color: #ccc
+
+@keyframes unborder
+    0%
+        border-bottom-color: rgb(111, 255, 176)

@@ -26,11 +26,12 @@ input:active, input:focus, select
     font-size: 1rem
     padding: 0.5rem
     border: #ccc solid 2px
-    color: #5a5a5a
+    color: rgb(68, 68, 68);
     border-radius: 6px
     box-sizing: border-box
     background: transparent
     outline: none
+    animation: unborder 0.3s linear
     &:focus
         animation: border 0.3s linear
         box-shadow: rgb(111, 255, 176) 0 0 2px 2px
@@ -40,3 +41,8 @@ input:active, input:focus, select
     0%
         box-shadow: rgba(111, 255, 176, 0) 0 0 2px 2px
         border-color: #ccc
+
+@keyframes unborder
+    0%
+        box-shadow: rgb(111, 255, 176) 0 0 2px 2px
+        border-color: rgb(111, 255, 176)

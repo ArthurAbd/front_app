@@ -8,22 +8,26 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import {Provider} from 'react-redux'
 import store from '../../store'
 import Profile from '../pages/User/Profile/Profile'
+import A from '../../a'
 
 
 const App = () => {
     return (
         <Provider store={store}>
             <BrowserRouter>
-                <div className={s.App}>
-                    <Layout>
-                        <Switch>
+                <Switch>
+                    
+                <Route path='/a' exact component={A} />
+
+                    <div className={s.App}>
+                        <Layout>
                             <Route path='/room/:id' component={RoomPage} />
                             <Route path='/search' component={SearchPage} />
                             <Route path='/profile' component={Profile} />
                             <Route component={MainPage} />
-                        </Switch>
-                    </Layout>
-                </div>
+                        </Layout>
+                    </div>
+                </Switch>
             </BrowserRouter>
         </Provider>
     )

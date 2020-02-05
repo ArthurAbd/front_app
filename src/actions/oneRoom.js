@@ -45,9 +45,9 @@ const getPhoneNumber = (id) => {
         api.getPhoneNumber(id)
             .then((data) => {
                 dispatch(setNumber(data.phoneNumber))
+                dispatch(setModal('phone'))
             })
             .catch((err) => {
-                dispatch(setModal('login'))
             })
     }
 }

@@ -8,7 +8,7 @@ import Similar from '../RoomPage/Similar/Similar'
 import Spinner from '../../common/Spinner/Spinner'
 import Container from '../../common/Container/Container'
 import Slider from "react-slick";
-import {fetchOneRoom, getPhoneNumber} from '../../../actions'
+import {fetchOneRoom, getPhoneNumber, setModal} from '../../../actions'
 import {connect} from 'react-redux'
 import { compose } from 'redux'
 
@@ -69,7 +69,9 @@ class RoomPage extends React.Component {
                 },
                 loadingResult,
                 searchResult,
-                getPhoneNumber
+                getPhoneNumber,
+                isAuth,
+                setModal
         } = this.props
 
         const typeMap = {
@@ -129,6 +131,8 @@ class RoomPage extends React.Component {
                         description={description}
                         name={name}
                         phone_number={phone_number}
+                        isAuth={isAuth}
+                        setModal={setModal}
                     />
                     <div ref={myRef} >
                         <Map coord_map_x={coord_map_x} coord_map_y={coord_map_y} />
@@ -140,8 +144,9 @@ class RoomPage extends React.Component {
     }
 }
 
-const mapStateToProps = ({oneRoom, searchResult}) => {
+const mapStateToProps = ({oneRoom, searchResult, user}) => {
     return {
+        isAuth: user.isAuth,
         oneRoom: oneRoom.oneRoom,
         loadingResult: oneRoom.loadingResult,
         searchResult: searchResult.searchResult
@@ -150,5 +155,5 @@ const mapStateToProps = ({oneRoom, searchResult}) => {
 
 export default compose(
     connect(mapStateToProps, 
-        {fetchOneRoom, getPhoneNumber})
+        {fetchOneRoom, getPhoneNumber, setModal})
 )(RoomPage)

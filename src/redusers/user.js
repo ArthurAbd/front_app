@@ -23,10 +23,10 @@ const inicialState = {
         {city: 'tyumen', name: 'Тюмень'},
         {city: 'yaroslavl', name: 'Ярославль'}
     ],
-    isAuth: true,
+    isAuth: false,
     isLoading: false,
     isError: false,
-    isModal: false,
+    isModal: 'cities',
     user: null
 }
 

@@ -3,10 +3,21 @@ import s from './Modal.module.sass'
 import ModalCities from './ModalCities/ModalCities';
 import ModalLogin from './ModalLogin/ModalLogin';
 import ModalReg from './ModalReg/ModalReg';
+import ModalPhone from './ModalPhone/ModalPhone';
 import Spinner from '../../common/Spinner/Spinner';
 
-const Modal = ({isModal, setModal, setCity, cities, userLogin, userReg, city, isLoading}) => {
-
+const Modal = ({
+        isModal,
+        setModal,
+        setCity,
+        cities,
+        userLogin,
+        userReg,
+        city,
+        isLoading,
+        phoneNumber
+    }) => {
+        
     let content = null
 
     switch (isModal) {
@@ -24,7 +35,7 @@ const Modal = ({isModal, setModal, setCity, cities, userLogin, userReg, city, is
             break;
     
         case 'phone':
-            content = <ModalReg userReg={userReg} />
+            content = <ModalPhone phoneNumber={phoneNumber} />
             break;
     
         default: 

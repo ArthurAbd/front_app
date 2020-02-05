@@ -1,9 +1,28 @@
 import React from 'react'
 import s from './Info.module.sass'
+import { setModal } from '../../../../actions'
 
 const Info = (props) => {
 
-    const {type, area, floor, floors, description, name, id, getPhoneNumber} = props
+    const {
+        type,
+        area,
+        floor,
+        floors,
+        description,
+        name,
+        id,
+        getPhoneNumber,
+        isAuth,
+        setModal
+    } = props
+    
+    const getPhone = (id) => {
+        if (isAuth) {
+            return getPhoneNumber(id)
+        }
+        setModal('login')
+    }
 
     return (
         <div className={s.Info}>
@@ -21,7 +40,7 @@ const Info = (props) => {
             </div>
             <div className={`${s.InfoAutor} TextBlock`}>
                 <div>{name}</div>
-                <div className={s.Btn} onClick={() => getPhoneNumber(id)}>
+                <div className={s.Btn} onClick={() => getPhone(id)}>
                     Показать номер
                 </div>
             </div>

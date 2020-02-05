@@ -26,6 +26,7 @@ class Layout extends React.Component {
                 city,
                 isModal,
                 setModal,
+                phoneNumber,
             } = this.props
             
         const cityMap = {
@@ -64,6 +65,7 @@ class Layout extends React.Component {
                 />
 
                 <Modal
+                    phoneNumber={phoneNumber}
                     isLoading={isLoading}
                     city={city}
                     isModal={isModal}
@@ -81,8 +83,9 @@ class Layout extends React.Component {
     }
 }
 
-const mapStateToProps = ({user}) => {
+const mapStateToProps = ({user, oneRoom}) => {
     return {
+        phoneNumber: oneRoom.phoneNumber,
         isLoading: user.isLoading,
         isModal: user.isModal,
         isAuth: user.isAuth,

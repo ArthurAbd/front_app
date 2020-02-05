@@ -2,7 +2,7 @@ const inicialState = {
     oneRoom: null,
     loadingResult: false,
     errorResult: false,
-    phoneNumber: null
+    phoneNumber: 86221312
 }
 
 const oneRoom = (state = inicialState, action) => {
@@ -16,14 +16,17 @@ const oneRoom = (state = inicialState, action) => {
         
         case 'FETCH_ONE_ROOM_SECCESS':
             return {
+                ...state,
                 oneRoom: action.payload,
+                // phoneNumber: null,
                 loadingResult: false,
                 errorResult: false
             }
         
         case 'FETCH_ONE_ROOM_FAILURE':
             return {
-                oneRoom: [],
+                ...state,
+                oneRoom: null,
                 loadingResult: false,
                 errorResult: action.payload
             }

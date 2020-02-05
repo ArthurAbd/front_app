@@ -1,0 +1,218 @@
+button
+    font-weight: bold
+    outline: none
+    border: none
+*
+    position: relative  
+.Header
+    font-weight: bold
+    top: 0px
+    position: sticky
+    height: 72px
+    background: #fff
+    border-bottom: 1px #E8E8E8 solid
+    z-index: 10
+    .Container
+        max-width: 1170px
+        padding: 0 15px
+        margin: auto
+        height: 100%
+    .HeaderNav
+        display: flex
+        justify-content: space-between
+        align-items: center
+        height: 100%
+    .HeaderLogoMenu
+        height: 100%
+        display: flex
+    .Logotype
+        display: flex
+        align-items: center
+        font-weight: bold
+        margin-right: 56px
+        font-size: 18px
+        color: #5867EF
+    .CityMenu
+        display: flex
+        align-items: center
+        vertical-align: middle
+        font-size: 13px
+        img
+            margin-right: 10px
+    .HeaderLinks
+        display: flex
+        flex-direction: row
+        height: 100%
+        color: #494A4E
+        div
+            margin-left: 32px
+            display: flex
+            align-items: center
+            font-size: 15px
+            &:first-child
+                margin-left: 0
+    .HeaderUserMenu
+        display: flex
+        flex-direction: row
+        font-size: 14px
+        height: 100%
+        div
+            margin-left: 32px
+            display: flex
+            align-items: center
+            height: 100%
+            &:first-child
+                color: #5867EF
+                margin-left: 0
+        button
+            background: #5867EF
+            border-radius: 3px
+            padding: 13px 24px
+            color: #fff
+    .active
+        color: #000
+        position: relative
+        &::after
+            content: ''
+            width: 100%
+            height: 3px
+            bottom: 0
+            background: #5867EF
+            position: absolute
+            border-top-right-radius: 3px
+            border-top-left-radius: 3px
+
+
+.Filter
+    position: sticky
+    top: 72px
+    background: #fff
+    z-index: 10
+    width: 100%
+    padding: 0 15px
+    padding: 25px 0
+    display: flex
+    justify-content: center
+    border-bottom: 1px #E8E8E8 solid
+    .BtnGroup
+        margin-right: 12px
+    span
+        line-height: 30px
+        color: #9396AE
+        font-size: 14px
+        font-weight: 400
+    button
+        background: #F0F1F6
+        padding: 13px 24px
+        color: #000
+        margin-right: 1px
+        &:first-child
+            border-top-left-radius: 4px
+            border-bottom-left-radius: 4px
+        &:last-child
+            border-top-right-radius: 4px
+            border-bottom-right-radius: 4px
+    .active
+        color: #fff
+        background: #5867EF
+    input
+        padding: 13px 10px
+        border: none
+        background: #F0F1F6
+        border-radius: 4px
+        &::placeholder
+            color: #9396AE
+            font-size: 14px
+    .PriceInput
+        margin-left: 20px
+
+
+.Content
+    position: relative
+    display: flex
+    flex-direction: column
+    .ContentFilter
+        width: 700px
+        display: flex
+        align-items: center
+        justify-content: space-between
+        padding: 0 40px
+        padding-top: 48px
+        .AddressInput
+            &::before
+                content: 'Найти по адресу'
+                position: absolute
+                top: -32px
+                left: 0
+                line-height: 30px
+                color: #9396AE
+                font-size: 14px
+                font-weight: 400
+        input
+            width: 400px
+            padding: 13px 10px
+            border: none
+            background: #F0F1F6
+            border-radius: 4px
+            &::placeholder
+                color: #9396AE
+                font-size: 14px
+        button
+            width: 48px
+            height: 48px
+        .Sorting
+            span
+                margin-right: 17px
+                font-size: 14px
+                color: #7B7E98
+                font-weight: 400
+ 
+    .CardsBlock
+        width: 700px
+        padding: 35px 40px
+    .Card
+        display: flex
+        padding-bottom: 32px
+        padding-top: 32px
+        border-top: 1px solid #e8e8e8
+        &:last-child
+            padding-bottom: 0
+    .CardImg
+        margin-right: 24px
+        img
+            border-radius: 4px
+            width: 300px
+            object-fit: cover
+            height: 200px
+    .CardContent
+        display: flex
+        flex-direction: column
+        width: 100%
+        .CardTitle
+            margin-bottom: 17px
+            font-size: 18px
+            font-weight: 700
+        .CardAddress
+            margin-bottom: 8px
+            font-size: 14px
+            color: #7B7E98
+        .CardType
+            font-size: 14px
+            color: #7B7E98
+            flex-basis: 100%
+        .CardPrice
+            display: flex
+            justify-content: space-between
+            font-size: 16px
+            font-weight: bold
+            span
+                font-size: 14px
+                color: #7B7E98
+                font-weight: 400
+    .Map
+        right: 0px
+        position: fixed
+        width: calc(100% - 700px)
+        height: auto
+        
+        

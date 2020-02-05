@@ -8,13 +8,19 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import {Provider} from 'react-redux'
 import store from '../../store'
 import Profile from '../pages/User/Profile/Profile'
+<<<<<<< HEAD
 import A from '../../a'
 
+=======
+import ErrorBoundary from '../common/ErrorBoundary/ErrorBoundary'
+import UI from '../UI/UI'
+>>>>>>> b044a8256131c98cd77fbb5a9316e697eef27bbc
 
 const App = () => {
     return (
         <Provider store={store}>
             <BrowserRouter>
+<<<<<<< HEAD
                 <Switch>
                     
                 <Route path='/a' exact component={A} />
@@ -28,6 +34,21 @@ const App = () => {
                         </Layout>
                     </div>
                 </Switch>
+=======
+                <div className={s.App}>
+                    <Layout>
+                        <ErrorBoundary>
+                            <Switch>
+                                <Route path='/test' component={UI} />
+                                <Route path='/room/:id' component={RoomPage} />
+                                <Route path='/search' component={SearchPage} />
+                                <Route path='/profile' component={Profile} />
+                                <Route component={MainPage} />
+                            </Switch>
+                        </ErrorBoundary>
+                    </Layout>
+                </div>
+>>>>>>> b044a8256131c98cd77fbb5a9316e697eef27bbc
             </BrowserRouter>
         </Provider>
     )

@@ -5,235 +5,133 @@ import axios from 'axios'
 const url = 'http://127.0.0.1:3001'
 const clientId = 'desktop'
 const clientSecret = '12345'
-
-const login = (data) => {
+const post = (path, data) => {
     return new Promise((resolve, reject) => {
-        axios.post(url + '/user/login', {
-            grant_type: 'password',
-            client_id: clientId,
-            client_secret: clientSecret,
-            username: data.number,
-            password: data.password
-        })
-        .then(function (res) {
-            console.log('res',res)
-            resolve(res.data)
-        })
-        .catch(function (error) {
-            if (error.response && error.response.data) {return reject(error.response.data)}
-            console.log('error',error);
-            reject(error)
-        })
-    })
-}
-
-const getMe = () => {
-    return new Promise((resolve, reject) => {
-        const authToken = {
-            headers: {'authorization': `Bearer ${localStorage.getItem('accessToken')}`}
+        const token = localStorage.getItem('accessToken')
+        let authToken = undefined
+        if (token) {
+            authToken = {
+                headers: {'authorization': `Bearer ${token}`}
+            }
         }
-
-        axios.post(url + '/user/me', null, authToken)
+        
+        axios.post(url + path, data, authToken)
         .then(function (res) {
-            resolve(res)
-        })
-        .catch(function (error) {
-            if (error.response && error.response.data) {return reject(error.response.data)}
-            console.log('error',error);
-            reject(error)
-        })
-    })
-}
-
-const getNewToken = () => {
-    return new Promise((resolve, reject) => {
-        axios.post(url + '/oauth/token', {
-            grant_type: 'refresh_token',
-            refresh_token: localStorage.getItem('refreshToken'),
-            client_id: clientId,
-            client_secret: clientSecret
-        })
-        .then(function (res) {
+            console.log(res.data)
             resolve(res.data)
         })
         .catch(function (error) {
-            if (error.response && error.response.data) {return reject(error.response.data)}
-            console.log('error',error);
+            if (error.response && error.response.data)
+                {return reject(error.response.data)}
+            console.log('error',error)
             reject(error)
         });
     })
 }
 
-const logout = () => {
-    return new Promise((resolve, reject) => {
-        const authToken = {
-            headers: {'authorization': `Bearer ${localStorage.getItem('accessToken')}`}
-        }
-
-        axios.post(url + '/user/logout', {
-            clientId: clientId
-        }, authToken)
-            .then(function () {
-                resolve()
-            })
-            .catch(function (error) {
-                if (error.response && error.response.data) {return reject(error.response.data)}
-                console.log('error',error);
-                reject(error)
-            })
-    })
-}
 
 const addUser = (data) => {
-    return new Promise((resolve, reject) => {
-        const authToken = {
-            headers: {'authorization': `Bearer ${localStorage.getItem('accessToken')}`}
-        }
-
-        axios.post(url + '/user/add', data, authToken)
-            .then(function (res) {
-                resolve(res.data)
-            })
-            .catch(function (error) {
-                if (error.response && error.response.data) {return reject(error.response.data)}
-                console.log('error',error);
-                reject(error)
-            })
-    })
+    return post('/user/addUser', data)
 }
 
 const editUser = (data) => {
-    return new Promise((resolve, reject) => {
-        const authToken = {
-            headers: {'authorization': `Bearer ${localStorage.getItem('accessToken')}`}
-        }
+    return post('/user/editUser', data)
+}
 
-        axios.post(url + '/user/edit', data, authToken)
-            .then(function (res) {
-                resolve(res.data)
-            })
-            .catch(function (error) {
-                if (error.response && error.response.data) {return reject(error.response.data)}
-                console.log('error',error);
-                reject(error)
-            })
+const login = (data) => {
+    return post('/user/login', {
+        grant_type: 'password',
+        client_id: clientId,
+        client_secret: clientSecret,
+        username: data.number,
+        password: data.password
     })
 }
 
-const getPhoneNumber = (id) => {
-    return new Promise((resolve, reject) => {
-        const authToken = {
-            headers: {'authorization': `Bearer ${localStorage.getItem('accessToken')}`}
-        }
-
-        axios.post(url + '/room/number', {id}, authToken)
-            .then(function (res) {
-                resolve(res.data)
-            })
-            .catch(function (error) {
-                if (error.response && error.response.data) {return reject(error.response.data)}
-                console.log('error',error);
-                reject(error)
-            })
+const logout = () => {
+    return post('/user/logout', {
+        clientId: clientId
     })
 }
 
-const getSearchRooms = (configSearch = null) => {
-    let params = null
-    if (configSearch !== null) {
-        const {max, min, offset, limit, order, orderBy, selectType, city} = configSearch
-        params = {
-            offset,
-            limit,
-            order,
-            orderBy,
-            city
-        }
-        if (selectType !== null) {
-            params['type'] = [selectType]
-        }
-        if (min !== '') {
-            params['min'] = min
-        }
-        if (max !== '') {
-            params['max'] = max
-        }
-    }
+const getMe = () => {
+    return post('/user/getMe')
+}
 
-    
-    return new Promise((resolve, reject) => {
-        axios.get(url + '/find', {params: params})
-            .then(function (res) {
-                console.log(res)
-                const result = res.data.result.map((room) => {
-                    return {
-                        id: room.id,
-                        img: room.photos.split(',')[0],
-                        price: room.price,
-                        address: room.address 
-                    }
-                })
-                const total = res.data.coords.length
-                const coords = res.data.coords
-                
-                if (total === 0) resolve(null)
+const getMyData = () => {
+    return post('/user/getMyData')
+}
 
-                resolve({result, total, coords})
-            })
-            .catch(function (error) {
-                if (error.response && error.response.data) {return reject(error.response.data)}
-                console.log('error',error);
-                reject(error)
-            })
+const getNewToken = () => {
+    return post('/user/getMyData', {
+        grant_type: 'refresh_token',
+        refresh_token: localStorage.getItem('refreshToken'),
+        client_id: clientId,
+        client_secret: clientSecret
     })
+}
+
+const newAd = (data) => {
+    return post('/ad/newAd', data)
+}
+
+const editAd = (data) => {
+    return post('/ad/editAd', data)
+}
+
+const removeAd = (id) => {
+    return post('/ad/removeAd', {idAd: id})
+}
+
+const getMyAds = () => {
+    return post('/ad/getMyAds')
 }
 
 const getOneRoom = (id) => {
-    return new Promise((resolve, reject) => {
-        axios.get(url + '/room', {params: {id: id}})
-            .then(function (res) {
-                resolve(res.data)
-            })
-            .catch(function (error) {
-                if (error.response && error.response.data) {return reject(error.response.data)}
-                console.log('error',error);
-                reject(error)
-            })
-    })
+    return post('/room/getOneRoom', {idAd: id})
+}
+
+const getListRooms = (data) => {
+    return post('/room/getListRooms', data)
 }
 
 const getMapItem = (id) => {
-    return new Promise((resolve, reject) => {
-        axios.get(url + '/map', {params: {id: id}})
-            .then(function (res) {
-                const {id, photos, price, coord_map_x, coord_map_y} = res.data
-                const result =  {
-                                id,
-                                img: photos.split(',')[0],
-                                price,
-                                coord_map_x,
-                                coord_map_y
-                            }
-                
-                resolve(result)
-            })
-            .catch(function (error) {
-                if (error.response && error.response.data) {return reject(error.response.data)}
-                console.log('error',error);
-                reject(error)
-            })
-    })
+    return post('/room/getMapItem', {idAd: id})
+}
+
+const getInCalls = () => {
+    return post('/call/getInCalls')
+}
+
+const getPhoneNumber = (id) => {
+    return post('/room/getMapItem', {idAd: id})
+}
+
+const updateInCallRating = (data) => {
+    return post('/call/updateInCallRating', data)
+}
+
+const updateOutCallRating = (data) => {
+    return post('/call/updateOutCallRating', data)
 }
 
 export {
-    getPhoneNumber,
     login,
     getMe,
     getNewToken,
     logout,
     addUser,
     editUser,
-    getSearchRooms,
+    getListRooms,
     getOneRoom,
-    getMapItem
+    getMapItem,
+    getMyData,
+    newAd,
+    editAd,
+    removeAd,
+    getMyAds,
+    getInCalls,
+    getPhoneNumber,
+    updateInCallRating,
+    updateOutCallRating
 }

@@ -1,10 +1,13 @@
 import React from 'react'
 import s from './Spinner.module.sass'
+import Logo from '../../../assets/icon/house.svg'
 
 const Spinner = () => {
     return (
         <div className={s.Spinner}>
-            <i className="fa fa-cog fa-spin" aria-hidden="true"></i>
+            <span>
+                <img src={Logo} />
+            </span>
         </div>
     )
 }

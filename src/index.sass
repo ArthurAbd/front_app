@@ -1,6 +1,9 @@
 * 
     margin: 0
     box-sizing: border-box
+    font-family: 'Ubuntu', sans-serif
+    font-weight: 400
+    font-size: 20px
 a
     text-decoration: none
 input:active, input:focus, select
@@ -14,10 +17,32 @@ input:active, input:focus, select
     box-shadow: 0px 1px 2px 0px #888888
     div
         background-color: #fff
-.Input
-    padding: 10px
-    border: 1px solid #ccc
-    border-radius: 8px
-    font-size: 1rem
 .bgRed
     background: #ff6c6c
+    
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.input
+    font-size: 1rem
+    padding: 0.5rem
+    border: #ccc solid 2px
+    color: rgb(68, 68, 68);
+    border-radius: 6px
+    box-sizing: border-box
+    background: transparent
+    outline: none
+    animation: unborder 0.3s linear
+    &:focus
+        animation: border 0.3s linear
+        box-shadow: rgb(111, 255, 176) 0 0 2px 2px
+        border-color: rgb(111, 255, 176)
+
+@keyframes border
+    0%
+        box-shadow: rgba(111, 255, 176, 0) 0 0 2px 2px
+        border-color: #ccc
+
+@keyframes unborder
+    0%
+        box-shadow: rgb(111, 255, 176) 0 0 2px 2px
+        border-color: rgb(111, 255, 176)

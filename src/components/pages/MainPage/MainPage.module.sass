@@ -1,42 +1,57 @@
 .MainPage
-    display: flex
-    justify-content: center
-    align-items: center
-    flex-direction: column
-.Description
-    margin: 24px 24px
-    p
-        text-align: justify
-        margin-top: 30px
-.Scheme
-    display: flex
-    justify-content: center
-    span
-        display: block
-        font-weight: bold
-        padding-bottom: 10px
-.Title
-    display: block
-    font-size: 2rem
+    position: relative
+    .Title
+        width: 100%
+        background: #c5c5c5
+        height: 450px
+        padding-top: 50px
+        font-weight: normal
+        text-align: center
+        background-size: contain
+        span 
+            padding: 20px 30px
+            border-radius: 10px
+            background: #ffffffcc
+            font-size: 30px
+        .TitleBtn
+            position: absolute
+            bottom: 30px
+            right: 50%
+            margin-right: -137px
+            border-radius: 4px
+            color: #fff
+            padding: 13px 24px
+            background: #5867EF
+    .Points
+        max-width: 1170px
+        margin: 40px auto
+        display: flex
+        justify-content: center
+        .Point
+            justify-content: flex-end
+            width: 100%
+            display: flex
+            align-items: center
+            .PointText
+                margin-right: 40px
+                font-size: 48px
+                font-weight: bold
+            
+            .ImgContainer
+                width: 300px
+                height: 300px
+                border-radius: 100%
+                overflow: hidden
+                img
+                    width: 100%
+                    height: 100%
+                    object-fit: cover
+        &:nth-child(2n + 1)
+            .Point
+                justify-content: flex-start
+            .PointText
+                order: 1
+                margin-right: 0
+                margin-left: 40px
+            
         
-.Card
-    display: flex
-    flex-direction: column
-    justify-content: center
-    width: 300px
-    height: 300px
-    border: 1px solid 
-    border-radius: 50px
-    text-align: center
-    padding: 24px
-    margin: 24px
-.Links
-    margin: 60px
-    width: 100%
-    display: flex
-    justify-content: space-around
-    button
-        padding: 16px
-        width: 250px
-        font-size: 1.8rem
-    

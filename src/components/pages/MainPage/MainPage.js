@@ -1,85 +1,67 @@
 import React from 'react'
 import s from './MainPage.module.sass'
-import Container from '../../common/Container/Container'
+import alvarcarto from '../../../assets/img/alvarcarto.jpg'
 
 const MainPage = () => {
     return (
-        <Container>
-            <div className={s.MainPage}>
-                <div className={s.Description}>
-                    <p>
-                        Практика однозначно показывает,
-                        что жизненный цикл продукции однообразно
-                        продуцирует сублимированный рейтинг.
-                        Более того, отраслевой стандарт спорадически
-                        определяет комплексный маркетинг, осознав
-                        маркетинг как часть производства. Воздействие
-                        на потребителя отражает медиабизнес, повышая конкуренцию.
-                        Потребительский рынок, анализируя результаты рекламной
-                        кампании, переворачивает рекламоноситель.
-                        Взаимодействие корпорации и клиента поразительно.
-                        
-                        Практика однозначно показывает,
-                        что жизненный цикл продукции однообразно
-                        продуцирует сублимированный рейтинг.
-                        Более того, отраслевой стандарт спорадически
-                        определяет комплексный маркетинг, осознав
-                        маркетинг как часть производства. Воздействие
-                        на потребителя отражает медиабизнес, повышая конкуренцию.
-                        Потребительский рынок, анализируя результаты рекламной
-                        кампании, переворачивает рекламоноситель.
-                        Взаимодействие корпорации и клиента поразительно.
-
-                    </p>
-                </div>
-                <div className={s.Title}>Как это работает?</div>
-                <div className={s.Scheme}>
-                    <div className={s.Card}>
-                        <span>Шаг 1</span>
-                        Практика однозначно показывает,
-                        что жизненный цикл продукции однообразно
-                        продуцирует сублимированный рейтинг.
-                    </div>
-                    <div className={s.Card}>
-                        <span>Шаг 2</span>
-                        Практика однозначно показывает,
-                        что жизненный цикл продукции однообразно
-                        продуцирует сублимированный рейтинг.
-                    </div>
-                    <div className={s.Card}>
-                        <span>Шаг 3</span>
-                        Практика однозначно показывает,
-                        что жизненный цикл продукции однообразно
-                        продуцирует сублимированный рейтинг.
-                    </div>
-                </div>
-                <div className={s.Scheme}>
-                    <div className={s.Card}>
-                        <span>Шаг 6</span>
-                        Практика однозначно показывает,
-                        что жизненный цикл продукции однообразно
-                        продуцирует сублимированный рейтинг.
-                    </div>
-                    <div className={s.Card}>
-                        <span>Шаг 5</span>
-                        Практика однозначно показывает,
-                        что жизненный цикл продукции однообразно
-                        продуцирует сублимированный рейтинг.
-                    </div>
-                    <div className={s.Card}>
-                        <span>Шаг 4</span>
-                        Практика однозначно показывает,
-                        что жизненный цикл продукции однообразно
-                        продуцирует сублимированный рейтинг.
-                    </div>
-                </div>
-                <div className={s.Links}>
-                        <button>Снять</button>
-                        <button>Сдать</button>
+        <div className={s.MainPage}>
+            <div className={s.Title} style={{background: `url(${alvarcarto}) center center no-repeat` , backgroundSize: 'cover'}}>
+                <span>
+                    Бесплатный сервис подбора квартир в аренду
+                </span>
+                <div className={s.TitleBtn}>
+                    Узнать как это работает
                 </div>
             </div>
-        </Container>
-        
+            <div className={s.Points}>
+                <div className={s.Point}>
+                    <div className={s.PointText}>
+                        Регистрация
+                    </div>
+                    <div>
+                        <div className={s.ImgContainer}>
+                            <img src='http://localhost:3000/static/media/cardImg.dcb24e10.jpg' />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className={s.Points}>
+                <div className={s.Point}>
+                    <div className={s.PointText}>
+                        Поиск квартиры
+                    </div>
+                    <div>
+                        <div className={s.ImgContainer}>
+                            <img src='http://localhost:3000/static/media/cardImg.dcb24e10.jpg' />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className={s.Points}>
+                <div className={s.Point}>
+                    <div className={s.PointText}>
+                        Получение номера
+                    </div>
+                    <div>
+                        <div className={s.ImgContainer}>
+                            <img src='http://localhost:3000/static/media/cardImg.dcb24e10.jpg' />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className={s.Points}>
+                <div className={s.Point}>
+                    <div className={s.PointText}>
+                        Оценка собеседника
+                    </div>
+                    <div>
+                        <div className={s.ImgContainer}>
+                            <img src='http://localhost:3000/static/media/cardImg.dcb24e10.jpg' />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }
 

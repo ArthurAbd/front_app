@@ -26,7 +26,7 @@ const PhotosBlock = ({photos, toggleSlider}) => {
     
     return (
         <div className={s.PhotosBlock}>
-            <div onClick={toggleSlider} className={s.ShadowLink}>Открыть все фото</div>
+            <div className={s.ShadowLink}>Открыть все фото</div>
             <span className={s.PhotosBlockImgCount}>{countPhotos} фото</span>
 
             <div className={s.PhotosBlockImg}>

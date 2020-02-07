@@ -55,11 +55,8 @@ const delUserToken = () => {
     }
 }
 
-const userLogin = (e) => {
+const userLogin = (data) => {
     return (dispatch) => {
-        e.preventDefault()
-        const data = {  number: e.target.number.value,
-                        password: e.target.password.value}
         dispatch(setIsLoading(true))
         api.login(data)
             .then((res) => {
@@ -75,12 +72,8 @@ const userLogin = (e) => {
     }
 }
 
-const userReg = (e) => {
+const userReg = (data) => {
     return (dispatch) => {
-        e.preventDefault()
-        const data = {  name: e.target.name.value,
-                        number: e.target.number.value,
-                        password: e.target.password.value}
         dispatch(setIsLoading(true))
         api.addUser(data)
             .then((res) =>  {

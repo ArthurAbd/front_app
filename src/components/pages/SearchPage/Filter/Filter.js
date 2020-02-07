@@ -35,41 +35,66 @@ const Filter = (props) => {
         })
 
     return (
-        <div className={s.Filter}>
-            <div className={s.FilterButtons}>
-                {filterBtn}
-            </div>
-            <div className={s.FilterPrice}>
-                <div>
-                    <label htmlFor='min'>От</label>
-                    <input 
-                        defaultValue={minValue}
-                        className={`${s.PriceInput} Input`}
-                        type='text'
-                        name='min'
-                        onBlur={setMinPriceSearch} />
-                </div>
-                <div>
-                    <label htmlFor='max'>До</label>
-                    <input
-                        defaultValue={maxValue}
-                        className={`${s.PriceInput} Input`}
-                        type='text'
-                        name='max'
-                        onBlur={setMaxPriceSearch} />
-                </div>
-                <div>
-                    <label htmlFor='select'>Сортировать</label>
-                    <select
-                        value={selectValue}
-                        className={`${s.Select} Input`}
-                        name='select'
-                        onChange={setSortingSearch}>
+        // <div className={s.Filter}>
+        //     <div className={s.FilterButtons}>
+        //         {filterBtn}
+        //     </div>
+        //     <div className={s.FilterPrice}>
+        //         <div>
+        //             <label htmlFor='min'>От</label>
+        //             <input 
+        //                 defaultValue={minValue}
+        //                 className={`${s.PriceInput} Input`}
+        //                 type='text'
+        //                 name='min'
+        //                 onBlur={setMinPriceSearch} />
+        //         </div>
+        //         <div>
+        //             <label htmlFor='max'>До</label>
+        //             <input
+        //                 defaultValue={maxValue}
+        //                 className={`${s.PriceInput} Input`}
+        //                 type='text'
+        //                 name='max'
+        //                 onBlur={setMaxPriceSearch} />
+        //         </div>
+        //         <div>
+        //             <label htmlFor='select'>Сортировать</label>
+        //             <select
+        //                 value={selectValue}
+        //                 className={`${s.Select} Input`}
+        //                 name='select'
+        //                 onChange={setSortingSearch}>
                             
-                        <option value='dateDesc'>По дате</option>
-                        <option value='priceAsc'>Дешевле</option>
-                        <option value='priceDesc'>Дороже</option>
-                    </select>
+        //                 <option value='dateDesc'>По дате</option>
+        //                 <option value='priceAsc'>Дешевле</option>
+        //                 <option value='priceDesc'>Дороже</option>
+        //             </select>
+        //         </div>
+        //     </div>
+        // </div>
+        <div className={s.Filter}>
+            <div className={s.BtnGroup}>
+                <span>Кол-во комнат</span>
+                <div>
+                    <button>Комната</button>
+                    <button className={s.active}>Студия</button>
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button>4+</button>
+                </div>
+            </div>
+            <div className={s.PriceInput}>
+                <span>Цена от</span>
+                <div>
+                    <input type='text' placeholder='Введите цену' />
+                </div>
+            </div>
+            <div className={s.PriceInput}>
+                <span>Цена до</span>
+                <div>
+                    <input type='text' placeholder='Введите цену' />
                 </div>
             </div>
         </div>

@@ -5,12 +5,16 @@ const ModalPhone = ({phoneNumber}) => {
     
     return (
         <>
-            <div>
-                <h3>{phoneNumber}</h3>
+            <div className={s.ModalPhone}>
+                <h3>
+                    <a href={`tel:+7${phoneNumber}`} ><i class="fa fa-phone"></i>+7{phoneNumber}</a>
+                </h3>
             </div>
-            <button>Посредник</button>
-            <button>Собственник</button>
-            <button>Закрыть</button>
+            <div className={s.BtnGroup}>
+                <button>Посредник</button>
+                <button>Собственник</button>
+                <button>Не отвечает</button>
+            </div>
         </>
     )
 }

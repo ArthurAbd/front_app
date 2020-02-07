@@ -1,6 +1,7 @@
 .MainPage
     position: relative
     .Title
+        position: relative
         width: 100%
         background: #c5c5c5
         height: 450px
@@ -24,17 +25,20 @@
             background: #5867EF
     .Points
         max-width: 1170px
-        margin: 40px auto
+        padding: 40px 40px
+        margin: 0 auto
         display: flex
         justify-content: center
+        flex-direction: column
         .Point
+            position: relative
+            display: flex
             justify-content: flex-end
             width: 100%
-            display: flex
             align-items: center
             .PointText
                 margin-right: 40px
-                font-size: 48px
+                font-size: 42px
                 font-weight: bold
             
             .ImgContainer
@@ -46,12 +50,45 @@
                     width: 100%
                     height: 100%
                     object-fit: cover
-        &:nth-child(2n + 1)
-            .Point
+            &:nth-child(2n)
                 justify-content: flex-start
-            .PointText
-                order: 1
-                margin-right: 0
-                margin-left: 40px
+                .PointText
+                    order: 1
+                    margin-right: 0
+                    margin-left: 40px
+            &::before
+                position: absolute
+                color: #00000067
+                width: 100px
+                height: 100px
+                top: 0px
+                right: 180px
+                z-index: 20
+                font-size: 80px
+                line-height: 70px
+                font-weight: 700
+            &:nth-child(2), &:nth-child(4)
+                &::before
+                    position: absolute
+                    color: #00000067
+                    width: 100px
+                    height: 10px
+                    top: 0px
+                    left: 20px
+                    z-index: 20
+                    font-size: 80px
+                    line-height: 70px
+                    font-weight: 700
+            &:nth-child(1)
+                &::before
+                    content: '1'
+            &:nth-child(2)
+                &::before
+                    content: '2'
+            &:nth-child(3)
+                &::before
+                    content: '3'
+            &:nth-child(4)
+                &::before
+                    content: '4'
             
-        

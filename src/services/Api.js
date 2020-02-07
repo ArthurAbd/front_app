@@ -103,8 +103,8 @@ const getInCalls = () => {
     return post('/call/getInCalls')
 }
 
-const getPhoneNumber = (id) => {
-    return post('/room/getMapItem', {idAd: id})
+const getPhoneNumber = (idAd) => {
+    return post('/call/getPhoneNumber', {idAd: idAd})
 }
 
 const updateInCallRating = (data) => {

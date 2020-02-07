@@ -1,8 +1,7 @@
 import React from 'react'
 import s from './FormField.module.sass'
 
-const FormField = (props) => {
-    const {children, label} = props
+const FormField = ({children, label}) => {
     return (
         <label className={s.FormField} >
             <span>{label}</span>

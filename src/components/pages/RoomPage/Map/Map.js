@@ -5,11 +5,10 @@ import Marker from 'pigeon-marker'
 
 const Map = (props) => {
     
-    const {coord_map_x, coord_map_y} = props
-    const mapCoord = [coord_map_y, coord_map_x]
+    const {coordX, coordY} = props
+    const mapCoord = [coordY, coordX]
     
-    if (!coord_map_x) return null
-    console.log(mapCoord)
+    if (!coordX) return null
     return (
         <div className={s.Map}>
             <GMap center={mapCoord}

@@ -2,7 +2,7 @@ const inicialState = {
     oneRoom: null,
     loadingResult: false,
     errorResult: false,
-    phoneNumber: 86221312
+    phoneNumber: 9531234567
 }
 
 const oneRoom = (state = inicialState, action) => {

@@ -1,4 +1,6 @@
 import {combineReducers} from 'redux'
+import { reducer as formReducer } from 'redux-form'
+
 
 import configSearch from './configSearch'
 import searchResult from './searchResult'
@@ -11,5 +13,6 @@ export default combineReducers({
     searchResult: searchResult,
     searchMap: searchMap,
     oneRoom: oneRoom,
-    user: user
+    user: user,
+    form: formReducer
 })

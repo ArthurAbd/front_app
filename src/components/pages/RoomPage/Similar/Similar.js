@@ -1,6 +1,5 @@
 import React from 'react'
 import s from './Similar.module.sass'
-import Card from '../../../common/Card/Card'
 import { Link } from 'react-router-dom'
 
 const Similar = (props) => {
@@ -11,7 +10,29 @@ const Similar = (props) => {
             if (index > 3) {
                 return null
             }
-            return <Card key={cardData.id} cardData={cardData} setMapCenter={() => null} />
+
+            const {id, img, price, address} = cardData
+
+            return (
+                <div className={s.Card} key={id}>
+                    <Link
+                        to={`/room/${id}`}
+                    ></Link>
+                    
+                    <div className={s.ImgContainer}>
+                        <img src={img} alt='img' />
+                    </div>
+                    <div className={s.TextContainer}>
+                        <div className={s.Price}>
+                            {`${price} руб.`}
+                        </div>
+                        1-комнатная квартира, 30 м2
+                        <div className={s.CardAddress}>
+                            {address}
+                        </div>
+                    </div>
+                </div>
+            )
         })
     }
 
@@ -25,7 +46,6 @@ const Similar = (props) => {
                 <Link to='/search'>
                     <div className={s.Btn}>Найти другие квартиры</div>
                 </Link>
-                
             </div>
         </div>
     )

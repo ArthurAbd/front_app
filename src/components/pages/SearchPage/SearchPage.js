@@ -17,6 +17,11 @@ import {
 } from '../../../actions/index'
 import Spinner from '../../common/Spinner/Spinner'
 import { compose } from 'redux'
+import iconFilter from '../../../assets/icon/iconFilter.svg'
+import iconLike from '../../../assets/icon/iconLike.svg'
+import cardImg from '../../../assets/img/cardImg.jpg'
+
+
 
 
 class SearchPage extends React.Component {
@@ -79,24 +84,52 @@ class SearchPage extends React.Component {
         return (
             <div className={s.SearchPage}>
                 
-                <div onScroll={loadingResult ? null : setLimit(total)}
+                {/* <div onScroll={loadingResult ? null : setLimit(total)}
                     className={s.AdsSide} >
-                {loading}
-                    <Filter {...configSearch}
-                        setMinPriceSearch={setMinPriceSearch}
-                        setMaxPriceSearch={setMaxPriceSearch}
-                        setTypeSearch={setTypeSearch}
-                        setSortingSearch={setSortingSearch} />
-                    
-                    <div className={s.Total}>{`${total} объектов`}</div>
+                {loading} */}
+                <Filter {...configSearch}
+                    setMinPriceSearch={setMinPriceSearch}
+                    setMaxPriceSearch={setMaxPriceSearch}
+                    setTypeSearch={setTypeSearch}
+                    setSortingSearch={setSortingSearch} />
 
-                    <div className={s.CardGroup}>
-                        {cards}
+
+                <div className={s.Content}>
+                    <div className={s.ContentFilter}>
+                        <div className={s.AddressInput}>
+                            <input type='text' placeholder='Введите адрес' />
+                        </div>
+                        <div className={s.Sorting}>
+                            <span>Сортировать</span>
+                            <button>
+                                <img src={iconFilter} />
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <div className={s.CardsBlock}>
+                        <div className={s.Card}>
+                            <div className={s.CardImg}>
+                                <img src={cardImg} />
+                            </div>
+                            <div className={s.CardContent}>
+                                <div className={s.CardTitle}>Однокомнатная квартира 24 м2</div>
+                                <div className={s.CardAddress}>Республика Татарстан, Казань, Ленинградская ул., 22</div>
+                                <div className={s.CardType}>1-комнатная</div>
+                                <div className={s.CardPrice}>
+                                    <div>40 000 Р <span> / мес.</span></div>
+                                    <div><img src={iconLike} /></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={s.Map}>
+                        {map}
                     </div>
                 </div>
-                <div className={s.MapSide}>
-                    {map}
-                </div>
+
+                {/* <div className={s.Total}>{`${total} объектов`}</div> */}
             </div>
         )
     }

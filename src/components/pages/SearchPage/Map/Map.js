@@ -6,6 +6,9 @@ import Overlay from 'pigeon-overlay'
 import {Link} from 'react-router-dom'
 
 const Map = (props) => {
+
+    const mapHeight = window.innerHeight - 194
+    debugger
     const {
         setMapCenter,
         mapCenter,
@@ -60,6 +63,7 @@ const Map = (props) => {
         <React.Fragment>
             <GMap center={mapCenter}
                 zoom={12}
+                height={mapHeight}
                 onBoundsChanged={({ center, zoom, bounds, initial }) => {console.log(center, zoom, bounds, initial)}}
                 >
 

@@ -1,5 +1,52 @@
 import React from 'react'
-import s from './ModalReg.module.sass'
+import { reduxForm, Field } from 'redux-form'
+import TextInput from '../../inputs/TextInput/TextInput'
+import FormField from '../../inputs/FormField/FormField'
+import { required, phoneNumber, minLength, maxLength} from '../../../../services/validators'
+
+const minLength6 = minLength(6)
+const minLength3 = minLength(3)
+const maxLength30 = maxLength(30)
+
+const ModalRegForm = ({handleSubmit}) => {
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <FormField label='Имя'>
+                <Field
+                    name='name'
+                    type='text'
+                    component={TextInput}
+                    validate={[required, minLength3, maxLength30]}
+                />
+            </FormField>
+            <FormField label='Телефон'>
+                <Field
+                    name='number'
+                    type='tel'
+                    component={TextInput}
+                    validate={[required, phoneNumber]}
+                />
+            </FormField>
+            <FormField label='Пароль'>
+                <Field
+                    name='password' 
+                    type='password'
+                    component={TextInput}
+                    validate={[required, minLength6, maxLength30]}
+                    />
+            </FormField>
+            <button type='submit'>
+                Отправить
+            </button>
+        </form>
+    )
+}
+
+
+const ModalRegReduxForm = reduxForm({
+    form: 'reg'
+})(ModalRegForm)
 
 const ModalReg = ({userReg}) => {
     
@@ -8,34 +55,7 @@ const ModalReg = ({userReg}) => {
             <div>
                 <h3>Регистрация</h3>
             </div>
-            <form onSubmit={userReg} >
-                <div>
-                    <label htmlFor='name'> Имя</label>
-                    <input
-                        type='text'
-                        id='name'
-                    />
-                </div>
-                <div>
-                    <label htmlFor='number'> Телефон</label>
-                    <input
-                        type='text'
-                        id='number'
-                    />
-                </div>
-                <div>
-                    <label htmlFor='password'> Пароль</label>
-                    <input
-                        type='password'
-                        id='password'
-                    />
-                </div>
-                <div className={s.BtnGroup}>
-                    <button type='submit' className={s.Btn}>
-                        Отправить
-                    </button>
-                </div>
-            </form>
+            <ModalRegReduxForm onSubmit={userReg} />
         </>
     )
 }

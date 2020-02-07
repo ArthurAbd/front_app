@@ -1,13 +1,10 @@
 import React from 'react'
 import s from './RoomPage.module.sass'
-import Title from './Title/Title'
 import PhotosBlock from './PhotosBlock/PhotosBlock'
 import Info from './Info/Info'
 import Map from '../RoomPage/Map/Map'
 import Similar from '../RoomPage/Similar/Similar'
 import Spinner from '../../common/Spinner/Spinner'
-import Container from '../../common/Container/Container'
-import Slider from "react-slick";
 import {fetchOneRoom, getPhoneNumber, setModal} from '../../../actions'
 import {connect} from 'react-redux'
 import { compose } from 'redux'
@@ -41,7 +38,7 @@ class RoomPage extends React.Component {
     render() {
 
         if (!this.props.oneRoom) return null
-
+        
         const sliderSettings = {
             infinite: true,
             className: s.Slider,
@@ -53,11 +50,11 @@ class RoomPage extends React.Component {
 
 
         const { oneRoom: {
-                    id,
+                    idAd,
                     address,
                     area,
-                    coord_map_x,
-                    coord_map_y,
+                    coordX,
+                    coordY,
                     description,
                     floor,
                     floors,
@@ -87,42 +84,21 @@ class RoomPage extends React.Component {
 
         const photosArr = photos.split(',')
 
-        let loading = null
         if (loadingResult) {
-            loading = <Spinner />
+            return <Spinner />
         }
 
         const myRef = React.createRef()
 
         const scrollToMyRef = () => window.scrollTo(0, myRef.current.offsetTop)
 
-        const slider = this.state.showSlider ?
-            (<div className={s.RoomPageSlider} >
-                <div onClick={this.toggleSlider} className={s.CloseSlider} >
-                    <i className="fa fa-times fa-2x"></i>
-                </div>
-                <Slider {...sliderSettings} >
-                    {photosArr.map((img, index) =>
-                    (<div className={s.ImgContainer} >
-                        <img key={index} src={img} alt='' />
-                    </div>))}
-                </Slider>
-            </div>) : null
-
         return (
-            <Container>
-                <div className={s.RoomPage}>
-                    {slider}
-                    {loading}
-                    <Title  scrollToMyRef={scrollToMyRef}
-                            type={normalizeType}
-                            price={price}
-                            address={address}
-                            area={area}
-                    />
-                    <PhotosBlock toggleSlider={this.toggleSlider} photos={photosArr} />
+            <div className={s.RoomPage}>
+                <PhotosBlock toggleSlider={this.toggleSlider} photos={photosArr} />
+                <div className={s.Container}>
                     <Info 
-                        id={id}
+                        scrollToMyRef={scrollToMyRef}
+                        idAd={idAd}
                         getPhoneNumber={getPhoneNumber}
                         type={normalizeType}
                         area={area}
@@ -135,11 +111,11 @@ class RoomPage extends React.Component {
                         setModal={setModal}
                     />
                     <div ref={myRef} >
-                        <Map coord_map_x={coord_map_x} coord_map_y={coord_map_y} />
+                        <Map coordX={coordX} coordY={coordY} />
                     </div>
                     <Similar searchResult={searchResult} />
                 </div>
-            </Container>
+            </div>
         )
     }
 }

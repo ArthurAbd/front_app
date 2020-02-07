@@ -1,26 +1,91 @@
 .Header
-    position: relative
-    display: flex
-    justify-content: center
-    align-items: center
-    padding: 0 20px
-    width: 100%
-    height: 60px
-    background: #1976d2
-    color: #fff
-    box-shadow: 0px 4px 4px 0px #ccc
-    z-index: 999
-    a
-        margin: 0 20px
-        color: #fff
-    span
-        margin: 0 20px
+    white-space: pre
+    font-weight: bold
+    top: 0px
+    position: sticky
+    height: 72px
+    background: #fff
+    border-bottom: 1px #E8E8E8 solid
+    z-index: 100
+    .Container
+        max-width: 1170px
+        padding: 0 15px
+        margin: auto
+        height: 100%
+    .HeaderNav
+        display: flex
+        justify-content: space-between
+        align-items: center
+        height: 100%
+    .HeaderLogoMenu
+        height: 100%
+        display: flex
+    .Logotype
+        display: flex
+        align-items: center
+        font-weight: bold
+        margin-right: 56px
+        font-size: 18px
+        color: #5867EF
+    .CityMenu
+        display: flex
+        align-items: center
+        vertical-align: middle
+        font-size: 13px
+        padding: 0 10px
         cursor: pointer
+        &:hover
+            background: darken(#fff, 3%)
+        img
+            margin-right: 10px
+    .HeaderLinks
+        display: flex
+        flex-direction: row
+        height: 100%
+        color: #494A4E
+        div
+            width: 100%
+            height: 100%
+            margin-left: 10px
+            display: flex
+            align-items: center
+            font-size: 15px
+            padding: 0 10px
+            &:hover
+                background: darken(#fff, 3%)
+            &:first-child
+                margin-left: 0
+    .HeaderUserMenu
+        display: flex
+        flex-direction: row
+        font-size: 16px
+        height: 100%
+        div
+            width: 100%
+            height: 100%
+            margin-left: 10px
+            display: flex
+            align-items: center
+            font-size: 15px
+            color: #5867EF
+            margin-left: 0
+            cursor: pointer
+            padding: 0 10px
+            &:first-child
+                margin-left: 0
+        a
+            font-size: 16px
+            &:hover
+                background: darken(#fff, 5%)
+
+        button
+            margin: 0
+
 .Select
     margin: 0 20px
-.SelectCity
-    margin-left: 10px
-    text-decoration: underline
-.SelectCity:hover
-    color: #ccc
-    cursor: pointer
+    .SelectCity
+        margin-left: 10px
+        text-decoration: underline
+    .SelectCity:hover
+        color: #ccc
+        cursor: pointer

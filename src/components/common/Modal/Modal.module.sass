@@ -10,7 +10,6 @@
     z-index: 999
     background-color: #242424d2
     form
-        margin: 20px
         display: flex
         flex-direction: column
         > div
@@ -25,21 +24,18 @@
         label
             font-size: 1.4rem
 .Modal
+    border-radius: 4px
     position: relative
     border: 1px solid #cccccc
     padding: 24px
     background-color: #fff
 .ModalClose
     position: absolute
-    top: 0
-    right: 0
-    width: 30px
-    height: 25px
+    top: 0px
+    right: -40px
     cursor: pointer
-    i
-        font-size: 2rem
-        &:hover
-            color: #3d4aff
+    img
+        height: 25px
 .ModalLayout
     margin: 30px
     display: flex
@@ -47,4 +43,5 @@
     align-items: center
     flex-direction: column
     h3
-        text-align: left
+        font-size: 32px
+        font-weight: 700

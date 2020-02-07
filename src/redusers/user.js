@@ -38,7 +38,7 @@ if (localStorage.getItem('city')) {
 if (localStorage.getItem('accessToken')) {
     inicialState.isAuth = true
 }
-
+// inicialState.isModal = 'slider'
 const user = (state = inicialState, action) => {
     console.log(action)
     switch (action.type) {

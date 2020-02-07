@@ -1,18 +1,93 @@
-.SearchPage
-    display: flex
-    height: 100vh
-.AdsSide
+.Content
     position: relative
-    overflow-y: scroll
-    width: 50%
-    height: 100%
-.MapSide
-    width: 50%
-    height: 100%
-.CardGroup
     display: flex
-    flex-wrap: wrap
-    justify-content: space-around
-.Total
-    text-align: right
-    margin-right: 20px
+    flex-direction: column
+    .ContentFilter
+        width: 700px
+        display: flex
+        align-items: center
+        justify-content: space-between
+        padding: 0 40px
+        padding-top: 48px
+        .AddressInput
+            &::before
+                content: 'Найти по адресу'
+                position: absolute
+                top: -32px
+                left: 0
+                line-height: 30px
+                color: #9396AE
+                font-size: 14px
+                font-weight: 400
+        input
+            width: 400px
+            padding: 13px 10px
+            border: none
+            background: #F0F1F6
+            border-radius: 4px
+            &::placeholder
+                color: #9396AE
+                font-size: 14px
+        button
+            width: 48px
+            height: 48px
+        .Sorting
+            span
+                margin-right: 17px
+                font-size: 14px
+                color: #7B7E98
+                font-weight: 400
+            button
+                background: #F0F1F6
+                img
+                    margin: 0 -8px
+                    vertical-align: middle
+                    text-align: center
+
+    .CardsBlock
+        width: 700px
+        padding: 35px 40px
+    .Card
+        display: flex
+        padding-bottom: 32px
+        padding-top: 32px
+        border-top: 1px solid #e8e8e8
+        &:last-child
+            padding-bottom: 0
+    .CardImg
+        margin-right: 24px
+        img
+            border-radius: 4px
+            width: 300px
+            object-fit: cover
+            height: 200px
+    .CardContent
+        display: flex
+        flex-direction: column
+        width: 100%
+        .CardTitle
+            margin-bottom: 17px
+            font-size: 18px
+            font-weight: 700
+        .CardAddress
+            margin-bottom: 8px
+            font-size: 14px
+            color: #7B7E98
+        .CardType
+            font-size: 14px
+            color: #7B7E98
+            flex-basis: 100%
+        .CardPrice
+            display: flex
+            justify-content: space-between
+            font-size: 16px
+            font-weight: bold
+            span
+                font-size: 14px
+                color: #7B7E98
+                font-weight: 400
+    .Map
+        right: 0px
+        position: fixed
+        width: calc(100% - 700px)
+        height: auto

@@ -13,6 +13,7 @@ const MainPage = () => {
                     Узнать как это работает
                 </div>
             </div>
+            
             <div className={s.Points}>
                 <div className={s.Point}>
                     <div className={s.PointText}>
@@ -24,8 +25,6 @@ const MainPage = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className={s.Points}>
                 <div className={s.Point}>
                     <div className={s.PointText}>
                         Поиск квартиры
@@ -36,8 +35,6 @@ const MainPage = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className={s.Points}>
                 <div className={s.Point}>
                     <div className={s.PointText}>
                         Получение номера
@@ -48,8 +45,6 @@ const MainPage = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className={s.Points}>
                 <div className={s.Point}>
                     <div className={s.PointText}>
                         Оценка собеседника

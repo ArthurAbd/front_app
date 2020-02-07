@@ -1,37 +1,59 @@
 .Info
+    border-bottom: 1px solid #e8e8e8
+    margin-bottom: 32px
+    padding-bottom: 32px
     display: flex
-.InfoText
-    i
-        padding: 0 10px
-.InfoStats
-    padding-bottom: 20px
-    display: flex
-    justify-content: space-around
-    border-bottom: 1px #ccc solid
-    div
-        padding: 5px
-.InfoTextContent
-    padding-top: 20px
-.InfoAutor
-    text-align: center
-    margin: 20px 0 20px 20px
-    align-self: start
-.Btn
-    margin-top: 20px
-    display: inline-block
-    border: 1px #ccc solid
-    padding: 10px 30px
-    font-size: 1.4rem
-    &:hover
-        cursor: pointer
-        background-color: #e2e2e2
-        
-@media screen and ( max-width: 870px )
-    .Info
-        display: block
+    .Title
+        border-bottom: 1px solid #e8e8e8
+        margin-bottom: 32px
+        padding-bottom: 32px
+        .TitleText
+            h2
+                font-size: 26px
+                font-weight: 700
+                line-height: 40px
+            span
+                cursor: pointer
+                display: inline-flex
+                align-items: center
+                font-size: 14px
+                color: #5867EF
+                i
+                    margin-right: 12px
+    .InfoText
+        padding-right: 32px
+        width: calc(100% - 400px)
+        .InfoStats
+            display: flex
+            justify-content: space-around
+            border-bottom: 1px solid #e8e8e8
+            margin-bottom: 32px
+            padding-bottom: 32px
+            div
+                color: #9396AE
+                text-align: center
+                font-size: 14px
+                span
+                    color: #000
+                    margin-top: 10px
+                    font-size: 26px
+                    display: block
+        .InfoTextContent
+            font-size: 18px
     .InfoAutor
-        margin: 20px 0
-@media screen and ( max-width: 650px )
-    .InfoStats
-        flex-wrap: wrap
-
+        .AutorCard
+            background: #e8e8e8
+            text-align: center
+            width: 400px
+            display: flex
+            flex-direction: column
+            padding: 24px
+            span
+                display: block
+                font-weight: bold
+                font-size: 26px
+            .InfoPrice
+                span
+                    display: inline
+            .Btn
+                margin: 24px 0

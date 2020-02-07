@@ -19,11 +19,13 @@ import {setModal} from '../../../../actions'
 class Profile extends React.Component {
 
     render() {
-        const {
+        let {
             setModal,
             isLoading,
             isAuth,
         } = this.props
+
+isAuth = true
 
         if (isLoading) return (<Spinner />)
         if (!isAuth) {

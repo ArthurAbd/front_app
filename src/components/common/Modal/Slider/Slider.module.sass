@@ -1,0 +1,75 @@
+.Slider
+    position: absolute
+    background: #fff
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: 100
+    .SliderContainer
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 100vw
+        height: 100vh
+        img
+            max-width: 100%
+            max-height: 100%
+            object-fit: cover
+    .SliderPrev, .SliderNext
+        position: absolute
+        top: 0
+        width: 50%
+        height: 100%
+        span
+            position: absolute
+            width: 40px
+            height: 60px
+            top: 50vh
+            margin-top: -30px
+            background: #0000007c
+            display: flex
+            justify-content: center
+            align-items: center
+            img
+                height: 30px
+    .SliderPrev
+        left: 0
+        span
+            border-top-right-radius: 8px
+            border-bottom-right-radius: 8px
+            left: 0
+    .SliderNext
+        right: 0
+        span
+            border-top-left-radius: 8px
+            border-bottom-left-radius: 8px
+            right: 0
+    .SliderClose
+        position: absolute
+        top: 0
+        right: 0
+        z-index: 20
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 70px
+        height: 50px
+        border-bottom-left-radius: 8px
+        background: #0000007c
+        img
+            fill: #fff
+            height: 25px
+    .SliderCounter
+        position: absolute
+        top: 0
+        left: 0
+        z-index: 20
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 70px
+        height: 50px
+        color: #fff
+        border-bottom-right-radius: 8px
+        background: #0000007c

@@ -17,8 +17,10 @@ import {
     userEdit,
     userReg,
     userLogin} from './user'
+import {sendOnePhoto} from './fileInput'
 
 export {
+    sendOnePhoto,
     getPhoneNumber,
     setModal,
     getMe,

@@ -29,6 +29,20 @@ const post = (path, data) => {
     })
 }
 
+const sendOnePhoto = (file) => {
+    return new Promise((resolve, reject) => {
+        const token = localStorage.getItem('accessToken')
+        const formData = new FormData()
+        formData.append('img', file)
+
+        axios.post(url + '/upload/single', formData, {
+            headers: {'Content-Type': 'multipart/form-data',
+                'authorization': `Bearer ${token}`}
+        })
+        .then((res) => resolve(res))
+        .catch((err) => reject(err))
+    })
+}
 
 const addUser = (data) => {
     return post('/user/addUser', data)
@@ -116,6 +130,7 @@ const updateOutCallRating = (data) => {
 }
 
 export {
+    sendOnePhoto,
     login,
     getMe,
     getNewToken,

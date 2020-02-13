@@ -1,42 +1,32 @@
+@import '../../../../variables'
+
+
 .Filter
     position: sticky
     top: 72px
-    background: #fff
+    background: $white
     z-index: 10
     width: 100%
     padding: 0 15px
     padding: 25px 0
     display: flex
     justify-content: center
-    border-bottom: 1px #E8E8E8 solid
+    border-bottom: 1px $gray-4 solid
     .BtnGroup
         margin-right: 12px
     span
         line-height: 30px
-        color: #9396AE
+        color: $gray-1
         font-size: 14px
-        font-weight: 400
     button
-        background: #F0F1F6
-        padding: 13px 24px
-        color: #000
+        display: inline
         margin-right: 1px
+        border-radius: 0px
         &:first-child
             border-top-left-radius: 4px
             border-bottom-left-radius: 4px
         &:last-child
             border-top-right-radius: 4px
             border-bottom-right-radius: 4px
-    .active
-        color: #fff
-        background: #5867EF
-    input
-        padding: 13px 10px
-        border: none
-        background: #F0F1F6
-        border-radius: 4px
-        &::placeholder
-            color: #9396AE
-            font-size: 14px
-    .PriceInput
-        margin-left: 20px
+.PriceInput
+    margin-left: 20px

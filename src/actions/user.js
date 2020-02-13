@@ -57,6 +57,7 @@ const delUserToken = () => {
 
 const userLogin = (data) => {
     return (dispatch) => {
+        dispatch(setUserMessage(null))
         dispatch(setIsLoading(true))
         api.login(data)
             .then((res) => {
@@ -74,11 +75,12 @@ const userLogin = (data) => {
 
 const userReg = (data) => {
     return (dispatch) => {
+        dispatch(setUserMessage(null))
         dispatch(setIsLoading(true))
         api.addUser(data)
             .then((res) =>  {
                 dispatch(setIsLoading(false))
-                dispatch(setUserMessage(res.body))
+                dispatch(setUserMessage(res))
             })
             .catch((err) => {
                 dispatch(setIsLoading(false))
@@ -88,6 +90,7 @@ const userReg = (data) => {
 }
 
 const userEdit = (api, dispatch) => (data) => {
+    dispatch(setUserMessage(null))
     dispatch(setIsLoading(true))
     api.editUser(data)
         .then((res) =>  dispatch(setIsLoading(false)))

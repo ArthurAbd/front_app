@@ -11,6 +11,7 @@ import Slider from './Slider/Slider';
 
 
 const Modal = ({
+        userMessage,
         photos,
         isModal,
         setModal,
@@ -32,15 +33,16 @@ const Modal = ({
             break;
 
         case 'login':
-            content = <ModalLogin userLogin={userLogin} />
+            content = <ModalLogin userLogin={userLogin}
+                        setModal={setModal} userMessage={userMessage} />
             break;
     
         case 'loginPhone':
-            content = <ModalLoginPhone userLogin={userLogin} />
+            content = <ModalLoginPhone userLogin={userLogin} userMessage={userMessage} />
             break;
     
         case 'reg':
-            content = <ModalReg userReg={userReg} />
+            content = <ModalReg userReg={userReg} userMessage={userMessage} />
             break;
     
         case 'phone':

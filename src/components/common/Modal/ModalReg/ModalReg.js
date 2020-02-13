@@ -3,6 +3,7 @@ import { reduxForm, Field } from 'redux-form'
 import TextInput from '../../inputs/TextInput/TextInput'
 import FormField from '../../inputs/FormField/FormField'
 import { required, phoneNumber, minLength, maxLength} from '../../../../services/validators'
+import Button from '../../Button/Button'
 
 const minLength6 = minLength(6)
 const minLength3 = minLength(3)
@@ -12,33 +13,36 @@ const ModalRegForm = ({handleSubmit}) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <FormField label='Имя'>
+            <FormField label={<i className='fa fa-user fa-2x' aria-hidden='true'/>}>
                 <Field
+                    placeholder='Имя'
                     name='name'
                     type='text'
                     component={TextInput}
                     validate={[required, minLength3, maxLength30]}
                 />
             </FormField>
-            <FormField label='Телефон'>
+            <FormField label={<i className='fa fa-phone fa-2x' aria-hidden='true'/>}>
                 <Field
+                    placeholder='Телефон'
                     name='number'
                     type='tel'
                     component={TextInput}
                     validate={[required, phoneNumber]}
                 />
             </FormField>
-            <FormField label='Пароль'>
+            <FormField label={<i className='fa fa-lock fa-2x' aria-hidden='true'/>}>
                 <Field
+                    placeholder='Пароль'
                     name='password' 
                     type='password'
                     component={TextInput}
                     validate={[required, minLength6, maxLength30]}
                     />
             </FormField>
-            <button type='submit'>
+            <Button type='submit' size='m'>
                 Отправить
-            </button>
+            </Button>
         </form>
     )
 }
@@ -48,13 +52,14 @@ const ModalRegReduxForm = reduxForm({
     form: 'reg'
 })(ModalRegForm)
 
-const ModalReg = ({userReg}) => {
+const ModalReg = ({userReg, userMessage}) => {
     
     return (
         <>
             <div>
                 <h3>Регистрация</h3>
             </div>
+            {userMessage && <span>{userMessage}</span>}
             <ModalRegReduxForm onSubmit={userReg} />
         </>
     )

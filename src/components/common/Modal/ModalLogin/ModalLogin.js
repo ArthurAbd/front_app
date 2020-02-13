@@ -1,7 +1,9 @@
 import React from 'react'
+import s from './ModalLogin.module.sass'
 import { reduxForm, Field } from 'redux-form'
 import TextInput from '../../inputs/TextInput/TextInput'
 import FormField from '../../inputs/FormField/FormField'
+import Button from '../../Button/Button'
 import { required, phoneNumber, minLength, maxLength} from '../../../../services/validators'
 
 const minLength6 = minLength(6)
@@ -11,25 +13,27 @@ const LoginForm = ({handleSubmit}) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <FormField label='Телефон'>
+            <FormField label={<i className='fa fa-phone fa-2x' aria-hidden='true'/>}>
                 <Field
+                    placeholder='Телефон'
                     name='number'
                     type='tel'
                     component={TextInput}
                     validate={[required, phoneNumber]}
                 />
             </FormField>
-            <FormField label='Пароль'>
+            <FormField label={<i className='fa fa-lock fa-2x' aria-hidden='true'/>}>
                 <Field
+                    placeholder='Пароль'
                     name='password' 
                     type='password'
                     component={TextInput}
                     validate={[required, minLength6, maxLength30]}
                     />
             </FormField>
-            <button type='submit'>
-                Войти
-            </button>
+            <Button type='submit' size='m'>
+                ВОЙТИ
+            </Button>
         </form>
     )
 }
@@ -40,13 +44,22 @@ const LoginReduxForm = reduxForm({
 })(LoginForm)
 
 
-const ModalLogin = ({userLogin}) => {
+const ModalLogin = ({userLogin, setModal, userMessage}) => {
     return (
         <>
             <div>
                 <h3>Войти</h3>
             </div>
+            {userMessage && <span>{userMessage}</span>}
             <LoginReduxForm onSubmit={userLogin} />
+            <div className={s.Footer}>
+                <span>Нет аккаунта?</span>
+                <Button size='m'
+                    variant='outline'
+                    onClick={() => setModal('reg')}
+                    >Создать</Button>
+            </div>
+                
         </>
     )
 }

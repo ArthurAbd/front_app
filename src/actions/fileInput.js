@@ -4,7 +4,7 @@ const sendOnePhoto = (file) => {
     return (dispatch) => {
         dispatch(isLoading(true))
         api.sendOnePhoto(file)
-            .then((data) =>  {
+            .then(({data}) =>  {
                 dispatch(setOnePhoto(data))
                 dispatch(isLoading(false))
             })

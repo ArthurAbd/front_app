@@ -10,7 +10,7 @@ const fileInput = (state = inicialState, action) => {
         case 'SET_ONE_PHOTO':
             return {
                 ...state,
-                photos: state.push(action.payload),
+                photos: [...state.photos, action.payload],
             }
         
         

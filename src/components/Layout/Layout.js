@@ -27,6 +27,7 @@ class Layout extends React.Component {
                 isModal,
                 setModal,
                 phoneNumber,
+                userMessage,
             } = this.props
             
         const cityMap = {
@@ -53,8 +54,9 @@ class Layout extends React.Component {
             'yaroslavl': 'Ярославль',
         }
 
+        window.document.body.style.overflow = isModal ? 'hidden' : ''
+        
         if (isLoading) return <Spinner />
-
         return (
             <div className={s.Layout}>
                 <Header
@@ -64,7 +66,9 @@ class Layout extends React.Component {
                     setModal={setModal}
                 />
 
+            {isModal &&
                 <Modal
+                    userMessage={userMessage}
                     phoneNumber={phoneNumber}
                     isLoading={isLoading}
                     city={city}
@@ -74,9 +78,8 @@ class Layout extends React.Component {
                     setCity={setCity}
                     userLogin={userLogin}
                     userReg={userReg}
-                />
+                />}
                 
-                {isLoading ? <Spinner />: null}
                 {this.props.children}
             </div>
         )
@@ -85,6 +88,7 @@ class Layout extends React.Component {
 
 const mapStateToProps = ({user, oneRoom}) => {
     return {
+        userMessage: user.userMessage,
         phoneNumber: oneRoom.phoneNumber,
         isLoading: user.isLoading,
         isModal: user.isModal,

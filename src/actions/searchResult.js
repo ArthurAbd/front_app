@@ -26,7 +26,8 @@ const fetchRooms = () => {
     return (dispatch) => {
         const {configSearch: {configSearch}, user: {city}} = store.getState()
         dispatch(roomsRequested())
-        api.getListRooms({city: city, ...configSearch})
+        const {selectSort, ...rest} = configSearch
+        api.getListRooms({city: city, ...rest})
             .then((data) => {
                 const {coords, ...rooms} = data
                 dispatch(roomsLoaded(rooms))

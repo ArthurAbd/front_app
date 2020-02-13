@@ -8,7 +8,6 @@ import {Link} from 'react-router-dom'
 const Map = (props) => {
 
     const mapHeight = window.innerHeight - 194
-    debugger
     const {
         setMapCenter,
         mapCenter,

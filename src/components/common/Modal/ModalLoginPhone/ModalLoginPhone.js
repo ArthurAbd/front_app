@@ -7,8 +7,9 @@ import { required, phoneNumber} from '../../../../services/validators'
 const ModalLoginPhoneForm = ({handleSubmit}) => {
     return (
         <form onSubmit={handleSubmit} >
-            <FormField label='Телефон'>
+            <FormField label={<i className='fa fa-phone fa-2x' aria-hidden='true'/>}>
                 <Field
+                    placeholder='Телефон'
                     name='number'
                     type='tel'
                     component={TextInput}
@@ -26,10 +27,11 @@ const LoginPhoneReduxForm = reduxForm({
     form: 'loginPhone'
 })(ModalLoginPhoneForm)
 
-const ModalLoginPhone = ({userLoginPhone}) => {
+const ModalLoginPhone = ({userLoginPhone, userMessage}) => {
     return (
         <>
             <h3>Войти</h3>
+            {userMessage && <span>{userMessage}</span>}
             <LoginPhoneReduxForm onSubmit={userLoginPhone} />
         </>
     )

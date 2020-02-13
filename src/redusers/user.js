@@ -27,6 +27,7 @@ const inicialState = {
     isLoading: false,
     isError: false,
     isModal: 'cities',
+    userMessage: null,
     user: null
 }
 

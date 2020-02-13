@@ -1,13 +1,12 @@
 import React from 'react'
+import classNames from 'classnames'
 import s from './CheckBox.module.sass'
 
 const CheckBox = ({label, ...props}) => {
 
     const [checked, setChecked] = React.useState(false)
-    const [focus, setFocus] = React.useState(false)
 
     const toggleBox = (e) => {
-        setFocus(true)
         if (e.target.type === 'checkbox') {
             setChecked(e.target.checked)
         }
@@ -16,12 +15,12 @@ const CheckBox = ({label, ...props}) => {
     return (
         <label className={s.CheckBox}
             onClick={toggleBox}
-            onBlur={() => setFocus(false)}>
+            >
 
             <input {...props} type='checkbox' checked={checked} />
 
-            <div className={`input ${focus ? s.Focus : null}`}>
-                {checked ? <span></span> : null}
+            <div className={classNames(`${s.Input} ${checked && s.checked}`)}>
+                {checked && <i class="fa fa-check" aria-hidden="true"></i>}
             </div>
 
             <span>{label}</span>

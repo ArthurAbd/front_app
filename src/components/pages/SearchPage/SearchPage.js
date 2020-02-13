@@ -16,10 +16,12 @@ import {
     setMaxPriceSearch
 } from '../../../actions/index'
 import Spinner from '../../common/Spinner/Spinner'
+import Select from '../../common/inputs/Select/Select'
 import { compose } from 'redux'
 import iconFilter from '../../../assets/icon/iconFilter.svg'
 import iconLike from '../../../assets/icon/iconLike.svg'
 import cardImg from '../../../assets/img/cardImg.jpg'
+import TextInput from '../../common/inputs/TextInput/TextInput'
 
 
 
@@ -43,6 +45,7 @@ class SearchPage extends React.Component {
 
     render() {
         const { 
+                selectValue,
                 setMapCenter,
                 mapCenter,
                 fetchSelectItem,
@@ -97,16 +100,23 @@ class SearchPage extends React.Component {
                 <div className={s.Content}>
                     <div className={s.ContentFilter}>
                         <div className={s.AddressInput}>
-                            <input type='text' placeholder='Введите адрес' />
+                            <TextInput placeholder='Введите адрес' />
                         </div>
                         <div className={s.Sorting}>
-                            <span>Сортировать</span>
-                            <button>
-                                <img src={iconFilter} />
-                            </button>
+                            <Select
+                                value={selectValue}
+                                className={`${s.Select} Input`}
+                                name='select'
+                                onChange={setSortingSearch}>
+                                    
+                                <option value='dateDesc'>По дате</option>
+                                <option value='priceAsc'>Дешевле</option>
+                                <option value='priceDesc'>Дороже</option>
+                            </Select>
                         </div>
                     </div>
 
+                    
 
                     <div className={s.CardsBlock}>
                         <div className={s.Card}>
@@ -147,7 +157,7 @@ const mapStateToProps = ({searchResult, configSearch: {configSearch}, searchMap,
         configSearch: {minValue: configSearch.min,
             maxValue: configSearch.max,
             selectValue: configSearch.selectSort,
-            selectTypeValue: configSearch.selectType,
+            selectTypeValue: configSearch.type,
             limit: configSearch.limit
             }
     }

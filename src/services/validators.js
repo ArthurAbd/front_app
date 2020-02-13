@@ -19,5 +19,5 @@ export const email = value =>
 
 export const phoneNumber = value =>
     value && !/^(0|[1-9][0-9]{9})$/i.test(value)
-        ? 'Неверный номер телефона, должно быть 10 цифр'
+        ? 'Введите 10 цифр'
         : undefined

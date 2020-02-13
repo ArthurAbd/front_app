@@ -2,9 +2,10 @@ import React from 'react'
 import s from './FileInput.module.sass'
 import {connect} from 'react-redux'
 import {sendOnePhoto} from '../../../../actions'
+import Spinner from '../../Spinner/Spinner'
 
 
-const FileInput = ({sendOnePhoto, photos}) => {
+const FileInput = ({sendOnePhoto, photos, isLoading, error}) => {
     
     const sendPhotos = (files) => {
 
@@ -54,7 +55,9 @@ const FileInput = ({sendOnePhoto, photos}) => {
     }
 
     return (
+        <>
         <div className={s.FileInput}>
+            {isLoading && <Spinner />}
             <label className={s.Label} >
                 <div className={`${s.InputLayer} ${fileOver ? s.File: ''}`}
                     onDragLeave={onDragLeave}
@@ -67,8 +70,16 @@ const FileInput = ({sendOnePhoto, photos}) => {
                     Добавить изображения не больше 20 МБ.
                 </div>
             </label>
-            {photos}
+            {error && <span>{error}</span>}
         </div>
+        {photos.length > 0 ? (
+            <div className={s.ImgContainer}>
+            {photos.map((url) => (
+                <img src={`http://localhost:3001/${url}`} />
+            ))}
+            </div>
+        ) : null}
+        </>
     )
 }
 

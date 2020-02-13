@@ -1,4 +1,8 @@
+@import '../../../variables'
+
+
 .ModalBg
+    overflow: hidden
     display: flex
     align-items: center
     justify-content: center
@@ -12,36 +16,24 @@
     form
         display: flex
         flex-direction: column
-        > div
-            display: flex
-            align-items: center
-            justify-content: space-between
-        input
-            padding: 5px
-            margin: 10px 0
-            margin-left: 20px
-            font-size: 1.4rem
-        label
-            font-size: 1.4rem
+    button
+        margin-top: 10px
+
 .Modal
     border-radius: 4px
     position: relative
-    border: 1px solid #cccccc
-    padding: 24px
-    background-color: #fff
+    border: 1px solid $gray-5
+    background-color: $white
 .ModalClose
     position: absolute
     top: 0px
-    right: -40px
+    right: -30px
     cursor: pointer
     img
-        height: 25px
+        height: 20px
 .ModalLayout
     margin: 30px
-    display: flex
-    justify-content: center
-    align-items: center
-    flex-direction: column
     h3
-        font-size: 32px
+        margin-bottom: 10px
+        font-size: 24px
         font-weight: 700

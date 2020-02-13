@@ -1,24 +1,68 @@
+@import '../../../variables'
+
+
 .Button
-    background: transparent
-    outline: none
-    cursor: pointer
-    border: 2px solid #535ce4
-    border-radius: 20px
-    font-weight: 700
-    font-size: 0.9rem
-    padding: 5px 25px
-    color: rgb(68, 68, 68)
+    display: flex
+    justify-content: center
+    align-items: center
+    position: relative
+    outline: 0
+    border: 0
+    // vertical-align: middle
+    padding: 0
+    font-size: 14px
+    line-height: 1.56
+    font-weight: 500
+    text-decoration: none
+    text-align: center
+    color: $white
+    background: $blue
+    padding: 0 24px
+    border-radius: 4px
     transition: all 0.3s ease-out
+    &.active
+        background: $blue-active
     &:hover
-        box-shadow: #535ce4 0 0 0px 2px
+        color: $white
+        background: $blue-hover
     &:focus
-        box-shadow: rgb(111, 255, 176) 0 0 2px 2px
-        border-color: rgb(111, 255, 176)
-.Primary
-    background: #535ce4
-    color: rgb(255, 255, 255)
-.Active
-    box-shadow: rgb(111, 255, 176) 0 0 2px 2px
-    border-color: rgb(111, 255, 176)
-    &:hover
-        box-shadow: rgb(111, 255, 176) 0 0 2px 2px
+        color: $white
+        background: $blue-active
+    &:disabled
+        background: $gray-3
+    &.button-s
+        height: 32px
+    &.button-m
+        height: 40px
+    &.button-l
+        height: 48px
+    &.button-outline
+        background: $white
+        border: 1px solid $blue
+        color: $blue
+        &.active
+            color: $white
+            background: $blue-active
+        &:hover
+            color: $white
+            background: $blue-hover
+        &:focus
+            color: $white
+            background: $blue-active
+        &:disabled
+            background: $white
+            color: $gray-2
+            border: 1px solid $gray-2
+    &.button-transparent
+        display: inline
+        background: transparent
+        border: none
+        color: $blue
+        &.active
+            color: $blue-active
+        &:hover
+            color: $blue-hover
+        &:focus
+            color: $blue-active
+        &:disabled
+            color: $gray-2

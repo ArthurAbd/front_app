@@ -1,3 +1,5 @@
+@import '../../../variables'
+
 .Content
     position: relative
     display: flex
@@ -10,39 +12,29 @@
         padding: 0 40px
         padding-top: 48px
         .AddressInput
+            position: relative
             &::before
                 content: 'Найти по адресу'
                 position: absolute
                 top: -32px
                 left: 0
                 line-height: 30px
-                color: #9396AE
+                color: $gray-1
                 font-size: 14px
                 font-weight: 400
         input
             width: 400px
-            padding: 13px 10px
-            border: none
-            background: #F0F1F6
-            border-radius: 4px
-            &::placeholder
-                color: #9396AE
-                font-size: 14px
-        button
-            width: 48px
-            height: 48px
         .Sorting
-            span
-                margin-right: 17px
+            position: relative
+            &::before
+                content: 'Сортировать'
+                position: absolute
+                top: -32px
+                left: 0
+                line-height: 30px
+                color: $gray-1
                 font-size: 14px
-                color: #7B7E98
                 font-weight: 400
-            button
-                background: #F0F1F6
-                img
-                    margin: 0 -8px
-                    vertical-align: middle
-                    text-align: center
 
     .CardsBlock
         width: 700px
@@ -51,7 +43,7 @@
         display: flex
         padding-bottom: 32px
         padding-top: 32px
-        border-top: 1px solid #e8e8e8
+        border-top: 1px solid $gray-4
         &:last-child
             padding-bottom: 0
     .CardImg

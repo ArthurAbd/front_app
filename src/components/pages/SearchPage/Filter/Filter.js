@@ -1,100 +1,64 @@
 import React from 'react'
 import s from './Filter.module.sass'
+import Button from '../../../common/Button/Button'
+import TextInput from '../../../common/inputs/TextInput/TextInput'
 
 const Filter = (props) => {
 
     const { minValue,
             maxValue,
-            selectValue,
             selectTypeValue,
             setTypeSearch,
-            setSortingSearch,
             setMinPriceSearch,
             setMaxPriceSearch
         } = props
 
         const filterBtnMap = {
-            'r': {class: s.Btn, text: 'Комната'},
-            'st': {class: s.Btn, text: 'Студия'},
-            '1k': {class: s.Btn, text: '1-комнатная'},
-            '2k': {class: s.Btn, text: '2-комнатная'},
-            '3k': {class: s.Btn, text: '3-комнатная'},
-            '4k+': {class: s.Btn, text: '4-х и более'},
-        }
-        if (selectTypeValue !== null) {
-            filterBtnMap[selectTypeValue]['class'] = `${s.Btn} ${s.Active}`
+            'r': 'Комната',
+            'st': 'Студия',
+            '1k': '1',
+            '2k': '2',
+            '3k': '3',
+            '4k+': '4+',
         }
 
         const filterBtn = Object.keys(filterBtnMap).map((key) => {
             return (
-                <div key={key} onClick={() => setTypeSearch(key)}
-                    className={filterBtnMap[key]['class']}>
-                        {filterBtnMap[key]['text']}
-                </div>
+                <Button key={key} onClick={() => setTypeSearch(key)}
+                    size='m'
+                    variant = 'outline'
+                    active={selectTypeValue === key}>
+                        {filterBtnMap[key]}
+                </Button>
             )
         })
 
     return (
-        // <div className={s.Filter}>
-        //     <div className={s.FilterButtons}>
-        //         {filterBtn}
-        //     </div>
-        //     <div className={s.FilterPrice}>
-        //         <div>
-        //             <label htmlFor='min'>От</label>
-        //             <input 
-        //                 defaultValue={minValue}
-        //                 className={`${s.PriceInput} Input`}
-        //                 type='text'
-        //                 name='min'
-        //                 onBlur={setMinPriceSearch} />
-        //         </div>
-        //         <div>
-        //             <label htmlFor='max'>До</label>
-        //             <input
-        //                 defaultValue={maxValue}
-        //                 className={`${s.PriceInput} Input`}
-        //                 type='text'
-        //                 name='max'
-        //                 onBlur={setMaxPriceSearch} />
-        //         </div>
-        //         <div>
-        //             <label htmlFor='select'>Сортировать</label>
-        //             <select
-        //                 value={selectValue}
-        //                 className={`${s.Select} Input`}
-        //                 name='select'
-        //                 onChange={setSortingSearch}>
-                            
-        //                 <option value='dateDesc'>По дате</option>
-        //                 <option value='priceAsc'>Дешевле</option>
-        //                 <option value='priceDesc'>Дороже</option>
-        //             </select>
-        //         </div>
-        //     </div>
-        // </div>
         <div className={s.Filter}>
             <div className={s.BtnGroup}>
                 <span>Кол-во комнат</span>
                 <div>
-                    <button>Комната</button>
-                    <button className={s.active}>Студия</button>
-                    <button>1</button>
-                    <button>2</button>
-                    <button>3</button>
-                    <button>4+</button>
+                    {filterBtn}
                 </div>
             </div>
             <div className={s.PriceInput}>
                 <span>Цена от</span>
                 <div>
-                    <input type='text' placeholder='Введите цену' />
+                    <TextInput
+                        defaultValue={minValue}
+                        placeholder='Введите цену'
+                        onBlur={setMinPriceSearch}
+                    />
                 </div>
             </div>
             <div className={s.PriceInput}>
                 <span>Цена до</span>
                 <div>
-                    <input type='text' placeholder='Введите цену' />
+                    <TextInput
+                        defaultValue={maxValue}
+                        placeholder='Введите цену'
+                        onBlur={setMaxPriceSearch}
+                    />
                 </div>
             </div>
         </div>

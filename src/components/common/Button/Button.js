@@ -1,15 +1,26 @@
 import React from 'react'
+import classNames from 'classnames';
 import s from './Button.module.sass'
 
-const Button = ({label, primary, active, ...props}) => {    
+
+const Button = ({variant,
+                size,
+                active = false,
+                children,
+                ...props
+            }) => {    
+
+    const classes = classNames(
+        s.Button,
+        active && s.active,
+        size && s[`button-${size}`],
+        variant && s[`button-${variant}`],
+    )
+
     return (
         <button {...props} 
-            className={`
-                ${s.Button}
-                ${primary ? s.Primary:''}
-                ${active ? s.Active:''}
-            `} >
-            {label}
+            className={classes} >
+            {children && children}
         </button>
     )
 }

@@ -1,25 +1,41 @@
 import React from 'react'
+import classNames from 'classnames'
 import s from './Header.module.sass'
 import iconCity from '../../assets/icon/iconCity.svg'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import {withRouter} from "react-router-dom";
+import Button from '../common/Button/Button'
 
 
 const Header = (props) => {
-
+    console.log(props)
     const {cityName, setModal, isAuth, userLogout} = props
 
-    let userMenu = (
-        <div className={`${s.HeaderUserMenu} headerUserMenu`}>
+    const userMenu = !isAuth ? (
+        <div className={s.HeaderUserMenu}>
             <div className={s.UserMenuItem}
                 onClick={() => setModal('login')}>
-                    <div>Сдать квартиру</div>
+                    <Button size='m' variant='outline' >
+                        Сдать квартиру
+                    </Button>
             </div>
             <div onClick={() => setModal('login')}>
-                <button>
+                <Button size='m' >
                     Войти
-                </button>
+                </Button>
             </div>
+        </div>
+    ) : (
+        <div className={s.HeaderUserMenu}>
+            <div className={s.UserMenuItem} >
+                <Link to='/profile/new'>
+                    <Button size='m' variant='outline' >
+                        Сдать квартиру
+                    </Button>
+                </Link>
+            </div>
+            <Link to='/profile/edit'><div>Кабинет</div></Link>
+            {/* <span onClick={logOut} >Выйти</span> */}
         </div>
     )
 
@@ -28,38 +44,35 @@ const Header = (props) => {
         userLogout()
     }
 
-    if (isAuth) {
-        userMenu = (
-            <div className={`${s.HeaderUserMenu} headerUserMenu`}>
-                    <NavLink to='/profile/new'><div>Сдать квартиру</div></NavLink>
-                    <NavLink to='/profile/edit'><div>Кабинет</div></NavLink>
-                {/* <span onClick={logOut} >Выйти</span> */}
-            </div>
-        ) 
-    }
-
-
     return (
         <div className={s.Header}>
             <div className={s.Container}>
                 <div className={s.HeaderNav}>
                     <div className={s.HeaderLogoMenu}>
                         <div className={s.Logotype}>
-                            <NavLink to='/'>RentalRoom</NavLink>
+                            <Link to='/'>RentalRoom</Link>
                         </div>
                         <div className={s.CityMenu} onClick={() => setModal('cities')}>
                             <img src={iconCity} />
                             {cityName}
                         </div>
                     </div>
-                    <div className={`${s.HeaderLinks} headerLinks`}>
-                            <NavLink to='/search'><div>Подобрать квартиру</div></NavLink>
-                        <div>
-                            Ответы и вопросы
-                        </div>
-                        <div>
-                            Еще пункт
-                        </div>
+                    <div className={s.HeaderLinks}>
+                            <NavLink
+                                activeClassName={s.Active}
+                                to='/search'>
+                                    <div>Подобрать квартиру</div>
+                            </NavLink>
+                            <NavLink
+                                activeClassName={s.Active}
+                                to='/about'>
+                                    <div>О сервисе</div>
+                            </NavLink>
+                            <NavLink
+                                activeClassName={s.Active}
+                                to='/help'>
+                                    <div>Помощь</div>
+                            </NavLink>
                     </div>
                     {userMenu}
                 </div>

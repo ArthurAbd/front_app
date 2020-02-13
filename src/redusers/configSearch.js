@@ -1,35 +1,35 @@
 const inicialState = {
     configSearch: {
-        orderBy: 'create_date',
+        orderBy: 'created',
         order: 'desc',
         offset: 0,
         limit: 10,
-        min: '',
-        max: '',
+        // min: '',
+        // max: '',
         // type: ['r', 'st', '1k', '2k', '3k', '4k+'],
         // coordX: [-90, 90],
         // coordY: [-180, 180],
         selectSort: 'dateDesc',
-        selectType: null,
+        // type: null,
     }
 }
 
 const configSearch = (state = inicialState, action) => {
     switch (action.type) {
         case 'SET_TYPE_SEARCH':
-            if (state.configSearch.selectType === action.payload) {
+            if (state.configSearch.type === action.payload) {
                 return {
-                    configSearch: {...state.configSearch, selectType: null, limit: 10}
+                    configSearch: {...state.configSearch, type: null, limit: 10}
                 }
             }
             
             return {
-                configSearch: {...state.configSearch, selectType: action.payload, limit: 10} 
+                configSearch: {...state.configSearch, type: action.payload, limit: 10} 
             }
     
         case 'SET_SORTING_SEARCH':
             const mapSorting = {
-                'dateDesc': {   orderBy: 'create_date',
+                'dateDesc': {   orderBy: 'created',
                                 order: 'desc',
                                 selectSort: 'dateDesc'},
                 'priceAsc': {   orderBy: 'price',
@@ -43,13 +43,23 @@ const configSearch = (state = inicialState, action) => {
             }
             
         case 'SET_MIN_PRICE_SEARCH':
+            if (action.payload > 0 && action.payload > 9999999) {
+                return {
+                    configSearch: {...state.configSearch, min: action.payload, limit: 10}
+                }
+            }
             return {
-                configSearch: {...state.configSearch, min: action.payload, limit: 10}
+                configSearch: {...state.configSearch, min: 0, limit: 10}
             }
             
         case 'SET_MAX_PRICE_SEARCH':
+            if (action.payload > 0 && action.payload > 9999999) {
+                return {
+                    configSearch: {...state.configSearch, max: action.payload, limit: 10}
+                }
+            }
             return {
-                configSearch: {...state.configSearch, max: action.payload, limit: 10}
+                configSearch: {...state.configSearch, max: 9999999, limit: 10}
             }
 
         case 'SET_LIMIT':

@@ -2,7 +2,7 @@ import React from 'react'
 import s from './Layout.module.sass'
 import Header from '../Header/Header'
 import {connect} from 'react-redux'
-import {setCity, userLogout, getMe, setModal, userLogin, userReg} from '../../actions'
+import {setCity, userLogout, getMe, setModal, userLogin, userReg, updateOutCallRating} from '../../actions'
 import { compose } from 'redux'
 import Modal from '../common/Modal/Modal'
 import Spinner from '../common/Spinner/Spinner'
@@ -16,6 +16,8 @@ class Layout extends React.Component {
 
     render() {
         const { 
+                oneRoom,
+                updateOutCallRating,
                 isLoading,
                 userReg,
                 userLogin,
@@ -26,7 +28,7 @@ class Layout extends React.Component {
                 city,
                 isModal,
                 setModal,
-                phoneNumber,
+                phoneNumberData,
                 userMessage,
             } = this.props
             
@@ -68,8 +70,10 @@ class Layout extends React.Component {
 
             {isModal &&
                 <Modal
+                    photos={oneRoom.photos}
+                    updateOutCallRating={updateOutCallRating}
                     userMessage={userMessage}
-                    phoneNumber={phoneNumber}
+                    phoneNumberData={phoneNumberData}
                     isLoading={isLoading}
                     city={city}
                     isModal={isModal}
@@ -89,15 +93,16 @@ class Layout extends React.Component {
 const mapStateToProps = ({user, oneRoom}) => {
     return {
         userMessage: user.userMessage,
-        phoneNumber: oneRoom.phoneNumber,
+        phoneNumberData: oneRoom.phoneNumberData,
         isLoading: user.isLoading,
         isModal: user.isModal,
         isAuth: user.isAuth,
         city: user.city,
         cities: user.cities,
+        oneRoom: oneRoom.oneRoom
     }
 }
 
 export default compose(connect(mapStateToProps, 
-    {userLogout, setCity, getMe, setModal, userLogin, userReg})
+    {userLogout, setCity, getMe, setModal, userLogin, userReg, updateOutCallRating})
 )(Layout)

@@ -1,30 +1,36 @@
 import React from 'react'
 import s from './Card.module.sass'
-import { Link } from 'react-router-dom'
+import iconLike from '../../../assets/icon/iconLike.svg'
+import { withRouter } from "react-router"
+import classNames from 'classnames'
 
-const Card = ({cardData, setMapCenter}) => {
-    const {id, img, price, address} = cardData
+const Card = ({cardData, setMapCenter, fetchSelectItem, history, vertical}) => {
+    const {idAd, photos, price, address, area, name} = cardData
+
+    const img = photos.split(',')[0]
     
+
     return (
-        <div className={s.Card}>
-            <Link 
-                onMouseOver={() => setMapCenter(id)}
-                to={`/room/${id}`}
-            ></Link>
-            
-            <div className={s.ImgContainer}>
-                <img src={`http://${img}`} alt='img' />
+        <div className={classNames(s.Card, vertical && s.CardVertical)}
+            onClick={() => history.push(`/room/${idAd}`)}
+            onMouseEnter={() => {
+                fetchSelectItem && fetchSelectItem(idAd)
+                setMapCenter && setMapCenter(idAd)
+            }}
+            >
+            <div className={s.CardImg}>
+                <img src={img} />
             </div>
-            <div className={s.TextContainer}>
-                <div className={s.Price}>
-                    {`${price} руб.`}
-                </div>
-                <div>
-                    {address}
+            <div className={s.CardContent}>
+                <div className={s.CardTitle}>{name} {area} м2</div>
+                <div className={s.CardAddress}>{address}</div>
+                <div className={s.CardPrice}>
+                    <div>{price} Р <span> / мес.</span></div>
+                    <div><img src={iconLike} /></div>
                 </div>
             </div>
         </div>
     )
 }
 
-export default Card
+export default withRouter(Card)

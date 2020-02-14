@@ -15,6 +15,7 @@ const setSelectItem = (item) => {
 }
 
 const setMapCenter = (id) => {
+    
     return {
         type: 'SET_MAP_CENTER',
         payload: id

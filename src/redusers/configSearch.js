@@ -15,11 +15,13 @@ const inicialState = {
 }
 
 const configSearch = (state = inicialState, action) => {
+    console.log(state)
     switch (action.type) {
         case 'SET_TYPE_SEARCH':
             if (state.configSearch.type === action.payload) {
+                const {type, ...rest} = state.configSearch
                 return {
-                    configSearch: {...state.configSearch, type: null, limit: 10}
+                    configSearch: {...rest, limit: 10}
                 }
             }
             
@@ -43,7 +45,7 @@ const configSearch = (state = inicialState, action) => {
             }
             
         case 'SET_MIN_PRICE_SEARCH':
-            if (action.payload > 0 && action.payload > 9999999) {
+            if (action.payload > 0 && action.payload < 9999999) {
                 return {
                     configSearch: {...state.configSearch, min: action.payload, limit: 10}
                 }
@@ -53,20 +55,17 @@ const configSearch = (state = inicialState, action) => {
             }
             
         case 'SET_MAX_PRICE_SEARCH':
-            if (action.payload > 0 && action.payload > 9999999) {
+            if (action.payload > 0 && action.payload < 100000) {
                 return {
                     configSearch: {...state.configSearch, max: action.payload, limit: 10}
                 }
             }
             return {
-                configSearch: {...state.configSearch, max: 9999999, limit: 10}
+                configSearch: {...state.configSearch, max: 1000000, limit: 10}
             }
 
         case 'SET_LIMIT':
-            const {scrollHeight, scrollTop, clientHeight} = action.payload.currentTarget
-            console.log('SET_LIMIT', action)
-            if (scrollHeight - 150 > scrollTop + clientHeight ||
-                state.configSearch.limit > action.total) {
+            if (state.configSearch.limit > action.total) {
                 return {
                     ...state
                 }

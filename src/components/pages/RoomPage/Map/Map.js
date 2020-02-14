@@ -12,14 +12,14 @@ const Map = (props) => {
     return (
         <div className={s.Map}>
             <GMap center={mapCoord}
-                zoom={12}
+                mouseEvents={false}
+                touchEvents={false}
+                zoom={14}
                 height={400}
-                // onBoundsChanged={({ center, zoom, bounds, initial }) => {console.log(center, zoom, bounds, initial)}}
                 >
 
                 <Marker anchor={mapCoord}
                     payload={2}
-                    // onClick={({ event, anchor, payload }) => {console.log(event, anchor, payload)}}
                     />
             </GMap>
         </div>

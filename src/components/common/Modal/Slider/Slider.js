@@ -6,17 +6,10 @@ import close from '../../../../assets/icon/close.svg'
 
 
 const Slider = ({setModal, photos}) => {
-        
-    photos = [
-        'https://a0.muscache.com/im/pictures/25625163/d4833a1c_original.jpg?aki_policy=xx_large',
-        'https://a0.muscache.com/im/pictures/25624825/6ef8e934_original.jpg?aki_policy=xx_large',
-        'https://a0.muscache.com/im/pictures/09cef96b-3288-4a5d-a9c5-16bc857379e9.jpg?aki_policy=xx_large',
-        'https://a0.muscache.com/im/pictures/25625125/9d06ac17_original.jpg?aki_policy=xx_large',
-        'https://a0.muscache.com/im/pictures/97a4b034-6bdc-43ea-b2cc-0bcbbbf211b1.jpg?aki_policy=xx_large',
-        'https://a0.muscache.com/im/pictures/4bfd386a-0b8a-4ebf-8814-8cead9e20fb0.jpg?aki_policy=xx_large',
-    ]
 
-    const [photo, setPhoto] = React.useState(photos[0])
+    const photosArr = photos.split(',')
+
+    const [photo, setPhoto] = React.useState(photosArr[0])
     const [counter, setCounter] = React.useState(0)
     const [touchStartX, setTouchStartX] = React.useState(0)
     const [touchMoveX, setTouchMoveX] = React.useState(0)
@@ -29,22 +22,22 @@ const Slider = ({setModal, photos}) => {
     })
 
     const nextPhoto = () => {
-        if (photos.length - 1 <= counter) {
+        if (photosArr.length - 1 <= counter) {
             setCounter(0)
-            setPhoto(photos[0])
+            setPhoto(photosArr[0])
             return
         }
-        setPhoto(() => photos[counter + 1])
+        setPhoto(() => photosArr[counter + 1])
         setCounter(() => counter + 1)
     }
     
     const prevPhoto = () => {
         if (counter === 0) {
-            setCounter(photos.length - 1)
-            setPhoto(photos[photos.length - 1])
+            setCounter(photosArr.length - 1)
+            setPhoto(photosArr[photosArr.length - 1])
             return
         }
-        setPhoto(() => photos[counter - 1])
+        setPhoto(() => photosArr[counter - 1])
         setCounter(() => counter - 1)
     }
 
@@ -87,7 +80,7 @@ const Slider = ({setModal, photos}) => {
             onTouchStart={touchStart}
             >
             <div className={s.SliderCounter}>
-                <span>{`${counter + 1}/${photos.length}`}</span>
+                <span>{`${counter + 1}/${photosArr.length}`}</span>
             </div>
             <div className={s.SliderContainer} style={{transform: `translate(${touchMoveX}px)`}} >
                 <img src={photo} />

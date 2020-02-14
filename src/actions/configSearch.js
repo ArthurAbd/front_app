@@ -30,7 +30,7 @@ const setMaxPriceSearch = (e) => {
 }
 
 const setLimit = (total) => (dispatch) => (e) => {
-    dispatch({
+    return dispatch({
         type: 'SET_LIMIT',
         payload: e,
         total: total

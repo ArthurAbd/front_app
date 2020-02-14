@@ -1,16 +1,18 @@
 import React from 'react'
 import s from './Info.module.sass'
-import { setModal } from '../../../../actions'
+import Button from '../../../common/Button/Button'
 
 const Info = (props) => {
 
     const {
-        type,
+        price,
+        address,
         area,
         floor,
         floors,
-        description,
+        text,
         name,
+        shortName,
         idAd,
         getPhoneNumber,
         isAuth,
@@ -30,40 +32,32 @@ const Info = (props) => {
             <div className={s.InfoText}>
                 <div className={s.Title}>
                     <div className={s.TitleText}>
-                        <h2>Сдается 1-комнатная квартира, 30 м2</h2>
+                        <h2>{name}, {area} м2</h2>
                         <span  className={s.TitleToMap} onClick={scrollToMyRef}>
                             <i className="fa fa-location-arrow fa-2x" aria-hidden="true"></i>
-                            Республика Татарстан, Казань, Ленинградская ул., 22
+                            {address}
                         </span>
                     </div>
                 </div>
                 <div className={s.InfoStats}>
-                    <div>Тип: <span>1-к</span></div>
-                    <div>Площадь: <span>35 м<sup>2</sup></span></div>
-                    <div>Этаж: <span>3/5</span></div>
+                    <div>Тип: <span>{shortName}</span></div>
+                    <div>Площадь: <span>{area} м<sup>2</sup></span></div>
+                    <div>Этаж: <span>{floor}/{floors}</span></div>
                 </div>
                 <div className={s.InfoTextContent}>
-                    This is one of the apartments in Villa Lola, located in Vaðlaheiði near Akureyri, the capital of north Iceland.
-                    This is one of the apartments in Villa Lola, located in Vaðlaheiði near Akureyri, the capital of north Iceland.
-                    This is one of the apartments in Villa Lola, located in Vaðlaheiði near Akureyri, the capital of north Iceland.
-                    This is one of the apartments in Villa Lola, located in Vaðlaheiði near Akureyri, the capital of north Iceland.
-                    This is one of the apartments in Villa Lola, located in Vaðlaheiði near Akureyri, the capital of north Iceland.
-                    This is one of the apartments in Villa Lola, located in Vaðlaheiði near Akureyri, the capital of north Iceland.
-                    This is one of the apartments in Villa Lola, located in Vaðlaheiði near Akureyri, the capital of north Iceland.
-                    This is one of the apartments in Villa Lola, located in Vaðlaheiði near Akureyri, the capital of north Iceland.
-                    This is one of the apartments in Villa Lola, located in Vaðlaheiði near Akureyri, the capital of north Iceland.
+                    {text}
                 </div>
             </div>
 
             <div className={s.InfoAutor}>
                 <div className={s.AutorCard}>
                     <div className={s.InfoPrice}>
-                        <span>20 000</span> руб/мес
+                        <span>{price}</span> руб/мес
                     </div>
-                    <button className={s.Btn} onClick={() => getPhone(idAd)}>
-                        Показать номер
-                    </button>
                     Надежность номера: <span>высокая</span>
+                    <Button size='m' onClick={() => getPhone(idAd)}>
+                        Показать номер
+                    </Button>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 const inicialState = {
-    searchResult: null,
+    searchResult: [],
     total: null,
     loadingResult: false,
     errorResult: false
@@ -16,6 +16,7 @@ const searchResult = (state = inicialState, action) => {
         
         case 'FETCH_ROOMS_SECCESS':
             const {total, result} = action.payload
+            
             return {
                 searchResult: result,
                 total: total,

@@ -7,7 +7,7 @@ const inicialState = {
 const searchMap = (state = inicialState, action) => {
     switch (action.type) {
         case 'SET_COORDS':
-            
+
             return {
                 ...state,
                 searchMapCoords: action.payload,
@@ -28,8 +28,9 @@ const searchMap = (state = inicialState, action) => {
             }
 
         case 'SET_MAP_CENTER':
-            const selectCard = state.searchMapCoords.find((item) => item.id === action.payload)
-            const coord = [selectCard.coord_map_y, selectCard.coord_map_x]
+            
+            const selectCard = state.searchMapCoords.find((item) => item.idAd === action.payload)
+            const coord = [selectCard.coordY, selectCard.coordX]
 
             return {
                 ...state,

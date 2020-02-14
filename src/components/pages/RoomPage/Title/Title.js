@@ -8,7 +8,7 @@ const Title = (props) => {
     return (
         <div className={s.Title}>
             <div className={s.TitleText}>
-                <h2>Сдается {type} квартира, {area}</h2>
+                <h2>Сдается {type} {area}</h2>
                 <span  className={s.TitleToMap} onClick={scrollToMyRef} >
                     <i className="fa fa-location-arrow fa-2x" aria-hidden="true"></i>
                     {address}

@@ -2,15 +2,15 @@ const inicialState = {
     oneRoom: null,
     loadingResult: false,
     errorResult: false,
-    phoneNumber: null
+    phoneNumberData: {}
 }
 
 const oneRoom = (state = inicialState, action) => {
     switch (action.type) {
-        case 'FETCH_ONE_ROOM_REQUEST':
+        case 'ONE_ROOM_LOADING':
             return {
                 ...state,
-                loadingResult: true,
+                loadingResult: action.payload,
             }
         
         
@@ -18,8 +18,7 @@ const oneRoom = (state = inicialState, action) => {
             return {
                 ...state,
                 oneRoom: action.payload,
-                // phoneNumber: null,
-                loadingResult: false,
+                phoneNumberData: null,
                 errorResult: false
             }
         
@@ -27,14 +26,13 @@ const oneRoom = (state = inicialState, action) => {
             return {
                 ...state,
                 oneRoom: null,
-                loadingResult: false,
                 errorResult: action.payload
             }
         
-        case 'SET_PHONE_NUMBER':
+        case 'SET_PHONE_NUMBER_DATA':
             return {
                 ...state,
-                phoneNumber: action.payload
+                phoneNumberData: action.payload
             }
 
         default: return state

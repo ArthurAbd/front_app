@@ -17,41 +17,34 @@ const Map = (props) => {
         searchMapCoords
     } = props
 
-    const markers = searchMapCoords.map(({id, coord_map_x, coord_map_y}) => {
-        const markerCoord = [coord_map_y, coord_map_x]
+    const markers = searchMapCoords.map(({idAd, coordX, coordY}) => {
+        const markerCoord = [coordY, coordX]
 
         return (
-            <Marker key={id}
+            <Marker key={idAd}
                 anchor={markerCoord}
-                payload={id}
+                payload={idAd}
                 onClick={({ event, anchor, payload }) => fetchSelectItem(payload)}
             />
         )
     })
     
     if (!mapCenter && searchMapCoords.length > 0) {
-        setMapCenter(searchMapCoords[0].id)
+        setMapCenter(searchMapCoords[0].idAd)
         return null
     }
     
     const getOverlay = () => {
         if (!selectItem) return null
 
-        const {id, img, price, coord_map_x, coord_map_y} = selectItem
-        const coord = [coord_map_y, coord_map_x]
-
+        const {idAd, price, coordX, coordY} = selectItem
+        const coord = [coordY, coordX]
+        
         return (
-            <Overlay anchor={coord} offset={[125, 225]}>
+            <Overlay anchor={coord} offset={[20, 28]} >
                 <div className={s.Overlay}>
-                    <div onClick={delSelectItem} className={s.OverlayClose}>
-                        <i className="fa fa-times" aria-hidden="true"></i>
-                    </div>
-                    
-                    <Link to={`/room/${id}`}>
-                        <div className={s.OverlayItem}>
-                            <img src={img} alt='' />
-                        </div>
-                        <div>{price} руб.</div>
+                    <Link to={`/room/${idAd}`}>
+                        <span>{price} руб.</span>
                     </Link>
                 </div>
             </Overlay>

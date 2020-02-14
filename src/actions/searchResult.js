@@ -30,7 +30,7 @@ const fetchRooms = () => {
         api.getListRooms({city: city, ...rest})
             .then((data) => {
                 const {coords, ...rooms} = data
-                dispatch(roomsLoaded(rooms))
+                dispatch(roomsLoaded({...rooms, total: coords.length}))
                 dispatch(setCoords(coords))
             })
             .catch((err) => dispatch(roomsError(err)))

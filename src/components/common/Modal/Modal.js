@@ -11,6 +11,7 @@ import Slider from './Slider/Slider';
 
 
 const Modal = ({
+        updateOutCallRating,
         userMessage,
         photos,
         isModal,
@@ -21,9 +22,8 @@ const Modal = ({
         userReg,
         city,
         isLoading,
-        phoneNumber
+        phoneNumberData
     }) => {
-        
     let content = null
 
     switch (isModal) {
@@ -46,7 +46,9 @@ const Modal = ({
             break;
     
         case 'phone':
-            content = <ModalPhone phoneNumber={phoneNumber} />
+            content = <ModalPhone
+                        phoneNumberData={phoneNumberData}
+                        updateOutCallRating={updateOutCallRating} />
             break;
     
         case 'slider':

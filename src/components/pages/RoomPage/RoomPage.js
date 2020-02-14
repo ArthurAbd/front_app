@@ -25,88 +25,32 @@ class RoomPage extends React.Component {
         }
     }
 
-    state = {
-        showSlider: false
-    }
-
-    toggleSlider = () => {
-        this.setState((state) => ({
-            showSlider: !state.showSlider
-        }))
-    }
-
     render() {
-
-        if (!this.props.oneRoom) return null
-        
-        const sliderSettings = {
-            infinite: true,
-            className: s.Slider,
-            centerMode: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1
-        }
-
-
-        const { oneRoom: {
-                    idAd,
-                    address,
-                    area,
-                    coordX,
-                    coordY,
-                    description,
-                    floor,
-                    floors,
-                    photos,
-                    price,
-                    type,
-                    name,
-                    phone_number
-                },
-                loadingResult,
-                searchResult,
-                getPhoneNumber,
-                isAuth,
-                setModal
+        const { oneRoom,
+            loadingResult,
+            searchResult,
+            getPhoneNumber,
+            isAuth,
+            setModal
         } = this.props
-
-        const typeMap = {
-            'r': 'Комната',
-            'st': 'Студия',
-            '1k': '1-комнатная',
-            '2k': '2-комнатная',
-            '3k': '3-комнатная',
-            '4k+': '4-х и более'
-        }
-
-        const normalizeType = typeMap[type]
-
+        
+        if (!this.props.oneRoom || loadingResult) return <Spinner />
+        
+        const {photos, coordX, coordY} = oneRoom
         const photosArr = photos.split(',')
-
-        if (loadingResult) {
-            return <Spinner />
-        }
-
+        
         const myRef = React.createRef()
-
+        
         const scrollToMyRef = () => window.scrollTo(0, myRef.current.offsetTop)
-
+        
         return (
             <div className={s.RoomPage}>
-                <PhotosBlock toggleSlider={this.toggleSlider} photos={photosArr} />
+                <PhotosBlock photos={photosArr} setModal={setModal} />
                 <div className={s.Container}>
                     <Info 
+                        {...oneRoom}
                         scrollToMyRef={scrollToMyRef}
-                        idAd={idAd}
                         getPhoneNumber={getPhoneNumber}
-                        type={normalizeType}
-                        area={area}
-                        floor={floor}
-                        floors={floors}
-                        description={description}
-                        name={name}
-                        phone_number={phone_number}
                         isAuth={isAuth}
                         setModal={setModal}
                     />

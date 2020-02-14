@@ -1,20 +1,20 @@
 import React from 'react'
 import s from './PhotosBlock.module.sass'
 
-const PhotosBlock = ({photos, toggleSlider}) => {
+const PhotosBlock = ({photos, setModal}) => {
     
     if (!photos) return null
 
     const countPhotos = photos.length
 
-    const firstPhoto = (
+    const firstPhoto = () => (
         <div className={s.PhotosBlockFirstImg} key={photos[0]} style={{ 
             backgroundImage: `url("${photos[0]}")`,
             height: '500px',
             }} />
     )
     
-    const photosFromFirst = photos.slice(1, 5).map((img) => {
+    const photosFromFirst = () => photos.slice(1, 5).map((img) => {
 
         return (
             <div key={img} style={{ 
@@ -25,14 +25,14 @@ const PhotosBlock = ({photos, toggleSlider}) => {
     })
     
     return (
-        <div className={s.PhotosBlock}>
+        <div className={s.PhotosBlock} onClick={() => setModal('slider')}>
             <div className={s.ShadowLink}>Открыть все фото</div>
             <span className={s.PhotosBlockImgCount}>{countPhotos} фото</span>
 
             <div className={s.PhotosBlockImg}>
-                {firstPhoto}
+                {firstPhoto()}
                 <div className={s.PhotosBlockImgGroup}>
-                    {photosFromFirst}
+                    {photosFromFirst()}
                 </div>
             </div>
         </div>

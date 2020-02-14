@@ -19,9 +19,9 @@ import Spinner from '../../common/Spinner/Spinner'
 import Select from '../../common/inputs/Select/Select'
 import { compose } from 'redux'
 import iconFilter from '../../../assets/icon/iconFilter.svg'
-import iconLike from '../../../assets/icon/iconLike.svg'
 import cardImg from '../../../assets/img/cardImg.jpg'
 import TextInput from '../../common/inputs/TextInput/TextInput'
+import Button from '../../common/Button/Button'
 
 
 
@@ -45,7 +45,6 @@ class SearchPage extends React.Component {
 
     render() {
         const { 
-                selectValue,
                 setMapCenter,
                 mapCenter,
                 fetchSelectItem,
@@ -61,20 +60,21 @@ class SearchPage extends React.Component {
                 setMaxPriceSearch,
                 setTypeSearch,
                 setSortingSearch} = this.props
-
-
+            
         const cards = searchResult ? searchResult.map((item) => {
             return (
-                <Card key={item.id} cardData={item} setMapCenter={setMapCenter} />
+                <Card key={item.idAd}
+                    cardData={item}
+                    fetchSelectItem={fetchSelectItem}
+                    setMapCenter={setMapCenter} />
             )
         }) : null
 
-
-        let loading = null
         if (loadingResult) {
-            loading = <Spinner />
+            return <Spinner />
         }
 
+        console.log(configSearch.selectValue)
         const map = searchMapCoords ? <Map
             setMapCenter={setMapCenter}
             mapCenter={mapCenter}
@@ -87,9 +87,6 @@ class SearchPage extends React.Component {
         return (
             <div className={s.SearchPage}>
                 
-                {/* <div onScroll={loadingResult ? null : setLimit(total)}
-                    className={s.AdsSide} >
-                {loading} */}
                 <Filter {...configSearch}
                     setMinPriceSearch={setMinPriceSearch}
                     setMaxPriceSearch={setMaxPriceSearch}
@@ -104,8 +101,8 @@ class SearchPage extends React.Component {
                         </div>
                         <div className={s.Sorting}>
                             <Select
-                                value={selectValue}
-                                className={`${s.Select} Input`}
+                                value={configSearch.selectValue}
+                                className={s.Select}
                                 name='select'
                                 onChange={setSortingSearch}>
                                     
@@ -115,31 +112,25 @@ class SearchPage extends React.Component {
                             </Select>
                         </div>
                     </div>
-
-                    
-
-                    <div className={s.CardsBlock}>
-                        <div className={s.Card}>
-                            <div className={s.CardImg}>
-                                <img src={cardImg} />
-                            </div>
-                            <div className={s.CardContent}>
-                                <div className={s.CardTitle}>Однокомнатная квартира 24 м2</div>
-                                <div className={s.CardAddress}>Республика Татарстан, Казань, Ленинградская ул., 22</div>
-                                <div className={s.CardType}>1-комнатная</div>
-                                <div className={s.CardPrice}>
-                                    <div>40 000 Р <span> / мес.</span></div>
-                                    <div><img src={iconLike} /></div>
-                                </div>
-                            </div>
+                        <div className={s.CardsBlock}>
+                            <div className={s.Total}>{`Количество: ${total}`}</div>
+                            {cards}
+                            
+                            {
+                                searchResult.length < total ? (
+                                    <Button 
+                                        size='l'
+                                        onClick={setLimit(total)}
+                                        disabled={!!loadingResult}
+                                    >Далее</Button>
+                                ) : null
+                            }
                         </div>
-                    </div>
+                    
                     <div className={s.Map}>
                         {map}
                     </div>
                 </div>
-
-                {/* <div className={s.Total}>{`${total} объектов`}</div> */}
             </div>
         )
     }

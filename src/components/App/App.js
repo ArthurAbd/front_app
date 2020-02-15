@@ -7,9 +7,8 @@ import MainPage from '../pages/MainPage/MainPage'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import {Provider} from 'react-redux'
 import store from '../../store'
-import Profile from '../pages/User/Profile/Profile'
+import Profile from '../pages/Profile/Profile'
 import ErrorBoundary from '../common/ErrorBoundary/ErrorBoundary'
-import UI from '../UI/UI'
 
 const App = () => {
     return (
@@ -19,7 +18,6 @@ const App = () => {
                     <Layout>
                         <ErrorBoundary>
                             <Switch>
-                                <Route path='/test' component={UI} />
                                 <Route path='/room/:id' component={RoomPage} />
                                 <Route path='/search' component={SearchPage} />
                                 <Route path='/profile' component={Profile} />

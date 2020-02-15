@@ -17,7 +17,6 @@ const post = (path, data) => {
         
         axios.post(url + path, data, authToken)
         .then(function (res) {
-            console.log(res.data)
             resolve(res.data)
         })
         .catch(function (error) {

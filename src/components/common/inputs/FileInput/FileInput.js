@@ -11,9 +11,9 @@ const FileInput = ({sendOnePhoto, photos, isLoading, error}) => {
 
         for (let i = 0; i < files.length; i++) {
             const file = files[i]
-            if (file.type === "image/png" || 
+            if ((file.type === "image/png" || 
             file.type === "image/jpg" || 
-            file.type === "image/jpeg" &&
+            file.type === "image/jpeg") &&
             file.size < 1024 * 1024 * 20) {
                 sendOnePhoto(file)
                 continue

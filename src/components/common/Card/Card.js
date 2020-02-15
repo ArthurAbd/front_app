@@ -19,14 +19,14 @@ const Card = ({cardData, setMapCenter, fetchSelectItem, history, vertical}) => {
             }}
             >
             <div className={s.CardImg}>
-                <img src={img} />
+                <img src={img} alt={address} />
             </div>
             <div className={s.CardContent}>
                 <div className={s.CardTitle}>{name} {area} м2</div>
                 <div className={s.CardAddress}>{address}</div>
                 <div className={s.CardPrice}>
                     <div>{price} Р <span> / мес.</span></div>
-                    <div><img src={iconLike} /></div>
+                    <div><img src={iconLike} alt={address} /></div>
                 </div>
             </div>
         </div>

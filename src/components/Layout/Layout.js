@@ -70,7 +70,7 @@ class Layout extends React.Component {
 
             {isModal &&
                 <Modal
-                    photos={oneRoom.photos}
+                    photos={oneRoom && oneRoom.photos}
                     updateOutCallRating={updateOutCallRating}
                     userMessage={userMessage}
                     phoneNumberData={phoneNumberData}

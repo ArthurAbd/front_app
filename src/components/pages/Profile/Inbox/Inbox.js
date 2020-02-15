@@ -17,7 +17,7 @@ const Inbox = (props) => {
                     <div className={s.CallCards}>
                         <div className={s.Card}>
                             <div className={s.ImgContainer}>
-                                <img src='https://92.img.avito.st/1280x960/5899029392.jpg'/>
+                                <img src='https://92.img.avito.st/1280x960/5899029392.jpg' alt='' />
                             </div>
                             <div className={s.CardContent}>
                                 <div>

@@ -12,7 +12,7 @@ const Map = (props) => {
         setMapCenter,
         mapCenter,
         fetchSelectItem,
-        delSelectItem,
+        // delSelectItem,
         selectItem,
         searchMapCoords
     } = props

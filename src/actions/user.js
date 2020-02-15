@@ -64,6 +64,7 @@ const userLogin = (data) => {
                 dispatch(setModal(false))
                 dispatch(setUserToken(res))
                 dispatch(setIsAuth(true))
+                dispatch(getMe())
                 dispatch(setIsLoading(false))
             })
             .catch((err) => {
@@ -89,12 +90,18 @@ const userReg = (data) => {
     }
 }
 
-const userEdit = (api, dispatch) => (data) => {
-    dispatch(setUserMessage(null))
-    dispatch(setIsLoading(true))
-    api.editUser(data)
-        .then((res) =>  dispatch(setIsLoading(false)))
-        .catch((err) => dispatch(setIsLoading(false)))
+const userEdit = (data) => {
+    return (dispatch) => {
+        dispatch(setUserMessage(null))
+        dispatch(setIsLoading(true))
+        api.editUser(data)
+            .then((res) => {
+                dispatch(getMe())
+            })
+            .catch((err) => {
+                dispatch(setIsLoading(false))
+            })
+    }
 }
 
 const userLogout = () => {
@@ -105,8 +112,8 @@ const userLogout = () => {
             api.logout()
                 .finally(() => {
                     dispatch(delUserToken())
-                    dispatch(setIsLoading(false))
                     dispatch(setIsAuth(false))
+                    dispatch(setIsLoading(false))
                 })
         })
         .catch((err) => {
@@ -121,20 +128,20 @@ const getMe = () => {
         dispatch(setIsLoading(true))
         isLoginUser(dispatch)
         .then(() => {
-            api.getMe()
+            api.getMyData()
                 .then((res) => {
+                    dispatch(setUser(res))
                     dispatch(setIsAuth(true))
                     dispatch(setIsLoading(false))
-                    dispatch(setUser(res.data.number))
                 })
                 .catch((err) =>{
-                    dispatch(setIsLoading(false))
                     dispatch(setUserMessage(err))
+                    dispatch(setIsLoading(false))
                 })
         })
         .catch((err) => {
-            dispatch(setIsLoading(false))
             dispatch(setUserMessage(err))
+            dispatch(setIsLoading(false))
         })
     }
 }

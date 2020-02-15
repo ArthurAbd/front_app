@@ -18,8 +18,6 @@ import {
 import Spinner from '../../common/Spinner/Spinner'
 import Select from '../../common/inputs/Select/Select'
 import { compose } from 'redux'
-import iconFilter from '../../../assets/icon/iconFilter.svg'
-import cardImg from '../../../assets/img/cardImg.jpg'
 import TextInput from '../../common/inputs/TextInput/TextInput'
 import Button from '../../common/Button/Button'
 

@@ -15,7 +15,6 @@ const inicialState = {
 }
 
 const configSearch = (state = inicialState, action) => {
-    console.log(state)
     switch (action.type) {
         case 'SET_TYPE_SEARCH':
             if (state.configSearch.type === action.payload) {

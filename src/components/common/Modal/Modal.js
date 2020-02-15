@@ -53,7 +53,6 @@ const Modal = ({
     
         case 'slider':
             return <Slider setModal={setModal} photos={photos} />
-            break;
     
         default: 
             return null
@@ -70,7 +69,7 @@ const Modal = ({
             {isLoading ? <Spinner /> : null}
             <div className={s.Modal}>
                 <div className={s.ModalClose} onClick={() => setModal(false)}>
-                    <img src={iconClose} />
+                    <img src={iconClose} alt='' />
                 </div>
                 <div className={s.ModalLayout}>
                     {content}

@@ -1,6 +1,7 @@
 import React from 'react'
 import s from './MainPage.module.sass'
 import alvarcarto from '../../../assets/img/alvarcarto.jpg'
+import cardImg from '../../../assets/img/cardImg.jpg'
 
 const MainPage = () => {
     return (
@@ -21,7 +22,7 @@ const MainPage = () => {
                     </div>
                     <div>
                         <div className={s.ImgContainer}>
-                            <img src='http://localhost:3000/static/media/cardImg.dcb24e10.jpg' />
+                            <img src={cardImg} alt='' />
                         </div>
                     </div>
                 </div>
@@ -31,7 +32,7 @@ const MainPage = () => {
                     </div>
                     <div>
                         <div className={s.ImgContainer}>
-                            <img src='http://localhost:3000/static/media/cardImg.dcb24e10.jpg' />
+                            <img src={cardImg} alt='' />
                         </div>
                     </div>
                 </div>
@@ -41,7 +42,7 @@ const MainPage = () => {
                     </div>
                     <div>
                         <div className={s.ImgContainer}>
-                            <img src='http://localhost:3000/static/media/cardImg.dcb24e10.jpg' />
+                            <img src={cardImg} alt='' />
                         </div>
                     </div>
                 </div>
@@ -51,7 +52,7 @@ const MainPage = () => {
                     </div>
                     <div>
                         <div className={s.ImgContainer}>
-                            <img src='http://localhost:3000/static/media/cardImg.dcb24e10.jpg' />
+                            <img src={cardImg} alt='' />
                         </div>
                     </div>
                 </div>

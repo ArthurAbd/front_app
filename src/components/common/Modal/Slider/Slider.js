@@ -83,20 +83,20 @@ const Slider = ({setModal, photos}) => {
                 <span>{`${counter + 1}/${photosArr.length}`}</span>
             </div>
             <div className={s.SliderContainer} style={{transform: `translate(${touchMoveX}px)`}} >
-                <img src={photo} />
+                <img src={photo} alt='' />
             </div>
             <div className={s.SliderPrev} onClick={prevPhoto}>
                 <span>
-                    <img src={sliderPrev} />
+                    <img src={sliderPrev} alt='' />
                 </span>
             </div>
             <div className={s.SliderNext} onClick={nextPhoto}>
                 <span>
-                    <img src={sliderNext} />
+                    <img src={sliderNext} alt='' />
                 </span>
             </div>
             <div className={s.SliderClose} onClick={closeSlider} >
-                <img src={close} />
+                <img src={close} alt='' />
             </div>
         </div>
     )

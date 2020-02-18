@@ -1,34 +1,36 @@
 const inicialState = {
     city: 'moskva',
     cities: [
-        {city: 'moskva', name: 'Москва'},
-        {city: 'sankt-peterburg', name: 'Санкт-петербург'},
-        {city: 'novosibirsk', name: 'Новосибирск'},
-        {city: 'ekaterinburg', name: 'Екатеринбург'},
-        {city: 'nizhniy_novgorod', name: 'Нижний новгород'},
-        {city: 'kazan', name: 'Казань'},
-        {city: 'chelyabinsk', name: 'Челябинск'},
-        {city: 'omsk', name: 'Омск'},
-        {city: 'samara', name: 'Самара'},
-        {city: 'rostov-na-donu', name: 'Ростов-на-дону'},
-        {city: 'ufa', name: 'Уфа'},
-        {city: 'krasnoyarsk', name: 'Красноярск'},
-        {city: 'perm', name: 'Пермь'},
-        {city: 'voronezh', name: 'Воронеж'},
-        {city: 'volgograd', name: 'Волгоград'},
-        {city: 'krasnodar', name: 'Краснодар'},
-        {city: 'kemerovo', name: 'Кемерово'},
-        {city: 'irkutsk', name: 'Иркустк'},
-        {city: 'saratov', name: 'Саратов'},
-        {city: 'tyumen', name: 'Тюмень'},
-        {city: 'yaroslavl', name: 'Ярославль'}
+        {tag: 'moskva', name: 'Москва'},
+        {tag: 'novosibirsk', name: 'Новосибирск'},
+        {tag: 'ekaterinburg', name: 'Екатеринбург'},
+        {tag: 'nizhniy_novgorod', name: 'Нижний новгород'},
+        {tag: 'kazan', name: 'Казань'},
+        {tag: 'chelyabinsk', name: 'Челябинск'},
+        {tag: 'omsk', name: 'Омск'},
+        {tag: 'samara', name: 'Самара'},
+        {tag: 'rostov-na-donu', name: 'Ростов-на-дону'},
+        {tag: 'sankt-peterburg', name: 'Санкт-петербург'},
+        {tag: 'ufa', name: 'Уфа'},
+        {tag: 'krasnoyarsk', name: 'Красноярск'},
+        {tag: 'perm', name: 'Пермь'},
+        {tag: 'voronezh', name: 'Воронеж'},
+        {tag: 'volgograd', name: 'Волгоград'},
+        {tag: 'krasnodar', name: 'Краснодар'},
+        {tag: 'kemerovo', name: 'Кемерово'},
+        {tag: 'irkutsk', name: 'Иркустк'},
+        {tag: 'saratov', name: 'Саратов'},
+        {tag: 'tyumen', name: 'Тюмень'},
+        {tag: 'yaroslavl', name: 'Ярославль'}
     ],
     isAuth: false,
     isLoading: false,
     isError: false,
     isModal: 'cities',
     userMessage: null,
-    user: null
+    user: null,
+    myAds: null,
+    inCalls: null,
 }
 
 if (localStorage.getItem('city')) {
@@ -94,6 +96,30 @@ const user = (state = inicialState, action) => {
                 ...state,
                 city: action.payload,
                 isModal: false
+            }
+
+        case 'SET_MY_ADS':
+            return {
+                ...state,
+                myAds: action.payload,
+            }
+
+        case 'CLEAR_MY_ADS':
+            return {
+                ...state,
+                myAds: null,
+            }
+
+        case 'SET_IN_CALLS':
+            return {
+                ...state,
+                inCalls: action.payload,
+            }
+
+        case 'CLEAR_IN_CALLS':
+            return {
+                ...state,
+                inCalls: null,
             }
 
         default: return state

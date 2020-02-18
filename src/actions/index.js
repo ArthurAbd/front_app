@@ -10,6 +10,15 @@ import {setCoords,
     delSelectItem,
     setMapCenter} from './searchMap'
 import {
+    createAd,
+    changePhotos,
+    changeMapCoord,
+    updateInCallRating,
+    removeAd,
+    clearInCalls,
+    clearMyAds,
+    getInCalls,
+    getMyAds,
     setModal,
     getMe,
     setCity,
@@ -20,6 +29,15 @@ import {
 import {sendOnePhoto} from './fileInput'
 
 export {
+    createAd,
+    changePhotos,
+    changeMapCoord,
+    updateInCallRating,
+    removeAd,
+    clearInCalls,
+    clearMyAds,
+    getInCalls,
+    getMyAds,
     updateOutCallRating,
     sendOnePhoto,
     getPhoneNumber,

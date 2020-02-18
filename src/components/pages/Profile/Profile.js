@@ -10,13 +10,31 @@ import Inbox from './Inbox/Inbox';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import Spinner from './../../common/Spinner/Spinner';
-import {setModal, userEdit, userLogout} from './../../../actions'
+import {
+    setModal, userEdit, userLogout, getInCalls,
+    getMyAds, clearInCalls, clearMyAds, updateInCallRating,
+    removeAd, changeMapCoord, changePhotos, createAd
+} from './../../../actions'
 import Button from '../../common/Button/Button';
 
 
 const Profile = (props) => {
 
     const {
+        createAd,
+        changePhotos,
+        photos,
+        changeMapCoord,
+        cities,
+        city,
+        updateInCallRating,
+        removeAd,
+        clearInCalls,
+        clearMyAds,
+        getInCalls,
+        getMyAds,
+        inCalls,
+        myAds,
         userLogout,
         userEdit,
         user,
@@ -25,7 +43,7 @@ const Profile = (props) => {
         isAuth,
         history
     } = props
-
+    
     const logOut = () => {
         history.push('/')
         userLogout()
@@ -43,30 +61,42 @@ const Profile = (props) => {
         <Container>
             <div className={s.Profile}>
                 <div className={s.NavMenu}>
-                    <NavLink to='/profile/new' activeClassName={s.Active} >
-                        <Button size='m' variant='transparent'>Новое объявление</Button>
-                    </NavLink>
-                    <NavLink to='/profile/ads' activeClassName={s.Active} >
-                        <Button size='m' variant='transparent'>Мои объявления</Button>
-                    </NavLink>
-                    <NavLink to='/profile/calls' activeClassName={s.Active} >
-                        <Button size='m' variant='transparent'>Входящие звонки</Button>
-                    </NavLink>
-                    <NavLink to='/profile/edit' activeClassName={s.Active} >
-                        <Button size='m' variant='transparent'>Настройки</Button>
-                    </NavLink>
-                    <div onClick={logOut} className={s.Out} >
-                        <Button size='m' variant='transparent' >Выйти</Button>
+                    <div className={s.Sticky}>
+                        <NavLink to='/profile/new' activeClassName={s.Active} >
+                            <Button size='m' variant='transparent'>Новое объявление</Button>
+                        </NavLink>
+                        <NavLink to='/profile/ads' activeClassName={s.Active} >
+                            <Button size='m' variant='transparent'>Мои объявления</Button>
+                        </NavLink>
+                        <NavLink to='/profile/calls' activeClassName={s.Active} >
+                            <Button size='m' variant='transparent'>Входящие звонки</Button>
+                        </NavLink>
+                        <NavLink to='/profile/edit' activeClassName={s.Active} >
+                            <Button size='m' variant='transparent'>Настройки</Button>
+                        </NavLink>
+                        <div onClick={logOut} className={s.Out} >
+                            <Button size='m' variant='transparent' >Выйти</Button>
+                        </div>
                     </div>
                 </div>
                 <div className={s.Content}>
                     <Switch>
-                        <Route path='/profile/new' render={() => <NewAd />} />
-                        <Route path='/profile/ads' render={() => <MyAds />} />
-                        <Route path='/profile/calls' render={() => <Inbox />} />
+                        <Route path='/profile/new' render={
+                            () => <NewAd cities={cities} city={city} changePhotos={changePhotos}
+                                changeMapCoord={changeMapCoord} photos={photos} 
+                                createAd={createAd} />
+                        } />
+                        <Route path='/profile/ads' render={
+                            () => <MyAds myAds={myAds} removeAd={removeAd}
+                                getMyAds={getMyAds} clearMyAds={clearMyAds} />
+                        } />
+                        <Route path='/profile/calls' render={
+                            () => <Inbox inCalls={inCalls} updateInCallRating={updateInCallRating}
+                                getInCalls={getInCalls} clearInCalls={clearInCalls} />
+                        } />
                         <Route path='/profile/edit' render={
                             () => user && <ProfileEdit userEdit={userEdit} checked={user.checked}
-                                        number={user.number} name={user.name}/>
+                                number={user.number} name={user.name}/>
                         } />
                         <Route render={() => <MyAds/>} />
                     </Switch>
@@ -76,8 +106,14 @@ const Profile = (props) => {
     )
 }
 
-const mapStateToProps = ({user}) => {
+const mapStateToProps = ({user, fileInput}) => {
+    
     return {
+        photos: fileInput.photos,
+        cities: user.cities,
+        city: user.city,
+        inCalls: user.inCalls,
+        myAds: user.myAds,
         user: user.user,
         isAuth: user.isAuth,
         isLoading: user.isLoading,
@@ -86,6 +122,10 @@ const mapStateToProps = ({user}) => {
 
 
 export default compose(
-    connect(mapStateToProps, {setModal, userEdit, userLogout}),
+    connect(mapStateToProps, {
+        setModal, userEdit, userLogout, getInCalls,
+        getMyAds, clearInCalls, clearMyAds, updateInCallRating,
+        removeAd, changeMapCoord, changePhotos, createAd
+    }),
     withRouter
 )(Profile)

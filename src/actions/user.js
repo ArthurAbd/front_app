@@ -1,4 +1,5 @@
 import * as api from '../services/Api'
+import { change } from 'redux-form'
 
 const setCity = (e) => {
     return {
@@ -55,6 +56,32 @@ const delUserToken = () => {
     }
 }
 
+const setMyAds = (data) => {
+    return {
+        type: 'SET_MY_ADS',
+        payload: data
+    }
+}
+
+const setInCalls = (data) => {
+    return {
+        type: 'SET_IN_CALLS',
+        payload: data
+    }
+}
+
+const clearMyAds = () => {
+    return {
+        type: 'CLEAR_MY_ADS',
+    }
+}
+
+const clearInCalls = () => {
+    return {
+        type: 'CLEAR_IN_CALLS',
+    }
+}
+
 const userLogin = (data) => {
     return (dispatch) => {
         dispatch(setUserMessage(null))
@@ -97,6 +124,64 @@ const userEdit = (data) => {
         api.editUser(data)
             .then((res) => {
                 dispatch(getMe())
+            })
+            .catch((err) => {
+                dispatch(setIsLoading(false))
+            })
+    }
+}
+
+const getMyAds = () => {
+    return (dispatch) => {
+        dispatch(setIsLoading(true))
+        api.getMyAds()
+            .then((res) => {
+                dispatch(setMyAds(res))
+                dispatch(setIsLoading(false))
+            })
+            .catch((err) => {
+                dispatch(setMyAds([]))
+                dispatch(setIsLoading(false))
+            })
+    }
+}
+
+const getInCalls = () => {
+    return (dispatch) => {
+        dispatch(setIsLoading(true))
+        api.getInCalls()
+            .then((res) => {
+                dispatch(setInCalls(res))
+                dispatch(setIsLoading(false))
+            })
+            .catch((err) => {
+                dispatch(setInCalls([]))
+                dispatch(setIsLoading(false))
+            })
+    }
+}
+
+const updateInCallRating = (data) => {
+    return (dispatch) => {
+        dispatch(setIsLoading(true))
+        api.updateInCallRating(data)
+            .then((res) => {
+                dispatch(getInCalls())
+                dispatch(setIsLoading(false))
+            })
+            .catch((err) => {
+                dispatch(setIsLoading(false))
+            })
+    }
+}
+
+const removeAd = (id) => {
+    return (dispatch) => {
+        dispatch(setIsLoading(true))
+        api.removeAd(id)
+            .then((res) => {
+                dispatch(getMyAds())
+                dispatch(setIsLoading(false))
             })
             .catch((err) => {
                 dispatch(setIsLoading(false))
@@ -175,7 +260,46 @@ const isLoginUser = (dispatch) => {
     })
 }
 
+const changeMapCoord = ([coordY, coordX]) => {
+    return (dispatch) => {
+        dispatch(change('newAd', 'coordY', coordY.toFixed(6)))
+        dispatch(change('newAd', 'coordX', coordX.toFixed(6)))
+        api.geocode([coordX, coordY]).then((res) => {
+            const address = res.response.GeoObjectCollection.featureMember[0].GeoObject.name
+            dispatch(change('newAd', 'address', address))
+        })
+    }
+}
+
+const createAd = (data) => {
+    return (dispatch) => {
+        dispatch(setIsLoading(true))
+        api.newAd(data)
+        .then((res) => {
+            dispatch(setIsLoading(false))
+        })
+        .catch((err) => {
+            dispatch(setIsLoading(false))
+        })
+    }
+}
+
+const changePhotos = (photos) => {
+    return (dispatch) => {
+        dispatch(change('newAd', 'photos', photos.join(',')))
+    }
+}
+
 export {
+    createAd,
+    changePhotos,
+    changeMapCoord,
+    updateInCallRating,
+    removeAd,
+    clearInCalls,
+    clearMyAds,
+    getInCalls,
+    getMyAds,
     setModal,
     getMe,
     isLoginUser,

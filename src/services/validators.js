@@ -7,7 +7,7 @@ export const minLength = min => value =>
     value && value.length < min ? `Минимум ${min} символов.` : undefined
 
 export const number = value =>
-    value && isNaN(Number(value)) ? 'Введите номер.' : undefined
+    value && isNaN(Number(value)) ? 'Введите число.' : undefined
 
 export const minValue = min => value =>
     value && value < min ? `Минимальное значение ${min}.` : undefined
@@ -21,3 +21,6 @@ export const phoneNumber = value =>
     value && !/^(0|[1-9][0-9]{9})$/i.test(value)
         ? 'Введите 10 цифр'
         : undefined
+
+export const matchInput = (input, allInputs) =>
+input === allInputs.newPassword ? undefined : 'Пароль не совпадает';

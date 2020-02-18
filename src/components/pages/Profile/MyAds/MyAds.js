@@ -1,36 +1,47 @@
 import React from 'react'
 import s from './MyAds.module.sass'
 import {withRouter} from "react-router-dom";
-// import Card from '../../../common/Card/Card'
+import Button from '../../../common/Button/Button';
 
-const MyAds = (props) => {
+const MyAds = ({myAds, getMyAds, clearMyAds, removeAd}) => {
+
     
-    const {
-        myAds
-    } = props
+    React.useEffect(() => {
+        if (!myAds) {
+            getMyAds()
+        }
+
+        return () => clearMyAds()
+    })
+
+    const cards = myAds && myAds[0] && myAds.map(({idAd, photos, price, address, area, name}) => {
+        const img = photos.split(',')[0]
+        
+        return (
+            <div className={s.Card} key={idAd} >
+                <div className={s.CardImg}>
+                    <img src={img} alt={address} />
+                </div>
+                <div className={s.CardContent}>
+                    <div className={s.CardTitle}>{name} {area} м2</div>
+                    <div className={s.CardAddress}>{address}</div>
+                    <div className={s.CardPrice}>
+                        <div>{price} Р <span> / мес.</span></div>
+                    </div>
+                    <div className={s.CardBtn}>
+                        <Button size='m' >Редактировать</Button>
+                        <Button size='m' variant='outline'
+                            onClick={() => removeAd(idAd)} >Удалить</Button>
+                    </div>
+                </div>
+            </div>
+        )}
+    )
 
     return (
         <div className={s.MyAds}>
-            {!myAds && <div>Нет результатов</div>}
-            {myAds && myAds.map((item) => (
-                <div className={s.CallCards}>
-                    <div className={s.Card}>
-                        <div className={s.ImgContainer}>
-                            <img src='https://92.img.avito.st/1280x960/5899029392.jpg' alt='' />
-                        </div>
-                        <div className={s.CardContent}>
-                            <div>
-                                <h3>1-комнатная квартира, 33 м²</h3>
-                            </div>
-                            <div>Санкт-Петербург, Казанская ул., 2</div>
-                            <div className={s.GroupBtn}>
-                                <div className={s.Btn}>Изменить</div>
-                                <div className={s.Btn + ' bgRed'}>Удалить</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            ))}
+            {myAds && !myAds[0] && <div>Нет результатов</div>}
+            {cards}
         </div>
     )
 }

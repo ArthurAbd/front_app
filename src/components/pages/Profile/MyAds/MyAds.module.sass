@@ -1,39 +1,55 @@
-.Inbox
-    width: 100%
-.CallCards
+@import '../../../../variables'
+
+.MyAds
     display: flex
     flex-direction: column
 .Card
-    height: 200px
-    display: flex
-    justify-content: stretch
-.ImgContainer
-    width: 300px
-    height: 100%
-    overflow: hidden
-    display: flex
-    flex-basis: 300px
-    justify-content: center
-    img
-        height: 100%
-.CardContent
-    padding: 0 24px
-    flex-grow: 1
-    flex-basis: 400px
-    height: 100%
-    display: flex
-    justify-content: space-between
+    width: 350px
+    height: auto
+    border: none
     flex-direction: column
-.GroupBtn
-    display: flex
-    justify-content: space-between
-.Btn
-    margin-top: 20px
-    display: inline-block
-    border: 1px #ccc solid
-    padding: 10px 30px
-    font-size: 1.4rem
-    &:hover
-        cursor: pointer
-        background-color: #e2e2e2
-    
+    background: #fff
+    width: auto
+    min-width: 230px
+    max-width: 350px
+    margin: 10px 0
+    border-bottom: 1px solid $gray-4
+    .CardImg
+        margin-right: 0
+        height: 200px
+        img
+            width: 100%
+            height: 100%
+            object-fit: cover
+    .CardContent
+        display: flex
+        flex-direction: column
+        width: 100%
+        padding: 0 10px
+        padding-bottom: 16px
+        .CardTitle
+            margin: 16px 0
+            font-size: 18px
+            font-weight: 700
+        .CardAddress
+            margin-bottom: 8px
+            font-size: 14px
+            color: $gray-2
+            flex-basis: 50px
+        .CardPrice
+            display: flex
+            justify-content: space-between
+            font-size: 16px
+            font-weight: bold
+            span
+                font-size: 14px
+                color: $gray-2
+                font-weight: 400
+        .CardBtn
+            display: flex
+            justify-content: space-between
+            margin-top: 16px
+            button
+                &:first-child
+                    margin-right: 5px
+        

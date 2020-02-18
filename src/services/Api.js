@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 
-// const url = 'http://185.5.251.215:3001'
 const url = 'http://127.0.0.1:3001'
+// const url = 'http://185.5.251.215:3001'
 const clientId = 'desktop'
 const clientSecret = '12345'
 const post = (path, data) => {
@@ -43,12 +43,28 @@ const sendOnePhoto = (file) => {
     })
 }
 
+const geocode = (coords) => {
+    return new Promise((resolve, reject) => {
+        axios.get('https://geocode-maps.yandex.ru/1.x/', {
+        params: {
+            apikey: 'd6a15e01-7431-4971-aa3e-c04c1ed41014',
+            format: 'json',
+            geocode: coords.map(item => item.toFixed(6)).join(',')
+          }})
+        .then((res) => {
+            resolve(res.data)
+        })
+        .catch((err) => reject(err))
+    })
+}
+
 const addUser = (data) => {
     return post('/user/addUser', data)
 }
 
 const editUser = (data) => {
-    return post('/user/editUser', data)
+    const {repeatPassword, ...newData} = data
+    return post('/user/editUser', newData)
 }
 
 const login = (data) => {
@@ -129,6 +145,7 @@ const updateOutCallRating = (data) => {
 }
 
 export {
+    geocode,
     sendOnePhoto,
     login,
     getMe,

@@ -3,12 +3,12 @@ import s from './Select.module.sass'
 
 const Select = (props) => {
 
-    const {children, options = [], ...rest} = props
+    const {children, input, options = [], ...rest} = props
     
     return (
-        <select {...rest} className={s.Select} >
+        <select {...rest} {...input} className={s.Select} >
             {options.map((item) => (
-                <option value={item}>{item}</option>
+                <option key={item.tag} value={item.tag}>{item.name}</option>
             ))}
             {children}
         </select>

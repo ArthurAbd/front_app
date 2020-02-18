@@ -1,6 +1,6 @@
 import React from 'react'
 import { reduxForm, Field } from 'redux-form'
-import { required, minLength, maxLength} from '../../../../services/validators'
+import { required, minLength, maxLength, matchInput} from '../../../../services/validators'
 import Button from '../../../common/Button/Button'
 import FormField from '../../../common/inputs/FormField/FormField'
 import TextInput from '../../../common/inputs/TextInput/TextInput'
@@ -37,7 +37,7 @@ const EditPasswordForm = ({handleSubmit}) => {
                     name='repeatPassword' 
                     type='password'
                     component={TextInput}
-                    validate={[required, minLength6, maxLength30]}
+                    validate={[required, minLength6, maxLength30, matchInput]}
                     />
             </FormField>
             <Button type='submit' size='s' >

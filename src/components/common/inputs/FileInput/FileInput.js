@@ -5,7 +5,7 @@ import {sendOnePhoto} from '../../../../actions'
 import Spinner from '../../Spinner/Spinner'
 
 
-const FileInput = ({sendOnePhoto, photos, isLoading, error}) => {
+const FileInput = ({sendOnePhoto, photos, isLoading, error, changePhotos}) => {
     
     const sendPhotos = (files) => {
 
@@ -22,6 +22,9 @@ const FileInput = ({sendOnePhoto, photos, isLoading, error}) => {
         }
     }
 
+    React.useEffect(() => {
+        changePhotos(photos)
+    })
 
     const [fileOver, setFileOver] = React.useState(false)
     
@@ -75,7 +78,7 @@ const FileInput = ({sendOnePhoto, photos, isLoading, error}) => {
         {photos.length > 0 ? (
             <div className={s.ImgContainer}>
             {photos.map((url) => (
-                <img src={`http://localhost:3001/${url}`} />
+                <img key={url} src={`//localhost:3001/uploads/196_144/${url}`} />
             ))}
             </div>
         ) : null}

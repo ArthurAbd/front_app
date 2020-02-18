@@ -1,0 +1,27 @@
+@import '../../../../variables'
+
+.TextArea
+    outline: none
+    border: none
+    border-radius: 4px
+    border: 2px solid $gray-3
+    background: $gray-5
+    color: $black
+    width: 250px
+    height: 150px
+    padding: 10px 16px
+    &::placeholder
+        color: $gray-1
+    &:focus
+        border: 2px solid $blue
+    &.error
+        border: 2px solid $warning
+    &.success
+        border: 2px solid $success
+.formMessage
+    position: absolute
+    font-size: 12px
+    color: #be0000
+    top: -5px
+    right: 0
+    

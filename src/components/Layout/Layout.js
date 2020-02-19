@@ -6,6 +6,8 @@ import {setCity, userLogout, getMe, setModal, userLogin, userReg, updateOutCallR
 import { compose } from 'redux'
 import Modal from '../common/Modal/Modal'
 import Spinner from '../common/Spinner/Spinner'
+import Footer from '../Footer/Footer'
+import { withRouter } from 'react-router-dom'
 
 
 class Layout extends React.Component {
@@ -30,6 +32,7 @@ class Layout extends React.Component {
                 setModal,
                 phoneNumberData,
                 userMessage,
+                location
             } = this.props
             
         const cityMap = {
@@ -60,32 +63,37 @@ class Layout extends React.Component {
         
         if (isLoading) return <Spinner />
         return (
-            <div className={s.Layout}>
-                <Header
-                    userLogout={() => userLogout()}
-                    isAuth={isAuth}
-                    cityName={cityMap[city]}
-                    setModal={setModal}
-                />
+            <>
+                <div className={s.Layout}>
+                    <Header
+                        userLogout={() => userLogout()}
+                        isAuth={isAuth}
+                        cityName={cityMap[city]}
+                        setModal={setModal}
+                    />
 
-            {isModal &&
-                <Modal
-                    photos={oneRoom && oneRoom.photos}
-                    updateOutCallRating={updateOutCallRating}
-                    userMessage={userMessage}
-                    phoneNumberData={phoneNumberData}
-                    isLoading={isLoading}
-                    city={city}
-                    isModal={isModal}
-                    setModal={setModal}
-                    cities={cities}
-                    setCity={setCity}
-                    userLogin={userLogin}
-                    userReg={userReg}
-                />}
-                
-                {this.props.children}
-            </div>
+                {isModal &&
+                    <Modal
+                        photos={oneRoom && oneRoom.photos}
+                        updateOutCallRating={updateOutCallRating}
+                        userMessage={userMessage}
+                        phoneNumberData={phoneNumberData}
+                        isLoading={isLoading}
+                        city={city}
+                        isModal={isModal}
+                        setModal={setModal}
+                        cities={cities}
+                        setCity={setCity}
+                        userLogin={userLogin}
+                        userReg={userReg}
+                    />}
+                    
+                    {this.props.children}
+
+                    
+                </div>
+            {location && location.pathname !== '/search' && <Footer />}
+            </>
         )
     }
 }
@@ -103,6 +111,8 @@ const mapStateToProps = ({user, oneRoom}) => {
     }
 }
 
-export default compose(connect(mapStateToProps, 
-    {userLogout, setCity, getMe, setModal, userLogin, userReg, updateOutCallRating})
+export default compose(
+    withRouter,
+    connect(mapStateToProps, {userLogout, setCity, getMe,
+        setModal, userLogin, userReg, updateOutCallRating})
 )(Layout)

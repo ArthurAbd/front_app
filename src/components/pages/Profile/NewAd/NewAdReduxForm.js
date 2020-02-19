@@ -8,7 +8,7 @@ import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import Select from '../../../common/inputs/Select/Select'
 import TextArea from '../../../common/inputs/TextArea/TextArea'
 import FileInput from '../../../common/inputs/FileInput/FileInput'
-
+import s from './NewAdReduxForm.module.sass'
 
 
 const minLength3 = minLength(3)
@@ -23,7 +23,11 @@ const NewAdForm = ({handleSubmit, cities, changeMapCoord, changePhotos}) => {
 
     const mapRef = React.useRef(null)
 
+    const [mapLoad, setMapLoad] = React.useState(true)
+
     const setEventListener = () => {
+        console.log('setMapLoad(false)')
+        setMapLoad(false)
         mapRef.current.events
         .add('boundschange', function (e) {
             changeMapCoord(e.get('newCenter'))
@@ -47,122 +51,145 @@ const NewAdForm = ({handleSubmit, cities, changeMapCoord, changePhotos}) => {
                 <Map
                     width={'100%'}
                     height={'400px'}
-                    state={{center: [55.75, 37.6], zoom: 12}}
+                    defaultState={{center: [55.75, 37.6], zoom: 12}}
                     onLoad={() => setEventListener()}
                     instanceRef={mapRef}
                 >
                 </Map>
             </YMaps>
-                <div style={{position: 'absolute', top: '50%', right: '50%',
+                {!mapLoad && <div style={{position: 'absolute', top: '50%', right: '50%',
                     marginTop: '-5px', marginLeft: '-10px',}} >
                     <i className="fa fa-map-marker fa-2x" aria-hidden="true"></i>
-                </div>
+                </div>}
         </div>
       )
 
     return (
         <form onSubmit={handleSubmit}>
-            <FormField label={'Город'}>
-                <Field
-                    name='city'
-                    type='text'
-                    component={Select}
-                    options={cities}
-                    validate={[required]}
-                />
-            </FormField>
 
-            <FormField label={<i className='fa fa-map fa-2x' aria-hidden='true'/>}>
+            <div className={s.Address}>
+                <h2>Адрес</h2>
+                <div className={s.City} >
+                    <FormField label='Город:' >
+                        <Field
+                            name='city'
+                            type='text'
+                            component={Select}
+                            options={cities}
+                            validate={[required]}
+                        />
+                    </FormField>
+                </div>
+                <div>
+                    <FormField label='Адрес:' >
+                        <Field
+                            disabled
+                            placeholder='Двигайте карту, чтобы изменить адрес'
+                            name='address'
+                            type='text'
+                            component={TextInput}
+                            validate={[required, minLength6, maxLength150]}
+                        />
+                    </FormField>
+                </div>
                 <Field
-                    name='type'
-                    type='text'
-                    component={Select}
-                    options={types}
-                    validate={[required]}
-                />
-            </FormField>
-
-            <FormField label={<i className='fa fa-map fa-2x' aria-hidden='true'/>}>
-                <Field
-                    placeholder='Площадь'
-                    name='area'
-                    type='text'
+                    name='coordX'
+                    type='hidden'
                     component={TextInput}
                     validate={[required, number]}
                 />
-            </FormField>
-
-            <FormField label={<i className='fa fa-map fa-2x' aria-hidden='true'/>}>
                 <Field
-                    placeholder='Этаж'
-                    name='floor'
-                    type='text'
+                    name='coordY'
+                    type='hidden'
                     component={TextInput}
                     validate={[required, number]}
                 />
-            </FormField>
-
-            <FormField label={<i className='fa fa-map fa-2x' aria-hidden='true'/>}>
-                <Field
-                    placeholder='Этажей в доме'
-                    name='floors'
-                    type='text'
-                    component={TextInput}
-                    validate={[required, number]}
-                />
-            </FormField>
-
-            <FormField label={<i className='fa fa-map fa-2x' aria-hidden='true'/>}>
-                <Field
-                    placeholder='Адрес'
-                    name='address'
-                    type='text'
-                    component={TextInput}
-                    validate={[required, minLength6, maxLength150]}
-                />
-            </FormField>
-
-            <Field
-                name='coordX'
-                type='hidden'
-                component={TextInput}
-                validate={[required, number]}
-            />
-
-            <Field
-                name='coordY'
-                type='hidden'
-                component={TextInput}
-                validate={[required, number]}
-            />
-
-            <div>
-                {map}
+                <div>
+                    {map}
+                </div>
             </div>
             
-            <Field
-                name='text'
-                type='text'
-                component={TextArea}
-                validate={[required, minLength100]}
-            />
+            <div className={s.Spec}>
+                <h2>Характеристики</h2>
+                <div>
+                    <FormField label='Тип:' >
+                        <Field
+                            name='type'
+                            type='text'
+                            component={Select}
+                            options={types}
+                            validate={[required]}
+                        />
+                    </FormField>
+                </div>
+                <div>
+                    <FormField label='Площадь:' >
+                        <Field
+                            name='area'
+                            type='text'
+                            component={TextInput}
+                            validate={[required, number]}
+                        />
+                    </FormField>
+                </div>
+                <div>
+                    <FormField label='Этаж:' >
+                        <Field
+                            name='floor'
+                            type='text'
+                            component={TextInput}
+                            validate={[required, number]}
+                        />
+                    </FormField>
+                </div>
+                <div>
+                    <FormField label='Этажей в доме:' >
+                        <Field
+                            name='floors'
+                            type='text'
+                            component={TextInput}
+                            validate={[required, number]}
+                        />
+                    </FormField>
+                </div>
+            </div>
 
-            <Field
-                placeholder='Цена в месяц'
-                name='price'
-                type='text'
-                component={TextInput}
-                validate={[required, number]}
-            />
-
-            <Field
-                name='photos'
-                type='hidden'
-                component={TextInput}
-                validate={[required]}
-            />
-
-            <FileInput changePhotos={changePhotos} />
+            <div className={s.Descr} >
+                <h2>Описание</h2>
+                <div className={s.Text} >
+                    <FormField>
+                        <Field
+                            name='text'
+                            type='text'
+                            component={TextArea}
+                            validate={[required, minLength100]}
+                        />
+                    </FormField>
+                </div>
+                <div className={s.Price}>
+                    <FormField label='Цена в месяц:' >
+                        <Field
+                            name='price'
+                            type='text'
+                            component={TextInput}
+                            validate={[required, number]}
+                        />
+                    </FormField>
+                </div>
+            </div>
+            
+            <div className={s.Photos}>
+                <h2>Фотографии</h2>
+                <div className={s.FileInput} >
+                    <Field
+                        name='photos'
+                        type='hidden'
+                        component={TextInput}
+                        validate={[required]}
+                    />
+                    <FileInput changePhotos={changePhotos} />
+                </div>
+            </div>
             <Button type='submit' size='m'>
                 Опубликовать
             </Button>

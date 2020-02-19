@@ -20,7 +20,7 @@ const MyAds = ({myAds, getMyAds, clearMyAds, removeAd}) => {
         return (
             <div className={s.Card} key={idAd} >
                 <div className={s.CardImg}>
-                    <img src={img} alt={address} />
+                    <img src={`//localhost:3001/uploads/1280_960/${img}`} alt={address} />
                 </div>
                 <div className={s.CardContent}>
                     <div className={s.CardTitle}>{name} {area} м2</div>
@@ -29,7 +29,7 @@ const MyAds = ({myAds, getMyAds, clearMyAds, removeAd}) => {
                         <div>{price} Р <span> / мес.</span></div>
                     </div>
                     <div className={s.CardBtn}>
-                        <Button size='m' >Редактировать</Button>
+                        <Button size='m' disabled >Редактировать</Button>
                         <Button size='m' variant='outline'
                             onClick={() => removeAd(idAd)} >Удалить</Button>
                     </div>

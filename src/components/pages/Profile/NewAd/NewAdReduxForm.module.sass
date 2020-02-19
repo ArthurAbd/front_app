@@ -1,0 +1,60 @@
+@import '../../../../variables'
+@mixin label
+    font-size: 14px
+    color: $gray-1
+    padding-right: 16px
+@mixin div320
+    position: relative
+    max-width: 320px
+    display: flex
+    justify-content: space-between
+    align-items: center
+@mixin title
+    margin-bottom: 24px
+    h2
+        padding-bottom: 16px
+
+
+
+.Address
+    position: relative
+    @include title
+    .City
+        @include div320
+        select
+            width: 220px
+    input
+        width: 100%
+    span
+        @include label
+
+.Spec
+    @include title
+    select
+        width: 220px
+        margin: 10px 0
+    input
+        width: 150px
+    >div
+        @include div320
+        span
+            @include label
+
+.Descr
+    input
+        width: 150px
+    @include title
+    .Price
+        @include div320
+    .Text
+        textarea
+            resize: none
+            width: 100%
+            margin-bottom: 16px
+
+
+.Photos
+    @include title
+    .FileInput
+        position: relative
+        

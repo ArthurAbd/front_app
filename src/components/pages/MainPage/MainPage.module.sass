@@ -1,3 +1,5 @@
+@import '../../../variables'
+
 .MainPage
     position: relative
     .Title
@@ -5,7 +7,7 @@
         width: 100%
         background: #c5c5c5
         height: 450px
-        padding-top: 50px
+        padding-top: 60px
         font-weight: normal
         text-align: center
         background-size: contain
@@ -14,23 +16,24 @@
             border-radius: 10px
             background: #ffffffcc
             font-size: 30px
-        .TitleBtn
-            position: absolute
-            bottom: 30px
-            right: 50%
-            margin-right: -137px
+    .TitleBtn
+        display: flex
+        align-items: center
+        justify-content: center
+        span
+            font-size: 32px
+            font-weight: bold
             border-radius: 4px
-            color: #fff
-            padding: 13px 24px
-            background: #5867EF
+            margin-top: 40px
     .Points
-        max-width: 1170px
-        padding: 40px 40px
+        max-width: 700px
+        padding: 24px
         margin: 0 auto
         display: flex
         justify-content: center
         flex-direction: column
         .Point
+            margin: 26px 0
             position: relative
             display: flex
             justify-content: flex-end
@@ -38,57 +41,63 @@
             align-items: center
             .PointText
                 margin-right: 40px
-                font-size: 42px
+                font-size: 24px
                 font-weight: bold
             
             .ImgContainer
-                width: 300px
-                height: 300px
-                border-radius: 100%
-                overflow: hidden
-                img
-                    width: 100%
-                    height: 100%
-                    object-fit: cover
+                i
+                    color: #503fee
+                &:hover
+                    i
+                        color: #2e2481
             &:nth-child(2n)
                 justify-content: flex-start
                 .PointText
                     order: 1
                     margin-right: 0
                     margin-left: 40px
-            &::before
-                position: absolute
-                color: #00000067
-                width: 100px
-                height: 100px
-                top: 0px
-                right: 180px
-                z-index: 20
-                font-size: 80px
-                line-height: 70px
-                font-weight: 700
-            &:nth-child(2), &:nth-child(4)
-                &::before
-                    position: absolute
-                    color: #00000067
-                    width: 100px
-                    height: 10px
-                    top: 0px
-                    left: 20px
-                    z-index: 20
-                    font-size: 80px
-                    line-height: 70px
-                    font-weight: 700
-            &:nth-child(1)
-                &::before
-                    content: '1'
-            &:nth-child(2)
-                &::before
-                    content: '2'
-            &:nth-child(3)
-                &::before
-                    content: '3'
-            &:nth-child(4)
-                &::before
-                    content: '4'
+    .Text
+        margin: 8px
+        padding-bottom: 24px
+        display: flex
+        justify-content: center
+        p
+            color: $black-2
+            text-align: justify
+            max-width: 700px
+            // &::before
+            //     position: absolute
+            //     color: #00000067
+            //     width: 100px
+            //     height: 100px
+            //     top: 0px
+            //     right: 180px
+            //     z-index: 20
+            //     font-size: 80px
+            //     line-height: 70px
+            //     font-weight: 700
+            // &:nth-child(2), &:nth-child(4)
+            //     &::before
+            //         position: absolute
+            //         color: #00000067
+            //         width: 100px
+            //         height: 10px
+            //         top: 0px
+            //         left: 20px
+            //         z-index: 20
+            //         font-size: 80px
+            //         line-height: 70px
+            //         font-weight: 700
+            // &:nth-child(1)
+            //     &::before
+            //         content: '1'
+            // &:nth-child(2)
+            //     &::before
+            //         content: '2'
+            // &:nth-child(3)
+            //     &::before
+            //         content: '3'
+            // &:nth-child(4)
+            //     &::before
+            //         content: '4'
             

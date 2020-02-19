@@ -4,18 +4,17 @@
     display: flex
     flex-direction: column
 .Card
-    width: 350px
+    width: auto
     height: auto
     border: none
-    flex-direction: column
+    display: flex
+    flex-direction: row
     background: #fff
-    width: auto
-    min-width: 230px
-    max-width: 350px
-    margin: 10px 0
-    border-bottom: 1px solid $gray-4
+    margin: 16px 0
     .CardImg
-        margin-right: 0
+        margin-right: 8px
+        width: 100%
+        min-width: 250px
         height: 200px
         img
             width: 100%
@@ -24,18 +23,17 @@
     .CardContent
         display: flex
         flex-direction: column
+        justify-content: space-between
         width: 100%
         padding: 0 10px
-        padding-bottom: 16px
         .CardTitle
-            margin: 16px 0
             font-size: 18px
             font-weight: 700
         .CardAddress
-            margin-bottom: 8px
+            margin-top: 8px
             font-size: 14px
             color: $gray-2
-            flex-basis: 50px
+            flex-basis: 50%
         .CardPrice
             display: flex
             justify-content: space-between

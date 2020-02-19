@@ -11,7 +11,7 @@ const Inbox = ({inCalls, getInCalls, clearInCalls, updateInCallRating}) => {
         }
 
         return () => clearInCalls()
-    })
+    }, [])
 
     const cards = inCalls && inCalls[0] && inCalls.map(({idInCall, photos, number,
             rating, area, name, idAd, created
@@ -31,7 +31,7 @@ const Inbox = ({inCalls, getInCalls, clearInCalls, updateInCallRating}) => {
         return (
             <div className={s.Card} key={idInCall} >
                 <div className={s.CardImg}>
-                    <img src={img} alt='' />
+                    <img src={`//localhost:3001/uploads/1280_960/${img}`} alt='' />
                 </div>
                 <div className={s.CardContent}>
                     <div className={s.CardTitle}>{name} {area} м2</div>

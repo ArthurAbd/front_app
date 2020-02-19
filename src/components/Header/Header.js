@@ -4,6 +4,7 @@ import iconCity from '../../assets/icon/iconCity.svg'
 import { NavLink, Link } from 'react-router-dom'
 import {withRouter} from "react-router-dom";
 import Button from '../common/Button/Button'
+import Container from '../common/Container/Container';
 
 
 const Header = ({cityName, setModal, isAuth, userLogout, history}) => {
@@ -73,7 +74,7 @@ const Header = ({cityName, setModal, isAuth, userLogout, history}) => {
 
     return (
         <div className={s.Header} onMouseLeave={() => setProfileMenu(false)} >
-            <div className={s.Container}>
+            <Container>
                 {profileMenu && menu}
                 <div className={s.HeaderNav}>
                     <div className={s.HeaderLogoMenu}>
@@ -104,7 +105,7 @@ const Header = ({cityName, setModal, isAuth, userLogout, history}) => {
                     </div>
                     {userMenu}
                 </div>
-            </div>
+            </Container>
         </div>
     )
 }

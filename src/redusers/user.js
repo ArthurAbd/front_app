@@ -42,6 +42,7 @@ if (localStorage.getItem('accessToken')) {
     inicialState.isAuth = true
 }
 const user = (state = inicialState, action) => {
+    console.log(action)
     switch (action.type) {
 
         case 'SET_USER':

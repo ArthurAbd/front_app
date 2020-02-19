@@ -10,11 +10,10 @@ const MainPage = () => {
                 <span>
                     Бесплатный сервис подбора квартир в аренду
                 </span>
-                <div className={s.TitleBtn}>
-                    Узнать как это работает
-                </div>
             </div>
-            
+            <div className={s.TitleBtn}>
+                <span>Как это работает?</span>
+            </div>
             <div className={s.Points}>
                 <div className={s.Point}>
                     <div className={s.PointText}>
@@ -22,7 +21,8 @@ const MainPage = () => {
                     </div>
                     <div>
                         <div className={s.ImgContainer}>
-                            <img src={cardImg} alt='' />
+                            <i className='fa fa-address-book fa-5x' />
+                            {/* <img src={cardImg} alt='' /> */}
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,8 @@ const MainPage = () => {
                     </div>
                     <div>
                         <div className={s.ImgContainer}>
-                            <img src={cardImg} alt='' />
+                            <i className='fa fa-home fa-5x' />
+                            {/* <img src={cardImg} alt='' /> */}
                         </div>
                     </div>
                 </div>
@@ -42,7 +43,8 @@ const MainPage = () => {
                     </div>
                     <div>
                         <div className={s.ImgContainer}>
-                            <img src={cardImg} alt='' />
+                            <i className='fa fa-refresh fa-5x' />
+                            {/* <img src={cardImg} alt='' /> */}
                         </div>
                     </div>
                 </div>
@@ -52,10 +54,16 @@ const MainPage = () => {
                     </div>
                     <div>
                         <div className={s.ImgContainer}>
-                            <img src={cardImg} alt='' />
+                            <i className='fa fa-comment fa-5x' />
+                            {/* <img src={cardImg} alt='' /> */}
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className={s.Text}>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
             </div>
         </div>
     )

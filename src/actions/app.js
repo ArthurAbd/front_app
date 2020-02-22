@@ -1,19 +1,18 @@
-import { isLoginUser } from './user'
+import { getMyData } from './user'
 
 
 const initialize = () => {
     return (dispatch) => {
-        
-        isLoginUser(dispatch)
-            .then(() =>  {
-                
-                dispatch(initializedSuccess())
-            })
-            .catch((err) => {
-                
-                dispatch(initializedSuccess())
-                
-            })
+        let promise = dispatch(getMyData())
+
+        Promise.all([promise])
+        .then(() => {
+            dispatch(initializedSuccess())
+        })
+        .catch((err) => {
+            dispatch(setError(err))
+            dispatch(initializedSuccess())
+        })
     }
 }
 

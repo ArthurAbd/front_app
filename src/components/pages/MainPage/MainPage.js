@@ -1,7 +1,6 @@
 import React from 'react'
 import s from './MainPage.module.sass'
 import alvarcarto from '../../../assets/img/alvarcarto.jpg'
-import cardImg from '../../../assets/img/cardImg.jpg'
 
 const MainPage = () => {
     return (
@@ -22,7 +21,6 @@ const MainPage = () => {
                     <div>
                         <div className={s.ImgContainer}>
                             <i className='fa fa-address-book fa-5x' />
-                            {/* <img src={cardImg} alt='' /> */}
                         </div>
                     </div>
                 </div>
@@ -33,7 +31,6 @@ const MainPage = () => {
                     <div>
                         <div className={s.ImgContainer}>
                             <i className='fa fa-home fa-5x' />
-                            {/* <img src={cardImg} alt='' /> */}
                         </div>
                     </div>
                 </div>
@@ -44,7 +41,6 @@ const MainPage = () => {
                     <div>
                         <div className={s.ImgContainer}>
                             <i className='fa fa-refresh fa-5x' />
-                            {/* <img src={cardImg} alt='' /> */}
                         </div>
                     </div>
                 </div>
@@ -55,7 +51,6 @@ const MainPage = () => {
                     <div>
                         <div className={s.ImgContainer}>
                             <i className='fa fa-comment fa-5x' />
-                            {/* <img src={cardImg} alt='' /> */}
                         </div>
                     </div>
                 </div>

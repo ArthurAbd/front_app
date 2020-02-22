@@ -9,7 +9,6 @@ import MyAds from './MyAds/MyAds';
 import Inbox from './Inbox/Inbox';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import Spinner from './../../common/Spinner/Spinner';
 import {
     setModal, userEdit, userLogout, getInCalls,
     getMyAds, clearInCalls, clearMyAds, updateInCallRating,
@@ -39,17 +38,14 @@ const Profile = (props) => {
         userEdit,
         user,
         setModal,
-        isLoading,
         isAuth,
         history
     } = props
-    
+
     const logOut = () => {
         history.push('/')
         userLogout()
     }
-
-    if (isLoading) return <Spinner />
     
     if (!isAuth) {
         setModal('login')
@@ -122,10 +118,10 @@ const mapStateToProps = ({user, fileInput}) => {
 
 
 export default compose(
+    withRouter,
     connect(mapStateToProps, {
         setModal, userEdit, userLogout, getInCalls,
         getMyAds, clearInCalls, clearMyAds, updateInCallRating,
         removeAd, changeMapCoord, changePhotos, createAd
-    }),
-    withRouter
+    })
 )(Profile)

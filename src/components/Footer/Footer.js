@@ -1,8 +1,6 @@
 import React from 'react'
 import s from './Footer.module.sass'
-import iconCity from '../../assets/icon/iconCity.svg'
-import { NavLink, Link } from 'react-router-dom'
-import Button from '../common/Button/Button'
+import { Link } from 'react-router-dom'
 import Container from '../common/Container/Container';
 
 

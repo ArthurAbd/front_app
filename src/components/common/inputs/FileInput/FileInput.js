@@ -2,10 +2,8 @@ import React from 'react'
 import s from './FileInput.module.sass'
 import {connect} from 'react-redux'
 import {sendOnePhoto} from '../../../../actions'
-import Spinner from '../../Spinner/Spinner'
 
-
-const FileInput = ({sendOnePhoto, photos, isLoading, error, changePhotos}) => {
+const FileInput = ({sendOnePhoto, photos, error, changePhotos}) => {
     
     const sendPhotos = (files) => {
 
@@ -60,7 +58,6 @@ const FileInput = ({sendOnePhoto, photos, isLoading, error, changePhotos}) => {
     return (
         <>
         <div className={s.FileInput}>
-            {isLoading && <Spinner />}
             <label className={s.Label} >
                 <div className={`${s.InputLayer} ${fileOver ? s.File: ''}`}
                     onDragLeave={onDragLeave}

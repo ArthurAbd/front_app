@@ -36,14 +36,12 @@ const Layout = ({
         initialize()
     }, [])
 
-
-    // if (isLoading) return <Spinner />
         
     window.document.body.style.overflow = isModal ? 'hidden' : ''
     
     return (
         <>
-            {!initialized && <Spinner full />}
+            {(!initialized || isLoading) && <Spinner />}
 
             <div className={s.Layout}>
 

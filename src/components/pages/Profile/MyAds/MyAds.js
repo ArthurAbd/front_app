@@ -5,14 +5,13 @@ import Button from '../../../common/Button/Button';
 
 const MyAds = ({myAds, getMyAds, clearMyAds, removeAd}) => {
 
-    
     React.useEffect(() => {
         if (!myAds) {
             getMyAds()
         }
 
         return () => clearMyAds()
-    })
+    }, [])
 
     const cards = myAds && myAds[0] && myAds.map(({idAd, photos, price, address, area, name}) => {
         const img = photos.split(',')[0]

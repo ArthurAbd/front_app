@@ -8,14 +8,13 @@ import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import Select from '../../../common/inputs/Select/Select'
 import TextArea from '../../../common/inputs/TextArea/TextArea'
 import FileInput from '../../../common/inputs/FileInput/FileInput'
+import Spinner from '../../../common/Spinner/Spinner'
 import s from './NewAdReduxForm.module.sass'
 
 
-const minLength3 = minLength(3)
 const minLength6 = minLength(6)
 const minLength100 = minLength(100)
 
-const maxLength30 = maxLength(30)
 const maxLength150 = maxLength(150)
 
 
@@ -26,7 +25,6 @@ const NewAdForm = ({handleSubmit, cities, changeMapCoord, changePhotos}) => {
     const [mapLoad, setMapLoad] = React.useState(true)
 
     const setEventListener = () => {
-        console.log('setMapLoad(false)')
         setMapLoad(false)
         mapRef.current.events
         .add('boundschange', function (e) {
@@ -105,6 +103,7 @@ const NewAdForm = ({handleSubmit, cities, changeMapCoord, changePhotos}) => {
                     validate={[required, number]}
                 />
                 <div>
+                    {mapLoad && <Spinner />}
                     {map}
                 </div>
             </div>

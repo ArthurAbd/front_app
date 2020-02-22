@@ -1,5 +1,5 @@
 import * as api from '../services/Api'
-import { change, stopSubmit, stopAsyncValidation, startAsyncValidation } from 'redux-form'
+import { change, stopSubmit} from 'redux-form'
 
 const setCity = (e) => {
     return {
@@ -134,8 +134,8 @@ const userEdit = (data) => {
 
 const getMyAds = () => {
     return (dispatch) => {
-        isLoginUser(dispatch)
         dispatch(setIsLoading(true))
+        isLoginUser(dispatch)
         api.getMyAds()
             .then((res) => {
                 dispatch(setMyAds(res))
@@ -150,8 +150,8 @@ const getMyAds = () => {
 
 const getInCalls = () => {
     return (dispatch) => {
-        isLoginUser(dispatch)
         dispatch(setIsLoading(true))
+        isLoginUser(dispatch)
         api.getInCalls()
             .then((res) => {
                 dispatch(setInCalls(res))

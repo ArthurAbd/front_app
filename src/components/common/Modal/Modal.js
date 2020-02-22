@@ -5,7 +5,6 @@ import ModalLogin from './ModalLogin/ModalLogin';
 import ModalLoginPhone from './ModalLoginPhone/ModalLoginPhone';
 import ModalReg from './ModalReg/ModalReg';
 import ModalPhone from './ModalPhone/ModalPhone';
-import Spinner from '../../common/Spinner/Spinner';
 import iconClose from '../../../assets/icon/close.svg';
 import Slider from './Slider/Slider';
 import ModalMessage from './ModalMessage/ModalMessage';
@@ -22,7 +21,6 @@ const Modal = ({
         userLogin,
         userReg,
         city,
-        isLoading,
         phoneNumberData
     }) => {
     let content = null
@@ -71,7 +69,6 @@ const Modal = ({
 
     return (
         <div className={s.ModalBg} onClick={closeModalOnBG} >
-            {isLoading ? <Spinner /> : null}
             <div className={s.Modal}>
                 <div className={s.ModalClose} onClick={() => setModal(false)}>
                     <img src={iconClose} alt='' />

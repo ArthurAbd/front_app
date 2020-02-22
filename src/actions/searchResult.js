@@ -1,5 +1,5 @@
 import store from '../store'
-import {setCoords} from '../actions/index'
+import {setCoords} from './index'
 import * as api from '../services/Api'
 
 const roomsRequested = () => {

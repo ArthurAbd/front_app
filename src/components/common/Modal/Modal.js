@@ -8,6 +8,7 @@ import ModalPhone from './ModalPhone/ModalPhone';
 import Spinner from '../../common/Spinner/Spinner';
 import iconClose from '../../../assets/icon/close.svg';
 import Slider from './Slider/Slider';
+import ModalMessage from './ModalMessage/ModalMessage';
 
 
 const Modal = ({
@@ -34,15 +35,15 @@ const Modal = ({
 
         case 'login':
             content = <ModalLogin userLogin={userLogin}
-                        setModal={setModal} userMessage={userMessage} />
+                        setModal={setModal} />
             break;
     
         case 'loginPhone':
-            content = <ModalLoginPhone userLogin={userLogin} userMessage={userMessage} />
+            content = <ModalLoginPhone userLogin={userLogin}/>
             break;
     
         case 'reg':
-            content = <ModalReg userReg={userReg} userMessage={userMessage} />
+            content = <ModalReg userReg={userReg} />
             break;
     
         case 'phone':
@@ -50,10 +51,14 @@ const Modal = ({
                         phoneNumberData={phoneNumberData}
                         updateOutCallRating={updateOutCallRating} />
             break;
-    
+        
+        case 'message':
+            content =  <ModalMessage userMessage={userMessage} />
+            break;
+            
         case 'slider':
-            return <Slider setModal={setModal} photos={photos} />
-    
+            return <Slider photos={photos} />
+
         default: 
             return null
     }

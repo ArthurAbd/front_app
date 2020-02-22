@@ -5,10 +5,13 @@ import { withRouter } from "react-router"
 import classNames from 'classnames'
 
 const Card = ({cardData, setMapCenter, fetchSelectItem, history, vertical}) => {
-    const {idAd, photos, price, address, area, name} = cardData
-
-    const img = photos.split(',')[0]
+    const {idAd, photos, price, address, area, name, origin} = cardData
     
+    let img = photos.split(',')[0]
+
+    if (!origin) {
+        img = `//localhost:3001/uploads/1280_960/${img}`
+    }
 
     return (
         <div className={classNames(s.Card, vertical && s.CardVertical)}

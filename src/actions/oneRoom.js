@@ -1,5 +1,6 @@
 import * as api from '../services/Api'
 import {setModal} from '../actions'
+import { isLoginUser } from './user'
 
 const roomOneLoaded = (room) => {
     return {
@@ -48,6 +49,7 @@ const fetchOneRoom = (id) => {
 
 const updateOutCallRating = (data) => {
     return (dispatch) => {
+        isLoginUser(dispatch)
         dispatch(oneRoomLoading(true))
         api.updateOutCallRating(data)
             .then((data) => {
@@ -63,6 +65,7 @@ const updateOutCallRating = (data) => {
 
 const getPhoneNumber = (id) => {
     return (dispatch) => {
+        isLoginUser(dispatch)
         dispatch(oneRoomLoading(true))
         api.getPhoneNumber(id)
             .then((data) => {

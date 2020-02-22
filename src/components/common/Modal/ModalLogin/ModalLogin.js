@@ -9,8 +9,7 @@ import { required, phoneNumber, minLength, maxLength} from '../../../../services
 const minLength6 = minLength(6)
 const maxLength30 = maxLength(30)
 
-const LoginForm = ({handleSubmit}) => {
-
+const LoginForm = ({handleSubmit, error}) => {
     return (
         <form onSubmit={handleSubmit}>
             <FormField label={<i className='fa fa-phone fa-2x' aria-hidden='true'/>}>
@@ -31,6 +30,11 @@ const LoginForm = ({handleSubmit}) => {
                     validate={[required, minLength6, maxLength30]}
                     />
             </FormField>
+
+                {error && <div className={s.Error}>
+                    {error}
+                </div>}
+
             <Button type='submit' size='m'>
                 ВОЙТИ
             </Button>
@@ -44,13 +48,12 @@ const LoginReduxForm = reduxForm({
 })(LoginForm)
 
 
-const ModalLogin = ({userLogin, setModal, userMessage}) => {
+const ModalLogin = ({userLogin, setModal}) => {
     return (
         <>
             <div>
                 <h3>Войти</h3>
             </div>
-            {userMessage && <span>{userMessage}</span>}
             <LoginReduxForm onSubmit={userLogin} />
             <div className={s.Footer}>
                 <span>Нет аккаунта?</span>

@@ -7,6 +7,7 @@ const clientId = 'desktop'
 const clientSecret = '12345'
 const post = (path, data) => {
     return new Promise((resolve, reject) => {
+        
         const token = localStorage.getItem('accessToken')
         let authToken = undefined
         if (token) {
@@ -83,16 +84,12 @@ const logout = () => {
     })
 }
 
-const getMe = () => {
-    return post('/user/getMe')
-}
-
 const getMyData = () => {
     return post('/user/getMyData')
 }
 
 const getNewToken = () => {
-    return post('/user/getMyData', {
+    return post('/user/getNewToken', {
         grant_type: 'refresh_token',
         refresh_token: localStorage.getItem('refreshToken'),
         client_id: clientId,
@@ -148,7 +145,6 @@ export {
     geocode,
     sendOnePhoto,
     login,
-    getMe,
     getNewToken,
     logout,
     addUser,

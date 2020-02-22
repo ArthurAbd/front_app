@@ -2,7 +2,7 @@ import React from 'react'
 import s from './Layout.module.sass'
 import Header from '../Header/Header'
 import {connect} from 'react-redux'
-import {setCity, userLogout, getMe, setModal, userLogin, userReg, updateOutCallRating} from '../../actions'
+import {setCity, userLogout, initialize, setModal, userLogin, userReg, updateOutCallRating} from '../../actions'
 import { compose } from 'redux'
 import Modal from '../common/Modal/Modal'
 import Spinner from '../common/Spinner/Spinner'
@@ -10,96 +10,79 @@ import Footer from '../Footer/Footer'
 import { withRouter } from 'react-router-dom'
 
 
-class Layout extends React.Component {
-    
-    componentDidMount() {
-        this.props.getMe()
-    }
+const Layout = ({
+    initialized,
+    initialize,
+    oneRoom,
+    updateOutCallRating,
+    isLoading,
+    userReg,
+    userLogin,
+    cities,
+    setCity,
+    userLogout,
+    isAuth,
+    cityMap,
+    city,
+    isModal,
+    setModal,
+    phoneNumberData,
+    userMessage,
+    location,
+    children
+}) => {
 
-    render() {
-        const { 
-                oneRoom,
-                updateOutCallRating,
-                isLoading,
-                userReg,
-                userLogin,
-                cities,
-                setCity,
-                userLogout,
-                isAuth,
-                city,
-                isModal,
-                setModal,
-                phoneNumberData,
-                userMessage,
-                location
-            } = this.props
-            
-        const cityMap = {
-            'moskva': 'Москва',
-            'sankt-peterburg': 'Санкт-петербург',
-            'novosibirsk': 'Новосибирск',
-            'ekaterinburg': 'Екатеринбург',
-            'nizhniy_novgorod': 'Нижний новгород',
-            'kazan': 'Казань',
-            'chelyabinsk': 'Челябинск',
-            'omsk': 'Омск',
-            'samara': 'Самара',
-            'rostov-na-donu': 'Ростов-на-дону',
-            'ufa': 'Уфа',
-            'krasnoyarsk': 'Красноярск',
-            'perm': 'Пермь',
-            'voronezh': 'Воронеж',
-            'volgograd': 'Волгоград',
-            'krasnodar': 'Краснодар',
-            'kemerovo': 'Кемерово',
-            'irkutsk': 'Иркустк',
-            'saratov': 'Саратов',
-            'tyumen': 'Тюмень',
-            'yaroslavl': 'Ярославль',
-        }
+    React.useEffect(() => {
+        initialize()
+    }, [])
 
-        window.document.body.style.overflow = isModal ? 'hidden' : ''
+
+    // if (isLoading) return <Spinner />
         
-        if (isLoading) return <Spinner />
-        return (
-            <>
-                <div className={s.Layout}>
-                    <Header
-                        userLogout={() => userLogout()}
-                        isAuth={isAuth}
-                        cityName={cityMap[city]}
-                        setModal={setModal}
-                    />
+    window.document.body.style.overflow = isModal ? 'hidden' : ''
+    
+    return (
+        <>
+            {!initialized && <Spinner full />}
 
-                {isModal &&
-                    <Modal
-                        photos={oneRoom && oneRoom.photos}
-                        updateOutCallRating={updateOutCallRating}
-                        userMessage={userMessage}
-                        phoneNumberData={phoneNumberData}
-                        isLoading={isLoading}
-                        city={city}
-                        isModal={isModal}
-                        setModal={setModal}
-                        cities={cities}
-                        setCity={setCity}
-                        userLogin={userLogin}
-                        userReg={userReg}
-                    />}
-                    
-                    {this.props.children}
+            <div className={s.Layout}>
 
-                    
-                </div>
+                <Header
+                    userLogout={() => userLogout()}
+                    isAuth={isAuth}
+                    cityName={cityMap[city]}
+                    setModal={setModal}
+                />
+
+            {isModal &&
+                <Modal
+                    photos={oneRoom && oneRoom.photos}
+                    updateOutCallRating={updateOutCallRating}
+                    userMessage={userMessage}
+                    phoneNumberData={phoneNumberData}
+                    isLoading={isLoading}
+                    city={city}
+                    isModal={isModal}
+                    setModal={setModal}
+                    cities={cities}
+                    setCity={setCity}
+                    userLogin={userLogin}
+                    userReg={userReg}
+                />}
+                
+                {children}
+
+            </div>
+
             {location && location.pathname !== '/search' && <Footer />}
-            </>
-        )
-    }
+        </>
+    )
 }
 
-const mapStateToProps = ({user, oneRoom}) => {
+const mapStateToProps = ({user, oneRoom, app}) => {
     return {
+        cityMap: app.cityMap,
+        initialized: app.initialized,
         userMessage: user.userMessage,
         phoneNumberData: oneRoom.phoneNumberData,
         isLoading: user.isLoading,
@@ -113,6 +96,6 @@ const mapStateToProps = ({user, oneRoom}) => {
 
 export default compose(
     withRouter,
-    connect(mapStateToProps, {userLogout, setCity, getMe,
+    connect(mapStateToProps, {userLogout, setCity, initialize,
         setModal, userLogin, userReg, updateOutCallRating})
 )(Layout)

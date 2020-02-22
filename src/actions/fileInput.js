@@ -1,7 +1,9 @@
 import * as api from '../services/Api'
+import { isLoginUser } from './user'
 
 const sendOnePhoto = (file) => {
     return (dispatch) => {
+        isLoginUser(dispatch)
         dispatch(isLoading(true))
         api.sendOnePhoto(file)
             .then(({data}) =>  {

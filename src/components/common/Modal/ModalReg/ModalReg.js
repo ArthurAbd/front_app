@@ -4,12 +4,13 @@ import TextInput from '../../inputs/TextInput/TextInput'
 import FormField from '../../inputs/FormField/FormField'
 import { required, phoneNumber, minLength, maxLength} from '../../../../services/validators'
 import Button from '../../Button/Button'
+import s from './ModalReg.module.sass'
 
 const minLength6 = minLength(6)
 const minLength3 = minLength(3)
 const maxLength30 = maxLength(30)
 
-const ModalRegForm = ({handleSubmit}) => {
+const ModalRegForm = ({handleSubmit, error}) => {
 
     return (
         <form onSubmit={handleSubmit}>
@@ -40,6 +41,11 @@ const ModalRegForm = ({handleSubmit}) => {
                     validate={[required, minLength6, maxLength30]}
                     />
             </FormField>
+
+            {error && <div className={s.Error}>
+                {error}
+            </div>}
+
             <Button type='submit' size='m'>
                 Отправить
             </Button>
@@ -52,14 +58,13 @@ const ModalRegReduxForm = reduxForm({
     form: 'reg'
 })(ModalRegForm)
 
-const ModalReg = ({userReg, userMessage}) => {
+const ModalReg = ({userReg}) => {
     
     return (
         <>
             <div>
                 <h3>Регистрация</h3>
             </div>
-            {userMessage && <span>{userMessage}</span>}
             <ModalRegReduxForm onSubmit={userReg} />
         </>
     )

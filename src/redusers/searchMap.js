@@ -7,9 +7,11 @@ const inicialState = {
 const searchMap = (state = inicialState, action) => {
     switch (action.type) {
         case 'SET_COORDS':
-
+console.log(action)
             return {
                 ...state,
+                selectItem: null,
+                mapCenter: null,
                 searchMapCoords: action.payload,
             }
 

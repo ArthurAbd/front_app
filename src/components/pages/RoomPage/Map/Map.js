@@ -1,27 +1,22 @@
 import React from 'react'
 import s from './Map.module.sass'
-import * as GMap from 'pigeon-maps'
-import Marker from 'pigeon-marker'
+import { Placemark, YMaps, Map as Maps } from 'react-yandex-maps'
 
-const Map = (props) => {
+const Map = ({coordX, coordY}) => {
     
-    const {coordX, coordY} = props
     const mapCoord = [coordY, coordX]
-    
+
     if (!coordX) return null
     return (
         <div className={s.Map}>
-            <GMap center={mapCoord}
-                mouseEvents={false}
-                touchEvents={false}
-                zoom={14}
-                height={400}
+            <YMaps>
+                <Maps 
+                    width={'100%'} height={'400px'}
+                    defaultState={{ behaviors: ['drag'], center: mapCoord, zoom: 14 }}
                 >
-
-                <Marker anchor={mapCoord}
-                    payload={2}
-                    />
-            </GMap>
+                    <Placemark geometry={mapCoord} />
+                </Maps>
+            </YMaps>
         </div>
     )
 }

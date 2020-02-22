@@ -20,15 +20,17 @@ import {
     getInCalls,
     getMyAds,
     setModal,
-    getMe,
+    getMyData,
     setCity,
     userLogout,
     userEdit,
     userReg,
     userLogin} from './user'
 import {sendOnePhoto} from './fileInput'
+import {initialize} from './app'
 
 export {
+    initialize,
     createAd,
     changePhotos,
     changeMapCoord,
@@ -42,7 +44,7 @@ export {
     sendOnePhoto,
     getPhoneNumber,
     setModal,
-    getMe,
+    getMyData,
     userLogout,
     userEdit,
     userReg,

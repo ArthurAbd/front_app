@@ -72,7 +72,6 @@ class SearchPage extends React.Component {
             return <Spinner />
         }
 
-        console.log(configSearch.selectValue)
         const map = searchMapCoords ? <Map
             setMapCenter={setMapCenter}
             mapCenter={mapCenter}

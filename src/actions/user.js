@@ -1,5 +1,5 @@
 import * as api from '../services/Api'
-import { change } from 'redux-form'
+import { change, stopSubmit, stopAsyncValidation, startAsyncValidation } from 'redux-form'
 
 const setCity = (e) => {
     return {
@@ -84,19 +84,18 @@ const clearInCalls = () => {
 
 const userLogin = (data) => {
     return (dispatch) => {
-        dispatch(setUserMessage(null))
         dispatch(setIsLoading(true))
         api.login(data)
             .then((res) => {
                 dispatch(setModal(false))
                 dispatch(setUserToken(res))
                 dispatch(setIsAuth(true))
-                dispatch(getMe())
+                dispatch(getMyData())
                 dispatch(setIsLoading(false))
             })
             .catch((err) => {
                 dispatch(setIsLoading(false))
-                dispatch(setUserMessage(err))
+                dispatch(stopSubmit('login', {_error: err}))
             })
     }
 }
@@ -109,21 +108,23 @@ const userReg = (data) => {
             .then((res) =>  {
                 dispatch(setIsLoading(false))
                 dispatch(setUserMessage(res))
+                dispatch(setModal('message'))
             })
             .catch((err) => {
                 dispatch(setIsLoading(false))
-                dispatch(setUserMessage(err))
+                dispatch(stopSubmit('reg', {_error: err}))
             })
     }
 }
 
 const userEdit = (data) => {
     return (dispatch) => {
+        isLoginUser(dispatch)
         dispatch(setUserMessage(null))
         dispatch(setIsLoading(true))
         api.editUser(data)
             .then((res) => {
-                dispatch(getMe())
+                dispatch(getMyData())
             })
             .catch((err) => {
                 dispatch(setIsLoading(false))
@@ -133,6 +134,7 @@ const userEdit = (data) => {
 
 const getMyAds = () => {
     return (dispatch) => {
+        isLoginUser(dispatch)
         dispatch(setIsLoading(true))
         api.getMyAds()
             .then((res) => {
@@ -148,6 +150,7 @@ const getMyAds = () => {
 
 const getInCalls = () => {
     return (dispatch) => {
+        isLoginUser(dispatch)
         dispatch(setIsLoading(true))
         api.getInCalls()
             .then((res) => {
@@ -163,6 +166,7 @@ const getInCalls = () => {
 
 const updateInCallRating = (data) => {
     return (dispatch) => {
+        isLoginUser(dispatch)
         dispatch(setIsLoading(true))
         api.updateInCallRating(data)
             .then((res) => {
@@ -177,6 +181,7 @@ const updateInCallRating = (data) => {
 
 const removeAd = (id) => {
     return (dispatch) => {
+        isLoginUser(dispatch)
         dispatch(setIsLoading(true))
         api.removeAd(id)
             .then((res) => {
@@ -208,7 +213,7 @@ const userLogout = () => {
     }
 }
 
-const getMe = () => {
+const getMyData = () => {
     return (dispatch) => {
         dispatch(setIsLoading(true))
         isLoginUser(dispatch)
@@ -219,7 +224,7 @@ const getMe = () => {
                     dispatch(setIsAuth(true))
                     dispatch(setIsLoading(false))
                 })
-                .catch((err) =>{
+                .catch((err) => {
                     dispatch(setUserMessage(err))
                     dispatch(setIsLoading(false))
                 })
@@ -251,9 +256,10 @@ const isLoginUser = (dispatch) => {
                         dispatch(setIsAuth(false))
                         return reject(err)
                     })
+            } else {
+                dispatch(setIsAuth(false))
+                return reject()
             }
-            dispatch(setIsAuth(false))
-            return reject()
         } catch (err) {
             reject(err)
         }
@@ -273,6 +279,7 @@ const changeMapCoord = ([coordY, coordX]) => {
 
 const createAd = (data) => {
     return (dispatch) => {
+        isLoginUser(dispatch)
         dispatch(setIsLoading(true))
         api.newAd(data)
         .then((res) => {
@@ -301,7 +308,7 @@ export {
     getInCalls,
     getMyAds,
     setModal,
-    getMe,
+    getMyData,
     isLoginUser,
     userLogout,
     userEdit,

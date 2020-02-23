@@ -43,21 +43,21 @@ class SearchPage extends React.Component {
 
     render() {
         const { 
-                setMapCenter,
-                mapCenter,
-                fetchSelectItem,
-                delSelectItem,
-                selectItem,
-                searchMapCoords,
-                loadingResult,
-                total,
-                searchResult,
-                configSearch,
-                setLimit,
-                setMinPriceSearch,
-                setMaxPriceSearch,
-                setTypeSearch,
-                setSortingSearch} = this.props
+            setMapCenter,
+            mapCenter,
+            fetchSelectItem,
+            delSelectItem,
+            selectItem,
+            searchMapCoords,
+            loadingResult,
+            total,
+            searchResult,
+            configSearch,
+            setLimit,
+            setMinPriceSearch,
+            setMaxPriceSearch,
+            setTypeSearch,
+            setSortingSearch} = this.props
             
         const cards = searchResult ? searchResult.map((item) => {
             return (
@@ -94,9 +94,11 @@ class SearchPage extends React.Component {
                 <div className={s.Content}>
                     <div className={s.ContentFilter}>
                         <div className={s.AddressInput}>
-                            <TextInput placeholder='Введите адрес' />
+                            {/* <span>Найти по адресу</span>
+                            <TextInput placeholder='Введите адрес' /> */}
                         </div>
                         <div className={s.Sorting}>
+                            <span>Сортировать</span>
                             <Select
                                 value={configSearch.selectValue}
                                 className={s.Select}
@@ -109,20 +111,18 @@ class SearchPage extends React.Component {
                             </Select>
                         </div>
                     </div>
-                        <div className={s.CardsBlock}>
-                            <div className={s.Total}>{`Количество: ${total}`}</div>
-                            {cards}
-                            
-                            {
-                                searchResult.length < total ? (
-                                    <Button 
-                                        size='l'
-                                        onClick={setLimit(total)}
-                                        disabled={!!loadingResult}
-                                    >Далее</Button>
-                                ) : null
-                            }
-                        </div>
+                    <div className={s.CardsBlock}>
+                        <div className={s.Total}>{`Количество: ${total}`}</div>
+                        {cards}
+                        
+                        {searchResult.length < total ? (
+                            <Button 
+                                size='l'
+                                onClick={setLimit(total)}
+                                disabled={!!loadingResult}
+                            >Далее</Button>
+                        ) : null}
+                    </div>
                     
                     <div className={s.Map}>
                         {map}

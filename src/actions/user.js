@@ -293,7 +293,8 @@ const createAd = (data) => {
 
 const changePhotos = (photos) => {
     return (dispatch) => {
-        dispatch(change('newAd', 'photos', photos.join(',')))
+        dispatch(change('newAd', 'photosSmall', photos[0].join(',')))
+        dispatch(change('newAd', 'photos', photos[1].join(',')))
     }
 }
 

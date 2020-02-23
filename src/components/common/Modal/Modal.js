@@ -55,7 +55,7 @@ const Modal = ({
             break;
             
         case 'slider':
-            return <Slider photos={photos} />
+            return <Slider setModal={setModal} photos={photos} />
 
         default: 
             return null

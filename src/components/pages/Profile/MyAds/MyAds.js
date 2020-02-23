@@ -13,13 +13,17 @@ const MyAds = ({myAds, getMyAds, clearMyAds, removeAd}) => {
         return () => clearMyAds()
     }, [])
 
-    const cards = myAds && myAds[0] && myAds.map(({idAd, photos, price, address, area, name}) => {
-        const img = photos.split(',')[0]
+    const cards = myAds && myAds[0] && myAds.map(({idAd, photosSmall, price, address, area, name}) => {
+        
+        let img = 'https://avatars.mds.yandex.net/get-pdb/1780525/ade3789a-f340-4893-aea3-a386a43e090a/s1200'
+        if (photosSmall) {
+            img = photosSmall.split(',')[0]
+        }
         
         return (
             <div className={s.Card} key={idAd} >
                 <div className={s.CardImg}>
-                    <img src={`//localhost:3001/uploads/1280_960/${img}`} alt={address} />
+                    <img src={img} alt={address} />
                 </div>
                 <div className={s.CardContent}>
                     <div className={s.CardTitle}>{name} {area} м2</div>

@@ -4,33 +4,19 @@ import { required, minLength, maxLength, number} from '../../../../services/vali
 import Button from '../../../common/Button/Button'
 import FormField from '../../../common/inputs/FormField/FormField'
 import TextInput from '../../../common/inputs/TextInput/TextInput'
-import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import Select from '../../../common/inputs/Select/Select'
 import TextArea from '../../../common/inputs/TextArea/TextArea'
 import FileInput from '../../../common/inputs/FileInput/FileInput'
-import Spinner from '../../../common/Spinner/Spinner'
 import s from './NewAdReduxForm.module.sass'
+import Map from './Map'
 
 
 const minLength6 = minLength(6)
 const minLength100 = minLength(100)
-
 const maxLength150 = maxLength(150)
 
 
 const NewAdForm = ({handleSubmit, cities, changeMapCoord, changePhotos}) => {
-
-    const mapRef = React.useRef(null)
-
-    const [mapLoad, setMapLoad] = React.useState(true)
-
-    const setEventListener = () => {
-        setMapLoad(false)
-        mapRef.current.events
-        .add('boundschange', function (e) {
-            changeMapCoord(e.get('newCenter'))
-        }) 
-    }
 
     const types = [
         {tag: 'r', name: 'Комната'},
@@ -40,27 +26,6 @@ const NewAdForm = ({handleSubmit, cities, changeMapCoord, changePhotos}) => {
         {tag: '3k', name: 'Трехкомнатная квартира'},
         {tag: '4k+', name: 'Квартира 4 и более комнат'}
     ]
-
-    const map = (
-        <div style={{position: 'relative'}} >
-            <YMaps query={{
-                apikey: 'd6a15e01-7431-4971-aa3e-c04c1ed41014',
-            }}>
-                <Map
-                    width={'100%'}
-                    height={'400px'}
-                    defaultState={{center: [55.75, 37.6], zoom: 12}}
-                    onLoad={() => setEventListener()}
-                    instanceRef={mapRef}
-                >
-                </Map>
-            </YMaps>
-                {!mapLoad && <div style={{position: 'absolute', top: '50%', right: '50%',
-                    marginTop: '-5px', marginLeft: '-10px',}} >
-                    <i className="fa fa-map-marker fa-2x" aria-hidden="true"></i>
-                </div>}
-        </div>
-      )
 
     return (
         <form onSubmit={handleSubmit}>
@@ -82,7 +47,7 @@ const NewAdForm = ({handleSubmit, cities, changeMapCoord, changePhotos}) => {
                     <FormField label='Адрес:' >
                         <Field
                             disabled
-                            placeholder='Двигайте карту, чтобы изменить адрес'
+                            placeholder='Поставьте точку на карте, чтобы изменить адрес'
                             name='address'
                             type='text'
                             component={TextInput}
@@ -103,8 +68,7 @@ const NewAdForm = ({handleSubmit, cities, changeMapCoord, changePhotos}) => {
                     validate={[required, number]}
                 />
                 <div>
-                    {mapLoad && <Spinner />}
-                    {map}
+                    <Map changeMapCoord={changeMapCoord} />
                 </div>
             </div>
             
@@ -180,6 +144,12 @@ const NewAdForm = ({handleSubmit, cities, changeMapCoord, changePhotos}) => {
             <div className={s.Photos}>
                 <h2>Фотографии</h2>
                 <div className={s.FileInput} >
+                    <Field
+                        name='photosSmall'
+                        type='hidden'
+                        component={TextInput}
+                        validate={[required]}
+                    />
                     <Field
                         name='photos'
                         type='hidden'

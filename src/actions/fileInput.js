@@ -7,13 +7,21 @@ const sendOnePhoto = (file) => {
         dispatch(isLoading(true))
         api.sendOnePhoto(file)
             .then(({data}) =>  {
-                dispatch(setOnePhoto(data))
+                dispatch(setOnePhotoSmall(data[0]))
+                dispatch(setOnePhoto(data[1]))
                 dispatch(isLoading(false))
             })
             .catch((err) => {
                 dispatch(setError(err))
                 dispatch(isLoading(false))
             })
+    }
+}
+
+const setOnePhotoSmall = (file) => {
+    return {
+        type: 'SET_ONE_PHOTO_SMALL',
+        payload: file
     }
 }
 

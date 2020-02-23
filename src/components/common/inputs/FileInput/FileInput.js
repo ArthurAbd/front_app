@@ -22,7 +22,7 @@ const FileInput = ({sendOnePhoto, photos, error, changePhotos}) => {
 
     React.useEffect(() => {
         changePhotos(photos)
-    })
+    }, [photos[0], photos[1]])
 
     const [fileOver, setFileOver] = React.useState(false)
     
@@ -72,10 +72,10 @@ const FileInput = ({sendOnePhoto, photos, error, changePhotos}) => {
             </label>
             {error && <span>{error}</span>}
         </div>
-        {photos.length > 0 ? (
+        {photos[0].length > 0 ? (
             <div className={s.ImgContainer}>
-            {photos.map((url) => (
-                <img key={url} src={`//localhost:3001/uploads/196_144/${url}`} />
+            {photos[0].map((url) => (
+                <img key={url} src={url} />
             ))}
             </div>
         ) : null}
@@ -85,7 +85,7 @@ const FileInput = ({sendOnePhoto, photos, error, changePhotos}) => {
 
 const mapStateToProps = ({fileInput}) => {
     return {
-        photos: fileInput.photos,
+        photos: [fileInput.photosSmall, fileInput.photos],
         error: fileInput.error,
         isLoading: fileInput.isLoading
     }

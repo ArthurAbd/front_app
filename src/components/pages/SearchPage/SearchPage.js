@@ -94,8 +94,8 @@ class SearchPage extends React.Component {
                 <div className={s.Content}>
                     <div className={s.ContentFilter}>
                         <div className={s.AddressInput}>
-                            {/* <span>Найти по адресу</span>
-                            <TextInput placeholder='Введите адрес' /> */}
+                            <span>Найти по адресу</span>
+                            <TextInput disabled placeholder='Введите адрес' />
                         </div>
                         <div className={s.Sorting}>
                             <span>Сортировать</span>

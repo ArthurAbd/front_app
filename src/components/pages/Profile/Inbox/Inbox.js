@@ -13,10 +13,15 @@ const Inbox = ({inCalls, getInCalls, clearInCalls, updateInCallRating}) => {
         return () => clearInCalls()
     }, [])
 
-    const cards = inCalls && inCalls[0] && inCalls.map(({idInCall, photos, number,
+    const cards = inCalls && inCalls[0] && inCalls.map(({idInCall, photosSmall, number,
             rating, area, name, idAd, created
         }) => {
-        const img = photos.split(',')[0]
+        
+        let img = 'https://avatars.mds.yandex.net/get-pdb/1780525/ade3789a-f340-4893-aea3-a386a43e090a/s1200'
+        if (photosSmall) {
+            img = photosSmall.split(',')[0]
+        }
+
         const date = (unix) => {
             const date = new Date(unix)
             return (
@@ -31,7 +36,7 @@ const Inbox = ({inCalls, getInCalls, clearInCalls, updateInCallRating}) => {
         return (
             <div className={s.Card} key={idInCall} >
                 <div className={s.CardImg}>
-                    <img src={`//localhost:3001/uploads/1280_960/${img}`} alt='' />
+                    <img src={img} alt='' />
                 </div>
                 <div className={s.CardContent}>
                     <div className={s.CardTitle}>{name} {area} м2</div>

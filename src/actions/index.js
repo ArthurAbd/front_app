@@ -26,10 +26,11 @@ import {
     userEdit,
     userReg,
     userLogin} from './user'
-import {sendOnePhoto} from './fileInput'
+import {sendOnePhoto, clearPhotos} from './fileInput'
 import {initialize} from './app'
 
 export {
+    clearPhotos,
     initialize,
     createAd,
     changePhotos,

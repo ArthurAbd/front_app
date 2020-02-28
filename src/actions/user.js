@@ -1,5 +1,6 @@
 import * as api from '../services/Api'
 import { change, stopSubmit} from 'redux-form'
+import { clearPhotos } from './index'
 
 const setCity = (e) => {
     return {
@@ -225,6 +226,7 @@ const getMyData = () => {
                     dispatch(setIsLoading(false))
                 })
                 .catch((err) => {
+                    dispatch(setIsAuth(false))
                     dispatch(setUserMessage(err))
                     dispatch(setIsLoading(false))
                 })
@@ -283,9 +285,14 @@ const createAd = (data) => {
         dispatch(setIsLoading(true))
         api.newAd(data)
         .then((res) => {
-            dispatch(setIsLoading(false))
+            dispatch(setUserMessage(res))
         })
         .catch((err) => {
+            dispatch(setUserMessage(err))
+        })
+        .finally(() => {
+            dispatch(clearPhotos())
+            dispatch(setModal('message'))
             dispatch(setIsLoading(false))
         })
     }

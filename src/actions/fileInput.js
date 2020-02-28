@@ -5,6 +5,7 @@ const sendOnePhoto = (file) => {
     return (dispatch) => {
         isLoginUser(dispatch)
         dispatch(isLoading(true))
+        dispatch(setOnePhotoMask())
         api.sendOnePhoto(file)
             .then(({data}) =>  {
                 dispatch(setOnePhotoSmall(data[0]))
@@ -12,6 +13,8 @@ const sendOnePhoto = (file) => {
                 dispatch(isLoading(false))
             })
             .catch((err) => {
+                console.log(err)
+                console.log(err.response)
                 dispatch(setError(err))
                 dispatch(isLoading(false))
             })
@@ -32,6 +35,12 @@ const setOnePhoto = (file) => {
     }
 }
 
+const setOnePhotoMask = () => {
+    return {
+        type: 'SET_ONE_PHOTO_MASK'
+    }
+}
+
 const setError = (err) => {
     return {
         type: 'SET_ERROR',
@@ -46,6 +55,13 @@ const isLoading = (bool) => {
     }
 }
 
+const clearPhotos = () => {
+    return {
+        type: 'CLEAR_PHOTOS'
+    }
+}
+
 export {
+    clearPhotos,
     sendOnePhoto
 }

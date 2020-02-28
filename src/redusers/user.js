@@ -1,5 +1,5 @@
 const inicialState = {
-    city: 'moskva',
+    city: '',
     cities: [
         {tag: 'moskva', name: 'Москва'},
         {tag: 'novosibirsk', name: 'Новосибирск'},

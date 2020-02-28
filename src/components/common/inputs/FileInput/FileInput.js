@@ -3,7 +3,7 @@ import s from './FileInput.module.sass'
 import {connect} from 'react-redux'
 import {sendOnePhoto} from '../../../../actions'
 
-const FileInput = ({sendOnePhoto, photos, error, changePhotos}) => {
+const FileInput = ({sendOnePhoto, photos, photoMask, error, changePhotos}) => {
     
     const sendPhotos = (files) => {
 
@@ -28,7 +28,6 @@ const FileInput = ({sendOnePhoto, photos, error, changePhotos}) => {
     
 
     const onDragLeave = (e) => {
-        console.log(e.currentTarget, e.target)
         setFileOver(false)
         e.stopPropagation()
         e.preventDefault()
@@ -40,7 +39,6 @@ const FileInput = ({sendOnePhoto, photos, error, changePhotos}) => {
     }
 
     const onDragEnter = (e) => {
-        console.log(e.currentTarget, e.target)
         setFileOver(true)
         e.stopPropagation()
         e.preventDefault()
@@ -54,6 +52,21 @@ const FileInput = ({sendOnePhoto, photos, error, changePhotos}) => {
         const files = dt.files;
         sendPhotos(files)
     }
+
+    let photoBlock = photoMask.map((item, index) => {
+        return (
+            <span key={index}>
+                <i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                <span className="sr-only">Loading...</span>
+            </span>
+        )
+    })
+
+    {photos[0].forEach((url, index) => {
+        photoBlock[index] = (
+            <img key={url} src={url} />
+        )
+    })}
 
     return (
         <>
@@ -70,14 +83,12 @@ const FileInput = ({sendOnePhoto, photos, error, changePhotos}) => {
                     Добавить изображения не больше 20 МБ.
                 </div>
             </label>
-            {error && <span>{error}</span>}
+            {/* {error && <span>{error}</span>} */}
         </div>
-        {photos[0].length > 0 ? (
-            <div className={s.ImgContainer}>
-            {photos[0].map((url) => (
-                <img key={url} src={url} />
-            ))}
-            </div>
+        {photoMask.length > 0 ? (
+        <div className={s.ImgContainer}>
+            {photoBlock}
+        </div>
         ) : null}
         </>
     )
@@ -85,6 +96,7 @@ const FileInput = ({sendOnePhoto, photos, error, changePhotos}) => {
 
 const mapStateToProps = ({fileInput}) => {
     return {
+        photoMask: fileInput.photoMask,
         photos: [fileInput.photosSmall, fileInput.photos],
         error: fileInput.error,
         isLoading: fileInput.isLoading

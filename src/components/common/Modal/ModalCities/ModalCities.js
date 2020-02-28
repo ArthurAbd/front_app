@@ -10,6 +10,7 @@ const ModalCities = ({setCity, cities, city}) => {
                 <h3>Выберите город</h3>
             </span>
             <Select value={city} className='Input' onChange={setCity} >
+                <option key={''} value={''}>{''}</option>
                 {cities.map((city) => (
                     <option key={city.tag} value={city.tag}>{city.name}</option>
                 ))}

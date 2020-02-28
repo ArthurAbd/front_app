@@ -1,4 +1,5 @@
 const inicialState = {
+    photoMask: [],
     photosSmall: [],
     photos: [],
     error: false,
@@ -19,6 +20,12 @@ const fileInput = (state = inicialState, action) => {
                 ...state,
                 photos: [...state.photos, action.payload],
             }
+
+        case 'SET_ONE_PHOTO_MASK':
+            return {
+                ...state,
+                photoMask: [...state.photoMask, 1],
+            }
         
         case 'SET_ERROR':
             return {
@@ -30,6 +37,14 @@ const fileInput = (state = inicialState, action) => {
             return {
                 ...state,
                 isLoading: action.payload,
+            }
+        
+        case 'CLEAR_PHOTOS':
+            return {
+                ...state,
+                photos: [],
+                photosSmall: [],
+                photoMask: [],
             }
         
 
